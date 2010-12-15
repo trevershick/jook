@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.railinc.jook</groupId>
+	<artifactId>jook</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>jook</name>
+	<url>http://www.railinc.com</url>
+
+	<parent>
+		<groupId>com.railinc.pom</groupId>
+		<artifactId>railinc-pom-parent</artifactId>
+		<version>2.0.0</version>
+	</parent>
+
+	<!-- <build> <defaultGoal>install</defaultGoal> </build> -->
+
+
+
+
+	<properties>
+		<!-- Application settings -->
+		<copyright.year>2008</copyright.year>
+
+		<!-- Testing dependency versions -->
+		<railinc.version>2.0.0</railinc.version>
+
+		<!-- this is needed for hte core unit tests -->
+		<hsqldb.version>1.8.0.7</hsqldb.version>
+		<junit.version>3.8.1</junit.version>
+
+
+		<commons.upload.version>1.2</commons.upload.version>
+		<servlet.version>2.4</servlet.version>
+		<jstl.version>1.1.2</jstl.version>
+		<taglibs.version>1.1.2</taglibs.version>
+		<ssort.version>3.0.2</ssort.version>
+		<spring.version>3.0.0.RELEASE</spring.version>
+		<jbpm.version>4.2</jbpm.version>
+	</properties>
+	<modules>
+		<module>core</module>
+		<module>taglib</module>
+		<module>web</module>
+		<module>portlet</module>
+		<module>ssodevhack</module>
+	</modules>
+</project>

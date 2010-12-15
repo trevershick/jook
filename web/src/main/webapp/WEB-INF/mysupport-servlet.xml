@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+
+	<!-- we need this here, do not remove it -->
+ 	<context:annotation-config />
+
+
+
+
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+	        <list> 
+	            <value>messages-mysupport</value>
+	        </list>
+    	</property>
+		<property name="useCodeAsDefaultMessage" value="true" />
+	</bean>
+
+	
+
+
+	
+
+	
+ 
+ 
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="interceptors">
+			<util:list id="interceptors">
+				<bean class="com.railinc.jook.web.ExpiresImmediatelyInterceptor"/>
+			</util:list>
+		</property>
+	</bean>
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+
+
+
+
+
+
+	<!-- View Resolver for JSPs -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/mysupport/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<bean class="com.railinc.jook.web.global.MySupportController" p:service-ref="mySupportService"/>
+</beans>

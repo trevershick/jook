@@ -1,0 +1,26 @@
+<process name="StateChoice" xmlns="http://jbpm.org/4.4/jpdl">
+  <start>
+    <transition to="wait for response" />
+  </start>
+  
+  <task name="wait for response" assignee="sdtxs01">
+    <transition name="accept" to="submit document" />
+
+    <transition name="timedout" to="timedout">
+    	<timer duedate="2 seconds"  />
+    </transition>
+  </task>
+  
+  <custom name="timedout" class="com.railinc.jook.jbpm.Test1Action">
+ 	<transition to="end"/> 	
+  </custom>
+  
+  
+  <state name="submit document" >
+  	<transition to="end"/>
+  </state>
+
+
+  <end name="end"/>
+  <end-cancel name="cancel"/>
+</process>

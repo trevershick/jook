@@ -1,0 +1,2 @@
+<img src="${pageContext.request.contextPath }/mysupportresources/images/${incident.product != null ? "approved" : "declined" }.png"/>
+<p>${incident.product != null ? incident.product : "Not Specified" }</p>

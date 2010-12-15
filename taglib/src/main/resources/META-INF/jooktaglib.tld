@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" 
+"http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.2</jspversion>
+	<shortname>jook</shortname>
+	<uri>http://railinc.com/taglib/jook/1.0</uri>
+	<info>Jook Taglib</info>
+	<tag>
+		<name>supportform</name>
+		<tagclass>com.railinc.jook.taglib.SupportFormTag</tagclass>
+		<!--
+			Body content can have a value of empty: no body JSP: body that is
+			evaluated by container, then possibly processed by the tag
+			tagdependent: body is only processed by tag; JSP in body is not
+			evaluated.
+		-->
+		<bodycontent>JSP</bodycontent>
+		<info>
+			This tag will generate a form with error information that will
+			forward the app to the support web application eventually
+			opening a case with rapid for the error the user just experienced
+    	</info>
+		<attribute>
+			<name>product</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>moduleId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>supportUrl</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		
+	</tag>
+	
+	<tag>
+		<name>script</name>
+		<tagclass>com.railinc.jook.taglib.JookScriptTag</tagclass>
+		<!--
+			Body content can have a value of empty: no body JSP: body that is
+			evaluated by container, then possibly processed by the tag
+			tagdependent: body is only processed by tag; JSP in body is not
+			evaluated.
+		-->
+		<bodycontent>empty</bodycontent>
+		<info>
+    	</info>
+		<attribute>
+			<name>app</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>ssoUser</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>	
+	</tag>
+	
+	
+	<tag>
+		<name>dependencies</name>
+		<tagclass>com.railinc.jook.taglib.JookDependenciesTag</tagclass>
+		<!--
+			Body content can have a value of empty: no body JSP: body that is
+			evaluated by container, then possibly processed by the tag
+			tagdependent: body is only processed by tag; JSP in body is not
+			evaluated.
+		-->
+		<bodycontent>empty</bodycontent>
+		<info>
+    	</info>
+		<attribute>
+			<name>jquery</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>	
+		<attribute>
+			<name>jqueryForm</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>	
+		<attribute>
+			<name>facebox</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>	
+	</tag>
+	<tag>
+		<name>styles</name>
+		<tagclass>com.railinc.jook.taglib.JookStylesTag</tagclass>
+		<!--
+			Body content can have a value of empty: no body JSP: body that is
+			evaluated by container, then possibly processed by the tag
+			tagdependent: body is only processed by tag; JSP in body is not
+			evaluated.
+		-->
+		<bodycontent>empty</bodycontent>
+		<info>
+    	</info>
+		<attribute>
+			<name>app</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>ssoUser</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>jook</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>	
+		<attribute>
+			<name>facebox</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>	
+			
+	</tag>
+	
+</taglib>

@@ -1,0 +1,111 @@
+@CHARSET "ISO-8859-1";
+
+.specifics {
+	position: relative;
+	float: left;
+	width: 220px;
+	padding: 10px 15px 15px 15px;
+	margin: 0 20px 20px 0;
+	background: #eee url('../images/bg-module.gif') bottom left repeat-x;
+	border: 1px solid #aeaeae;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	min-height: 57px;
+}
+
+
+.specifics:hover,
+.specifics.hover {
+	border-color: #888;
+	color: #222;
+}
+
+.specifics img {
+	position: absolute;
+	margin-top:-15px;
+}
+.specifics p {
+	padding-left:45px;
+}
+
+.specifics a.copy.hover {
+	background-position: right -16px;
+}
+
+.specifics a.copy em {
+	display: none;
+	float: right;
+	font-style: normal;
+	line-height: 16px;
+	padding-right: 25px;
+	text-align: right;
+	width: 50px;
+}
+
+.specifics a.copy.hover em {
+	display: block;
+}
+
+
+
+.last {
+	margin-right: 0;
+}
+
+.specifics h1 {
+	padding-bottom: 0;
+	padding: 0px 0px 0px 45px;
+}
+
+.clear {
+	clear:both;
+}
+
+.right {
+	position: relative;
+	float: right;
+}
+
+.bigbutton {
+	width:745px;
+	padding:5px;
+	margin:20px 20px 20px 20px;	
+	background: #eee url('../images/bg-module.gif') bottom left repeat-x;
+	border: 1px solid #aeaeae;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+
+.coolbutton {
+	border: 1px solid #aeaeae;
+	background: #eee url('../images/bg-module.gif') bottom left repeat-x;
+	background-color:white;
+	margin:10px;
+	font-weight:bold;
+	border-radius: 5px;
+	padding:10px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+
+.bigbutton img {
+	position: absolute;
+	margin-top:-15px;
+}
+.bigbutton p {
+	padding-left:45px;
+}
+
+.bigbutton h1 {
+	padding-bottom: 0;
+	padding: 0px 0px 0px 45px;
+}
+
+.rightbox {
+	padding-bottom:10px;
+	border-bottom:1px solid #ccc;
+}

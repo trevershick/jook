@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.railinc.common.hibernate">
+
+	<class name="AuditLogRecord">
+		<id name="id" type="java.lang.Long">
+			<generator class="native"/>
+		</id>
+		
+		<property name="entityAttribute"/>
+	<property name="entityId"/>
+	<property name="entityName"/>
+	<property name="message"/>
+	<property name="newValue"/>
+	<property name="oldValue"/>
+	<property name="updatedBy"/>
+
+	<property name="updatedDate"/>
+	<property name="txRef"/>
+	</class>	
+</hibernate-mapping>

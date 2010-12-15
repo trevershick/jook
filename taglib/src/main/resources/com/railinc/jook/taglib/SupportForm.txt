@@ -1,0 +1,16 @@
+<form id="supportForm" action="%%supportUrl%%" method="POST" target="_new">
+	<input type="hidden" name="ssoUserId" value="%%ssoUserId%%"/>
+	<input type="hidden" name="ssoRoles" value="%%ssoRoles%%"/>
+	<input type="hidden" name="phone" value="%%phone%%"/>
+	<input type="hidden" name="company" value="%%company%%"/>
+	<input type="hidden" name="name" value="%%name%%"/>
+	<input type="hidden" name="userEmail" value="%%userEmail%%"/>
+	<input type="hidden" name="product" value="%%product%%"/>
+	<input type="hidden" name="moduleId" value="%%moduleId%%"/>
+	<textarea style="display:none;" name="stackTrace">
+%%stackTrace%%
+	</textarea>
+	<textarea style="display:none;" name="requestDetails">
+%%requestDetails%%
+	</textarea>
+	

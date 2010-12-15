@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+
+
+	<definition name=".railincMain" template="/WEB-INF/jsp/railinc-template/main.jsp">
+		<put-attribute name="sidebarcolumns" value="1"/>
+		<put-attribute name="appTitle" value="Jook" />
+		<put-attribute name="headContent" value="/WEB-INF/jsp/railinc-template/head.jsp" />
+		<put-attribute name="additionalHeadContent" value="/WEB-INF/jsp/railinc-template/null.jsp" />
+		<put-attribute name="headerContent" value="/WEB-INF/jsp/railinc-template/headers/header.jsp" />
+		<put-attribute name="sidebarHead" value="/WEB-INF/jsp/railinc-template/null.jsp" />
+		<put-attribute name="sidebarContent" value="/WEB-INF/jsp/sidebar.jsp" />
+		<put-attribute name="sidebarTail" value="/WEB-INF/jsp/railinc-template/null.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/railinc-template/tilesContent.jsp" />
+		<put-attribute name="footerContent" value="/WEB-INF/jsp/railinc-template/footers/footer.jsp" />
+	</definition>
+	
+	<definition name=".railincPopup" template="/WEB-INF/jsp/railinc-template/popup.jsp">
+		<put-attribute name="appTitle" value="Jook" />
+		<put-attribute name="headContent" value="/WEB-INF/jsp/railinc-template/head.jsp" />
+		<put-attribute name="additionalHeadContent" value="/WEB-INF/jsp/railinc-template/null.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/railinc-template/tilesContent.jsp" />
+	</definition>
+
+
+
+
+	<definition name=".view.home" extends=".railincMain">
+		<put-attribute name="content" value="/WEB-INF/jsp/home.jsp" />
+	</definition>
+
+
+
+
+	<!-- Support stuff -->
+	<definition name=".supportModule" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - Support" />
+		<put-attribute name="sidebarcolumns" value="2"/>
+		<put-attribute name="sidebarTail" value="/WEB-INF/jsp/support/sidebar.jsp"/>
+	</definition>	
+	<definition name=".view.support.configuration" extends=".supportModule">
+		<put-attribute name="appTitle" value="Jook - Configuration" />
+		<put-attribute name="content" value="/WEB-INF/jsp/support/configuration.jsp" />
+	</definition>
+	<definition name=".view.support.configuration.update" extends=".supportModule">
+		<put-attribute name="appTitle" value="Jook - Configuration Update" />
+		<put-attribute name="content" value="/WEB-INF/jsp/support/configuration_update.jsp" />
+	</definition>
+	<definition name=".view.support.logging" extends=".supportModule">
+		<put-attribute name="appTitle" value="Jook - Logging" />
+		<put-attribute name="content" value="/WEB-INF/jsp/support/logging.jsp" />
+	</definition>
+	<definition name=".view.support.properties" extends=".supportModule">
+		<put-attribute name="appTitle" value="Jook - Properties" />
+		<put-attribute name="content" value="/WEB-INF/jsp/support/properties.jsp" />
+	</definition>
+	<definition name=".view.support.snoop" extends=".supportModule">
+		<put-attribute name="appTitle" value="Jook - Snoop" />
+		<put-attribute name="content" value="/WEB-INF/jsp/support/snoop.jsp" />
+	</definition>
+	<definition name=".view.support" extends=".supportModule">
+		<put-attribute name="appTitle" value="Jook - List" />
+		<put-attribute name="content" value="/WEB-INF/jsp/support/support.jsp" />
+	</definition>
+	
+	
+	
+	
+
+	
+	
+	
+	<definition name=".eizokuModule" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - Links" />
+		<put-attribute name="sidebarcolumns" value="2"/>
+		<put-attribute name="sidebarTail" value="/WEB-INF/jsp/eizoku/sidebar.jsp"/>
+	</definition>	
+	<definition name=".view.eizoku.links" extends=".eizokuModule">
+		<put-attribute name="appTitle" value="Jook - Registered Links" />
+		<put-attribute name="content" value="/WEB-INF/jsp/eizoku/links.jsp" />
+	</definition>
+	<definition name=".view.eizoku.link.update" extends=".eizokuModule">
+		<put-attribute name="appTitle" value="Jook - Link Update" />
+		<put-attribute name="content" value="/WEB-INF/jsp/eizoku/link_update.jsp" />
+	</definition>
+	<definition name=".view.eizoku.link.create" extends=".eizokuModule">
+		<put-attribute name="appTitle" value="Jook - Create a new Link" />
+		<put-attribute name="content" value="/WEB-INF/jsp/eizoku/link_create.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	
+	
+		
+	
+	
+	<definition name=".barkleyModule" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - Preferences" />
+		<put-attribute name="sidebarcolumns" value="2"/>
+		<put-attribute name="sidebarTail" value="/WEB-INF/jsp/barkley/sidebar.jsp"/>
+	</definition>
+	<definition name=".view.barkley.prefs.upreferences" extends=".barkleyModule">
+		<put-attribute name="appTitle" value="Jook - User Preferences Test" />
+		<put-attribute name="content" value="/WEB-INF/jsp/barkley/prefs/upreferences.jsp" />
+	</definition>
+
+	<definition name=".view.barkley.prefs.pdefaults" extends=".barkleyModule">
+		<put-attribute name="appTitle" value="Jook - Default Preferences Test" />
+		<put-attribute name="content" value="/WEB-INF/jsp/barkley/prefs/pdefaults.jsp" />
+	</definition>
+	<definition name=".view.barkley.prefs.uoverrides" extends=".barkleyModule">
+		<put-attribute name="appTitle" value="Jook - User Overrides" />
+		<put-attribute name="content" value="/WEB-INF/jsp/barkley/prefs/uoverrides.jsp" />
+	</definition>
+	
+	
+	<!-- Preferences Tiles -->
+	<definition name=".view.barkley.prefs.list" extends=".barkleyModule">
+		<put-attribute name="appTitle" value="Jook - List Preferences" />
+		<put-attribute name="content" value="/WEB-INF/jsp/barkley/prefs/list.jsp" />
+	</definition>
+	<definition name=".view.barkley.prefs.update" extends=".barkleyModule">
+		<put-attribute name="appTitle" value="Jook - Preferences Update" />
+		<put-attribute name="content" value="/WEB-INF/jsp/barkley/prefs/update.jsp" />
+	</definition>
+
+	<!-- Preference Specs Tiles -->
+	<definition name=".view.barkley.specs.list" extends=".barkleyModule">
+		<put-attribute name="appTitle" value="Jook - List Preference Specs" />
+		<put-attribute name="content" value="/WEB-INF/jsp/barkley/specs/list.jsp" />
+	</definition>
+	<definition name=".view.barkley.specs.update" extends=".barkleyModule">
+		<put-attribute name="appTitle" value="Jook - Preference Spec Update" />
+		<put-attribute name="content" value="/WEB-INF/jsp/barkley/specs/update.jsp" />
+	</definition>
+
+	<!-- Preference Groups Tiles -->
+	<definition name=".view.barkley.groups.list" extends=".barkleyModule">
+		<put-attribute name="appTitle" value="Jook - List Groups" />
+		<put-attribute name="content" value="/WEB-INF/jsp/barkley/groups/list.jsp" />
+	</definition>
+	<definition name=".view.barkley.groups.update" extends=".barkleyModule">
+		<put-attribute name="appTitle" value="Jook - Group Update" />
+		<put-attribute name="content" value="/WEB-INF/jsp/barkley/groups/update.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	
+	
+	
+	<definition name=".view.providerDetails" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - Provider Details"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/providers/provider.jsp" />
+	</definition>
+	<definition name=".view.providerForm" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - Create/Update Provider"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/providers/form.jsp" />
+	</definition>
+	<definition name=".view.providerList" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - Interaction Providers"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/providers/list.jsp" />
+	</definition>
+	<definition name=".view.interactionForm" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - Create/Update Provider"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/interactions/form.jsp" />
+	</definition>
+	<definition name=".view.interactionList" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - Interaction Providers"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/interactions/list.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	<definition name=".view.downtimes.list" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - Downtime" />
+		<put-attribute name="content" value="/WEB-INF/jsp/downtimes/list.jsp" />
+	</definition>
+	<definition name=".view.downtimes.update" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - Update/Create Downtime" />
+		<put-attribute name="content" value="/WEB-INF/jsp/downtimes/update.jsp" />
+	</definition>
+	
+	<definition name=".view.incidents.list" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - Incidents" />
+		<put-attribute name="content" value="/WEB-INF/jsp/incidents/list.jsp" />
+	</definition>
+	<definition name=".view.incidents.details" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - Incident Details" />
+		<put-attribute name="content" value="/WEB-INF/jsp/incidents/details.jsp" />
+	</definition>
+	
+	
+	
+	<definition name=".view.newsItemForm" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - Create/Update News"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/news/form.jsp" />
+	</definition>
+	<definition name=".view.newsItemList" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook - News"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/news/list.jsp" />
+	</definition>
+	
+	
+	<definition name=".view.snippet.objectHistory" template="/WEB-INF/jsp/auditlog/objecthistory.jsp"/>
+	<definition name=".view.snippet.txHistory" template="/WEB-INF/jsp/auditlog/txhistory.jsp"/>
+	
+	
+	
+	
+	
+</tiles-definitions>

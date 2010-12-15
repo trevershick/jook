@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	
+	<bean class="com.railinc.jook.DbPropertyPlaceholderConfigurer" p:configurationService-ref="configurationService" />
+	
+
+	<bean class="com.railinc.jook.web.global.VersionController" />
+	<bean class="com.railinc.jook.web.global.RemController">
+		<property name="template">
+			<bean class="org.springframework.jdbc.core.JdbcTemplate">
+				<property name="dataSource" ref="dataSource"/>
+			</bean>
+		</property>
+	</bean>
+
+
+
+	<bean id="supportControllerBase" abstract="true" p:configurationService-ref="configurationService"/>
+
+	
+	
+	<bean class="com.railinc.jook.web.support.ConfigurationController" parent="supportControllerBase"/>
+	<bean class="com.railinc.jook.web.support.LoggingController" parent="supportControllerBase"/>
+	<bean class="com.railinc.jook.web.support.SupportController" parent="supportControllerBase" id="supportController" />
+	<bean class="com.railinc.jook.web.global.HomeController"/>
+	<bean class="com.railinc.jook.web.global.ErrorController"/>
+	
+	<!-- eizoku stuff -->
+	<bean class="com.railinc.jook.web.secure.eizoku.EizokuController"/>
+	<bean class="com.railinc.jook.web.secure.eizoku.LinkController" p:service-ref="linkService"/>
+
+
+	<!--  barkley stuff -->
+	<bean class="com.railinc.jook.web.secure.barkley.BarkleyController"/>
+	<bean class="com.railinc.jook.web.secure.barkley.GroupsController" p:preferenceService-ref="preferenceService" />
+	<bean class="com.railinc.jook.web.secure.barkley.SpecsController" p:preferenceService-ref="preferenceService" />
+	<bean class="com.railinc.jook.web.secure.barkley.PrefsController" p:preferenceService-ref="preferenceService" />
+	<bean class="com.railinc.jook.web.secure.barkley.TestController" 
+		p:preferenceService-ref="preferenceService"
+		p:service-ref="userPreferenceService"/>
+		
+	<bean class="com.railinc.jook.web.global.ServiceController" p:service-ref="userPreferenceService"/>
+	<bean class="com.railinc.jook.web.secure.Interactions" p:service-ref="jookService"/>
+	<bean class="com.railinc.jook.web.secure.Providers" p:service-ref="jookService"/>
+	<bean class="com.railinc.jook.web.secure.DowntimeController" p:service-ref="downtimeService"/>
+	<bean class="com.railinc.jook.web.secure.HelpDeskController" p:service-ref="mySupportService" />
+	<bean class="com.railinc.jook.web.secure.AuditLogController" p:service-ref="auditLogService"/>
+	<bean class="com.railinc.jook.web.secure.NewsController" p:service-ref="newsService"/>
+	<bean class="com.railinc.jook.web.secure.RefDataApplicationsController"/>
+</beans>

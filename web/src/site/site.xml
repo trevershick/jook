@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="jook">
+    <bannerLeft>
+        <name>jook-webapp</name>
+        <src>https://www.railinc.com/sso/website/images/logo.png</src>
+        <href>http://www.railinc.com</href>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy"/>
+    <body>
+	    <menu name="Top">
+	      <item name="Parent" href="../index.html"/>
+	    </menu>
+	  	<menu ref="parent"/>
+    
+        ${reports}
+    </body>
+</project>
+

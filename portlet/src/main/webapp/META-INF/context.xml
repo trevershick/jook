@@ -1,0 +1,9 @@
+<Context antiJARLocking="true" antiResourceLocking="true">
+	<ResourceLink name="jdbc/datasource" global="MySQLTeamBoard"/>
+	<!-- 
+	<ResourceLink name="footprintsServiceUrl" global="globalFootprintsServiceUrl" type="java.lang.String"/>
+	<ResourceLink name="footprintsAuthDomain" global="globalFootprintsAuthDomain" type="java.lang.String"/>
+	<ResourceLink name="footprintsAuthUser" global="globalFootprintsAuthUser" type="java.lang.String"/>
+	<ResourceLink name="footprintsAuthCredentials" global="globalFootprintsAuthCredentials" type="java.lang.String"/>
+	 -->
+</Context>

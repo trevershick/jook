@@ -1,0 +1,19 @@
+<div id="theResults">
+
+
+<form action="/jook/examples/feedback/results.htm" id="myForm">
+	Values - <input type="text" />
+	<input type="submit"/>
+</form>
+
+
+
+
+</div>
+<script type="text/javascript"> 
+jQuery(document).ready(function() {
+			var options = {target:'#theResults'}; 
+  			jQuery('#myForm').ajaxForm(options); 
+  		}); 
+</script>
+

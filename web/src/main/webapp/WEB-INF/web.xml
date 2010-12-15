@@ -1,0 +1,243 @@
+<web-app
+	version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>jook</display-name>
+	<distributable />
+	<!-- Define the basename for a resource bundle for I18N -->
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+		<param-value>messages-global</param-value>
+	</context-param>
+	<!-- Context Configuration locations for Spring XML files -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+        	/WEB-INF/dataSource.xml
+            classpath*:/jookApplicationContext.xml
+            /WEB-INF/spring-*.xml
+        </param-value>
+	</context-param>
+	<filter>
+		<description>
+		Stores the user in a thread local for later usage by hibernate interceptors
+		for auditing purposes.
+		</description>
+		<display-name>SSOUserProviderFilter</display-name>
+		<filter-name>SSOUserProviderFilter</filter-name>
+		<filter-class>com.railinc.common.hibernate.web.SSOUserProviderFilter</filter-class>
+	</filter>
+	<filter>
+		<description>
+		This filter appends a tx uuid into every transaction that can be used by
+		the hibernate interceptors audit transactions.
+		</description>
+		<display-name>UUIDTxRefFilter</display-name>
+		<filter-name>UUIDTxRefFilter</filter-name>
+		<filter-class>com.railinc.common.hibernate.web.UUIDTxRefFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>ssoPrincipalFilter</filter-name>
+		<filter-class>com.railinc.jook.web.SSOPrincipalFilter</filter-class>
+	</filter>
+	
+	<filter>
+		<filter-name>sessionValidationFilter</filter-name>
+		<filter-class>com.railinc.jook.web.SessionValidationFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>ssoPrincipalFilter</filter-name>
+		<url-pattern>/main/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sessionValidationFilter</filter-name>
+		<url-pattern>/main/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>SSOUserProviderFilter</filter-name>
+		<url-pattern>/main/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>UUIDTxRefFilter</filter-name>
+		<url-pattern>/main/*</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<servlet>
+		<description>
+		Used to drive the Spring MVC for the main jook administrative application.
+		</description>
+		<display-name>Spring MVC Dispatcher</display-name>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<description>
+		A spring mvc dispatcher servlet that handles the 'mysupport' section of Jook
+		</description>
+		<display-name>Spring MVC Dispatcher for MySupport Error Landing Page</display-name>
+		<servlet-name>mysupport</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<description>
+		This servlet provides the redirect functionality of Eizoku permalink 
+		application.
+		</description>
+		<display-name>Eizoku Redirection Servlet</display-name>
+		<servlet-name>RedirectServlet</servlet-name>
+		<servlet-class>com.railinc.jook.web.RedirectServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<description>
+		Renders the required javascript dependencies for a jook client.  This does not
+		invoke Jook on the client side. It simply returns the required dependencies.
+		</description>
+		<display-name>
+		Jook Client JavaScript Dependencies Servlet
+		</display-name>
+		<servlet-name>ClientDependenciesServlet</servlet-name>
+		<servlet-class>com.railinc.jook.web.client.v1_0.DependenciesServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		Renders the JavaScript entry point for Jook clients.  This is generally put at the bottom
+		of a client's page.  This Servlet loops over all the JookProvider registered and
+		then creates jQuery javascript calls back to those providers in order to load their
+		interactions
+		</description>
+		<display-name>
+		Jook Client JavaScript Entry Point
+		</display-name>
+		<servlet-name>ClientScriptServlet</servlet-name>
+		<servlet-class>com.railinc.jook.web.client.v1_0.ScriptServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		Renders the necessary CSS into the client's page.  The initial version is pretty static
+		but this servlet could alter the CSS by application/user/etc...
+		</description>
+		<display-name>
+		Jook Client CSS Servlet
+		</display-name>	
+		<servlet-name>ClientStyleServlet</servlet-name>
+		<servlet-class>com.railinc.jook.web.client.v1_0.StyleServlet</servlet-class>
+	</servlet>
+	<servlet>
+	<description>
+		The resource servlet serves up static resources from inside of Jook.  This is mainly
+		used to serve resources to clients that are referenced inside of the Jook
+		Client CSS Servlet content.
+		</description>
+		<display-name>
+		Jook Client Resource Servlet
+		</display-name>	
+		<servlet-name>ClientResourceServlet</servlet-name>
+		<servlet-class>com.railinc.jook.web.client.v1_0.ResourceServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		The jook news servlet provides news content back to Jook clients.  The news servlet
+		does NOT render JSON, it does not have any bearing on IF the interactions are rendered
+		to the client. The servlet simply renders the current applicable news.
+		</description>
+		<display-name>Jook Simple News Servlet</display-name>
+		<servlet-name>NewsServlet</servlet-name>
+		<servlet-class>com.railinc.jook.web.interactions.NewsServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<description>
+			The jook interactions servlet is responsible for iterating over all the
+			JookInteractionFactory implementations in the Spring application context,
+			requesting the applicable interactions from each factory and then rendering
+			the interactions via JSON to the client.  
+		</description>
+		<display-name>*** Special - Jook Interactions Servlet ***</display-name>
+		<servlet-name>InteractionsServlet</servlet-name>
+		<servlet-class>com.railinc.jook.web.InteractionsServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<display-name>Simple Downtime Servlet</display-name>
+		<servlet-name>DowntimeServlet</servlet-name>
+		<servlet-class>com.railinc.jook.web.interactions.DowntimeServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<display-name>Endpoint SVG Test Servlet</display-name>
+		<servlet-name>SVGServlet</servlet-name>
+		<servlet-class>com.railinc.jook.web.SVGServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SVGServlet</servlet-name>
+		<url-pattern>/test.svg</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>mysupport</servlet-name>
+		<url-pattern>/mysupport/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/main/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DowntimeServlet</servlet-name>
+		<url-pattern>/services/downtime</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RedirectServlet</servlet-name>
+		<url-pattern>/link/*</url-pattern>
+	</servlet-mapping>
+
+<!--  
+i think i need to setup a secure side for these as well. some interactions (static at least) need to be
+secured.
+also, I think the providers maybe need to use different urls based on whether someone is logged in.
+this would mean the taglib needs to switched based on whether a person is logged in or not.
+
+ -->
+
+	<servlet-mapping>
+		<servlet-name>ClientStyleServlet</servlet-name>
+		<url-pattern>/client/css/1.0/jook.css</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ClientDependenciesServlet</servlet-name>
+		<url-pattern>/client/javascript/1.0/jookdeps.js</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ClientScriptServlet</servlet-name>
+		<url-pattern>/client/javascript/1.0/jook.js</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ClientResourceServlet</servlet-name>
+		<url-pattern>/client/resource/1.0/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>InteractionsServlet</servlet-name>
+		<url-pattern>/client/interactions/1.0/interactions.json</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NewsServlet</servlet-name>
+		<url-pattern>/services/news</url-pattern>
+	</servlet-mapping>
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<resource-ref>
+		<res-ref-name>jdbc/datasource</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+</web-app>

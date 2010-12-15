@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.railinc.jook.domain">
+	
+	
+	<class name="NewsItem">
+		<id name="id" type="java.lang.Long">
+			<generator class="native"/>
+		</id>
+		<property name="title" not-null="true"/>
+		<property name="link" />
+		<property name="description" not-null="true" />
+	
+		<property name="moduleId" />
+		<property name="launchDate" not-null="true" />
+		<property name="authoredDate" not-null="true" />
+		<property name="expirationDate" />
+		<property name="published" not-null="true"/>
+		<property name="creator"/>
+		<property name="created"/>
+		<property name="lastModified"/>
+		<property name="lastModifier"/>
+	</class>
+	<class name="Link">
+		<id name="id" type="java.lang.Long">
+			<generator class="native"/>
+		</id>
+		<property name="path" not-null="true"/>
+		<property name="url" not-null="true" />
+		<property name="description" not-null="true" length="255"/>
+		<property name="creator"/>
+		<property name="created"/>
+		<property name="lastModified"/>
+		<property name="lastModifier"/>
+		
+	</class>	
+
+	<class name="StaticInteraction">
+		<id name="id" type="java.lang.Long">
+			<generator class="native"/>
+		</id>
+		<property name="type" not-null="true"/>
+		<property name="title" not-null="true"/>
+		<property name="url" not-null="true"/>
+		<property name="active" not-null="true" />
+		<property name="secured" not-null="true" />
+		<property name="excludeApplications" not-null="true" />
+		<set name="applications" table="SIApplication">
+            <key column="interaction_id"/>
+           	<element column="name" type="string"/>
+      	</set>
+		<property name="creator"/>
+		<property name="created"/>
+		<property name="lastModified"/>
+		<property name="lastModifier"/>
+	</class>
+
+	<class name="JookInteractionProvider">
+		<id name="id" type="java.lang.Long">
+			<generator class="native"/>
+		</id>
+		<property name="name" not-null="true"/>
+		<property name="servicesJsonPath" not-null="true"/>
+		<property name="active" not-null="true"/>
+		<set name="applications" table="JIApplication">
+            <key column="provider_id"/>
+           	<element column="name" type="string"/>
+      	</set>
+		<property name="creator"/>
+		<property name="created"/>
+		<property name="lastModified"/>
+		<property name="lastModifier"/>
+	</class>
+	
+	<class name="Downtime">
+		<id name="id" type="java.lang.Long">
+			<generator class="native"/>
+		</id>
+		<property name="moduleId" not-null="true"/>
+		<property name="durationInMinutes" not-null="true" />
+		<property name="startTime" not-null="true" length="255"/>
+		<property name="htmlContent" />
+		<property name="creator"/>
+		<property name="created"/>
+		<property name="lastModified"/>
+		<property name="lastModifier"/>
+	</class>
+	
+	
+		
+	<class name="ConfigurationValue">
+		<id name="id" type="java.lang.Long">
+			<generator class="native"/>
+		</id>
+		<property name="key" column="config_key" not-null="true" length="64"/>
+		<property name="stringValue" column="config_value" not-null="true" length="64" />
+		<property name="description" not-null="true" length="255" />
+		<property name="creator"/>
+		<property name="created"/>
+		<property name="lastModified"/>
+		<property name="lastModifier"/>
+	</class>
+
+
+	<class name="PreferenceGroup" table="PREF_GROUP">
+		<id name="id" column="GROUP_ID">
+        	<generator class="native"/>
+        </id>
+        <property name="applicationKey" not-null="true" length="16" column="APP_KEY"/>
+        <property name="key" not-null="true" length="16" column="GROUP_K" unique-key="true"/>
+        <property name="name" not-null="true" length="32" column="GROUP_N"/>
+        <property name="description" not-null="false" length="255" column="GROUP_D"/>
+		<property name="creator"/>
+		<property name="created"/>
+		<property name="lastModified"/>
+		<property name="lastModifier"/>
+	</class>
+	
+	<class name="PreferenceSpec" table="PREF_SPEC">
+		<id name="id" column="SPEC_ID">
+        	<generator class="native"/>
+        </id>
+        <property name="key" not-null="true" length="16" column="SPEC_KEY"/>
+        <property name="type" not-null="true" length="32" column="SPEC_TYPE"/>
+        <property name="name" not-null="true" length="32" column="SPEC_NAME"/>
+        <property name="description" not-null="false" length="255" column="SPEC_DESC"/>
+        <property name="defaultValue" not-null="false" length="255" column="SPEC_DEF_VALUE"/>
+        <many-to-one name="group" column="SPEC_GROUP_ID" not-null="true"></many-to-one>
+		<property name="creator"/>
+		<property name="created"/>
+		<property name="lastModified"/>
+		<property name="lastModifier"/>
+	</class>
+	
+	<class name="Preference" table="PREF_VALUES">
+		<id name="id" column="PREF_ID">
+        	<generator class="native"/>
+        </id>
+        <many-to-one name="specification" column="PREF_SPEC_ID" not-null="true"></many-to-one>
+        <property name="userId" not-null="true" length="16" column="PREF_USER"/>
+        <property name="value" not-null="false" length="255" column="PREF_VALUE"/>
+		<property name="creator"/>
+		<property name="created"/>
+		<property name="lastModified"/>
+		<property name="lastModifier"/>
+	</class>
+
+	<class name="Incident" table="MYSUPPORT_INCIDENT">
+		<id name="id" column="INC_ID">
+			<generator class="native" />
+		</id>
+		<property name="operatingSystem" />
+		<property name="browser" />
+		<property name="ipAddress" />
+		<property name="product" />
+		<property name="rapidCaseId" />
+		<property name="moduleId" />
+		<property name="cookiesEnabled" />
+		<property name="screenWidth" />
+		<property name="screenHeight" />
+		<property name="browserWidth" />
+		<property name="browserHeight" />
+		<property name="flashVersion" />
+		<property name="ssoUserId" />
+		<property name="ssoRoles" />
+		<property name="name" />
+		<property name="company" />
+		<property name="phone" />
+		<property name="incidentTime" />
+		<property name="userEmail" />
+		<property name="sendDetails" />
+		<property name="stackTrace" />
+		<property name="requestDetails" />
+
+		<property name="creator"/>
+		<property name="created"/>
+		<property name="lastModified"/>
+		<property name="lastModifier"/>
+	</class>
+</hibernate-mapping>

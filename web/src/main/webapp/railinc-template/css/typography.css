@@ -1,0 +1,52 @@
+@charset "UTF-8";
+/*
+Theme Name: Railinc 2010
+Theme URI: http://www.railinc.com
+Description: This theme is for use by Railinc for application development
+Version: 3
+Author: Adrian Pomilio
+Author URI: http://www.uiandtherest.com
+
+
+
+*/
+
+body {
+	font-size:8pt;
+	font-weight: normal;
+}
+table {
+	
+}
+
+#wrapper {
+	text-align:left;
+}
+
+h1 { font-size:1.2em;}
+
+
+p {line-height:1.3em; }
+
+p ul {margin: 5px 0 5px 15px}
+
+.bold {font-weight:bold;}
+
+ul.horizontal-menu li a {
+	text-decoration:none;
+	color:#999;
+}
+
+#util-nav li.userName {color:#333; font-weight:bold; }
+
+ul.horizontal-menu li a:active {}
+ul.horizontal-menu li a:hover {text-decoration: underline; color:#333;}
+ul.horizontal-menu li a:visited {}
+
+
+h1, h2, h3 {color:#33333;}
+
+.headerDescription {font-weight:normal; letter-spacing:2px; color:#999; }
+.copyright {font-weight: normal; letter-spacing:2px; color:#999; text-align:center;}
+
+table.results th {  }

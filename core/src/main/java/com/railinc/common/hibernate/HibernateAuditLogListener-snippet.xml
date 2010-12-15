@@ -1,0 +1,6 @@
+<snippet>
+<listener type="pre-delete" class="org.mycompany.dao.listener.impl.HibernateAuditLogListener"/>
+<listener type="pre-update" class="org.mycompany.dao.listener.impl.HibernateAuditLogListener"/>
+<listener type="pre-insert" class="org.mycompany.dao.listener.impl.HibernateAuditLogListener"/>
+<listener type="pre-load" class="org.mycompany.dao.listener.impl.HibernateAuditLogListener"/>
+</snippet>

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.0.xsd 
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+http://www.springframework.org/schema/util
+http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+
+
+	<!-- Controllers -->
+
+	<!-- <bean id="portletMultipartResolver"
+		class="org.springframework.web.portlet.multipart.CommonsPortletMultipartResolver">
+		<property name="maxUploadSize">
+			<value>205000</value>
+		</property>
+	</bean>
+	 -->
+	 
+ 	<bean id="openSessionInViewInterceptor" class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+ 	
+	<util:list id="interceptors">
+		<ref bean="openSessionInViewInterceptor"/>
+	</util:list>
+	 
+	<!--  Plumbing  -->
+ 	<bean class="org.springframework.web.portlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+ 			<property name="interceptors" ref="interceptors"/>
+ 	</bean>
+    <bean class="org.springframework.web.portlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+    
+	<bean class="com.railinc.jook.portlets.Deployments">
+		<property name="service" ref="projectInformationService"/>
+		<property name="buildService" ref="buildService"/>
+	</bean>
+
+
+
+
+
+	
+
+
+</beans>

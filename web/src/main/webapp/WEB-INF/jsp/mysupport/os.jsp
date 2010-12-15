@@ -1,0 +1,2 @@
+<img src="${pageContext.request.contextPath }/mysupportresources/images/${ incident.browser != null ? 'approved' : 'declined'}.png"/>
+<p>${ incident.operatingSystem != null  ? incident.operatingSystem : 'Unknown' }</p>

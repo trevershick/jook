@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+	
+	<bean id="actorProvider" class="com.railinc.common.hibernate.ThreadBasedActorProvider"/>
+	<bean id="txRefProvider" class="com.railinc.common.hibernate.UUIDTxRefProvider"/>
+	
+	<bean id="hibernateModifiableListener" class="com.railinc.common.hibernate.HibernateModifiableListener" 
+		p:actorProvider-ref="actorProvider" />
+		
+	<bean id="hibernateAuditLogListener" class="com.railinc.common.hibernate.HibernateAuditLogListener" 
+		p:actorProvider-ref="actorProvider" 
+		p:txRefProvider-ref="txRefProvider"/>
+	<bean id="abstractHibernateService" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+	<!-- this forces a 'load' of the hibernate hbm.xml files from the classpath. 
+		this can be replaced with an annotation version if you wish. -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+
+		<property name="eventListeners">
+			<map>
+				<entry key="pre-insert" value-ref="hibernateModifiableListener"/>
+				<entry key="pre-update">
+					<list>
+						<ref bean="hibernateAuditLogListener"/>
+						<ref bean="hibernateModifiableListener"/>
+					</list>
+				</entry> 
+				 
+				<entry key="post-insert" value-ref="hibernateAuditLogListener" />
+				<entry key="pre-delete" value-ref="hibernateAuditLogListener" />
+			</map>
+		</property>
+
+
+		<property name="mappingResources">
+			<list>
+				<value>jookDomain.hbm.xml</value>
+				<value>jookAuditLog.hbm.xml</value>
+				<!-- 
+				<value>jbpm.execution.hbm.xml</value>
+				<value>jbpm.repository.hbm.xml</value>
+				<value>jbpm.task.hbm.xml</value>
+				<value>jbpm.history.hbm.xml</value>
+				<value>jbpm.identity.hbm.xml</value>
+				 -->
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<!-- <prop key="hibernate.dialect"> org.hibernate.dialect.OracleDialect 
+					</prop> -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop> -->
+				<prop key="hibernate.show_sql">false</prop>
+				<!-- <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop> 
+					<prop key="hibernate.cache.use_query_cache">true</prop> <prop key="hibernate.generate_statistics">true</prop> 
+					<prop key="hibernate.cache.use_structured_entries">true</prop> -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean class="basicService" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean name="configurationServiceImpl" class="com.railinc.jook.service.impl.ConfigurationServiceImpl" parent="basicService"/>
+	<bean name="newsServiceImpl" class="com.railinc.jook.service.impl.NewsServiceImpl" parent="basicService"/>
+	<bean name="linkServiceImpl" class="com.railinc.jook.service.impl.LinkServiceImpl" parent="basicService"/>
+	<bean name="userPreferenceServiceImpl" class="com.railinc.jook.service.impl.UserPreferenceServiceImpl" parent="basicService"/>
+	<bean name="preferenceServiceImpl" class="com.railinc.jook.service.impl.PreferenceServiceImpl" parent="basicService"/>
+	<bean name="jookServiceImpl" class="com.railinc.jook.service.impl.JookServiceImpl" parent="basicService"/>
+	<bean name="feedbackServiceImpl" class="com.railinc.jook.service.impl.FeedbackServiceImpl" parent="basicService"/>
+	<bean name="downtimeServiceImpl" class="com.railinc.jook.service.impl.DowntimeServiceImpl" parent="basicService"/>
+	<bean name="mySupportServiceImpl" class="com.railinc.jook.service.impl.MySupportServiceImpl" parent="basicService"/>
+	<bean name="auditLogServiceImpl" class="com.railinc.common.hibernate.AuditLogServiceImpl" parent="basicService"/>
+
+
+
+	<bean id="auditLogService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="auditLogServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="mySupportService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="mySupportServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="jookService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="jookServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="downtimeService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="downtimeServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="feedbackService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="feedbackServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="configurationService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="configurationServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="linkService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="linkServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="newsService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="newsServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="preferenceService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="preferenceServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="userPreferenceService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="userPreferenceServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+
+
+</beans>

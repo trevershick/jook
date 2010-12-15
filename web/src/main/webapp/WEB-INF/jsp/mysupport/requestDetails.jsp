@@ -1,0 +1,2 @@
+<img src="${pageContext.request.contextPath }/mysupportresources/images/${(incident.requestDetails != null || incident.stackTrace != null) ? "approved" : "declined" }.png"/>
+<p>${(incident.requestDetails !=null || incident.stackTrace != null) ? "Collected" : "Not Available" }</p>
