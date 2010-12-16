@@ -13,8 +13,7 @@ http://code.google.com/p/msysgit/downloads/detail?name=Git-1.7.3.1-preview201010
 Fork the Project
 =====================================================================
 
-* Read - http://help.github.com/ (I generally use the https protocol fyi), You needn't 
-	necessarily use the key pair right off the bat. You can do that later.
+* Read - http://help.github.com/ (I generally use the https protocol fyi), You needn't necessarily use the key pair right off the bat. You can do that later.
 * Read the "Everyday git" section under http://help.github.com
 * Fork the trevershick/jook project
 
@@ -59,11 +58,13 @@ Commit it to your local repository::
 
 Push your branch up to the remote repository::
 
-*Note - everything is in your local repository until you push it up.
-	
 	git push origin playground
 
+*Note - everything is in your local repository until you push it up.
+	
+
 Switch back to the master branch and clean up::
+
 	git branch
 	>   master
 	> * playground
@@ -84,13 +85,21 @@ Switch back to the master branch and clean up::
 Install MySQL 5
 =====================================================================
 http://dev.mysql.com/downloads/mysql/
+
 1) Run the install, let it run as a service.
-2) create the jook database
+
+2) create the jook database::
+
 	mysqladmin -u<username> -p<password> create jook
-3) setup the jook user
+	
+3) setup the jook user::
+
 	mysql -u<username> -p<password> jook
+	
 	grant all privileges on jook.* to 'jook'@'localhost' identified by 'jook'
-4) load the data
+	
+4) load the data::
+	
 	# while still in mysql
 	source src\data\initial_data.sql
 	# hopefully all goes well.
