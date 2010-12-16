@@ -11,7 +11,7 @@
 	<link rel="shortcut icon" href="${images}/favicon.ico" />
 
 	<!-- Common script libraries -->
-	<script type="text/javascript" src="${scripts}/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="${scripts}/jquery-1.4.4.min.js"></script>
 	<script type="text/javascript" src="${appscripts }/jquery.tablesorter.min.js"></script>
 	<script type="text/javascript" src="${appscripts }/jquery-ui-1.8.5.custom.min.js"></script>
 
