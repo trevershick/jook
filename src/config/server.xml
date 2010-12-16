@@ -1,0 +1,4 @@
+<Resource auth="Container" driverClassName="com.mysql.jdbc.Driver"
+	maxActive="15" maxIdle="30" maxWait="10000" name="JookDataSource"
+	password="jook" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/jook"
+	username="jook" />    
