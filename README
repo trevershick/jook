@@ -1,1 +1,21 @@
 
+Install Git
+=============
+http://code.google.com/p/msysgit/downloads/detail?name=Git-1.7.3.1-preview20101002.exe&can=3&q=
+
+
+
+Fork the Project
+=============
+Read - http://help.github.com/ (I generally use the https protocol fyi)
+  You needn't necessarily use the key pair right off the bat. You can do that
+  later.
+
+Read the "Everyday git" section under http://help.github.com
+
+Fork the trevershick/jook project
+Clone your new project locally 
+	git clone https://vijaysivaji@github.com/vijaysivaji/jook.git
+	
+Create a branch called 'playground' on your newly forked project
+	git branch 

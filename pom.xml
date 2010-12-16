@@ -45,7 +45,6 @@
 		<module>core</module>
 		<module>taglib</module>
 		<module>web</module>
-		<module>portlet</module>
 		<module>ssodevhack</module>
 	</modules>
 </project>
