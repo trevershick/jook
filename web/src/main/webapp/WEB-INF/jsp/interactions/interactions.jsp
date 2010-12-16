@@ -20,7 +20,7 @@ Map is = (Map) request.getAttribute("interactions");
 			boolean first = true;
 			while (i.hasNext()) {
 				JookInteraction ji = (JookInteraction) i.next();
-				if (!first) {%>,<%}%> { "title" : "<%=ji.getTitle() %>", "url" : "<%= helper.substituteParameters(ji.getUrl()) %>" } <% 
+				if (!first) {%>,<%}%> { "title" : "<%=ji.getTitle() %>", "url" : "<%= helper.substituteParameters(ji.getUrl()) %>"<% if (ji.shake()){%>, "shake" : "true"<% } %> } <% 
 				first = false;
 	} %> ] <% } %>
 	}

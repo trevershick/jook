@@ -8,12 +8,19 @@ public class StaticInteraction extends DomainObject implements JookInteraction {
 	String type;
 	String title;
 	String url;
+	Boolean shake = null;
 	Boolean active = Boolean.TRUE;
 	Boolean secured = Boolean.FALSE;
 	Boolean excludeApplications = Boolean.FALSE;
 	
 	public Boolean getExcludeApplications() {
 		return excludeApplications;
+	}
+	public Boolean getShake() {
+		return shake;
+	}
+	public void setShake(Boolean shake) {
+		this.shake = shake;
 	}
 	public void setExcludeApplications(Boolean excludeApplications) {
 		this.excludeApplications = excludeApplications;
@@ -55,6 +62,10 @@ public class StaticInteraction extends DomainObject implements JookInteraction {
 	}
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+	@Override
+	public boolean shake() {
+		return (this.shake != null) && this.shake;
 	}
 	
 	

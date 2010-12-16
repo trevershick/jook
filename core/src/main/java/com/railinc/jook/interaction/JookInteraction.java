@@ -9,4 +9,5 @@ public interface JookInteraction {
 	String getType();
 	String getTitle();
 	String getUrl();
+	boolean shake();
 }

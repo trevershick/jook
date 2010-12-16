@@ -1,6 +1,9 @@
 <%@page contentType="text/javascript" %>
 <% if (null == request.getParameter("_j") || "true".equals(request.getParameter("_j"))) {%>
-	<jsp:include page="/WEB-INF/client/1.0/jquery/jquery-1.4.1.min.js"/>
+	<jsp:include page="/WEB-INF/client/1.0/jquery/jquery-1.4.4.min.js"/>
+<% } %>
+<% if (null == request.getParameter("_u") || "true".equals(request.getParameter("_u"))) {%>
+	<jsp:include page="/WEB-INF/client/1.0/jquery/jquery-ui-1.8.7.custom.min.js"/>
 <% } %>
 <% if (null == request.getParameter("_m") || "true".equals(request.getParameter("_m"))) {%>
 	<jsp:include page="/WEB-INF/client/1.0/jquery/jquery.form.js"/>
@@ -12,6 +15,7 @@ var Jook = {
 	duration : 100,
 	jookTabCount : 0,
 	jookDivCount : 0,
+	shake : false,
     jooklinks : null, 
     
     
@@ -35,6 +39,7 @@ var Jook = {
 			
 			return false; 
 		});    	
+		
     },
     
   	buildLinks : function(data) { 
@@ -51,6 +56,15 @@ var Jook = {
 	
 		Jook.displayPopups(data.services);
 	    Jook.jookDivCount = Jook.jookTabCount;  
+	    if (Jook.shake) {
+	    	jQuery("#jooklinksa").effect("shake", { distance:20, direction:"up", times:2 }, 300);
+	    }
+	},
+	
+	maybeShake : function(interaction) {
+		if (interaction.shake && interaction.shake == "true") {
+			Jook.shake = true;
+		}
 	},
 	
 	buildPopupExt : function(services) {
@@ -72,6 +86,8 @@ var Jook = {
 		var ts = services.tab;
 		if (!ts) return;
 	    for (var i=0;i < ts.length;i++) {
+	    	Jook.maybeShake(ts[i]);
+	    	
 	    	var tabIndex = Jook.jookTabCount;
 	    	var a = jQuery("<a></a>");
 	    	a.html(ts[i].title);
@@ -95,6 +111,8 @@ var Jook = {
 	buildPopupTab : function(services) {
 	    var pts = services.popuptab;
 	    for (var i=0;pts && i < pts.length;i++) {
+	    	Jook.maybeShake(ts[i]);
+	    
 	    	var tabIndex = Jook.jookTabCount;
 	    	var a = jQuery("<a></a>");
 	    	a.html(pts[i].title);

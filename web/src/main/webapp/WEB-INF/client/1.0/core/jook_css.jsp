@@ -29,7 +29,6 @@
 }
 
 #jooklinksa {
-	/*background:black url(<%=request.getContextPath() %>/railinc-template/images/icons/arrow_right_orange.png) 95% 55% no-repeat;*/
 	display:block;
 	text-align:left;
 }
