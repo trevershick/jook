@@ -1,3 +1,8 @@
+=====================================================================
+Getting Started with Jook
+=====================================================================
+
+
 
 Install Git
 =====================================================================
@@ -7,17 +12,21 @@ http://code.google.com/p/msysgit/downloads/detail?name=Git-1.7.3.1-preview201010
 
 Fork the Project
 =====================================================================
-Read - http://help.github.com/ (I generally use the https protocol fyi)
-  You needn't necessarily use the key pair right off the bat. You can do that
-  later.
 
-Read the "Everyday git" section under http://help.github.com
+* Read - http://help.github.com/ (I generally use the https protocol fyi), You needn't 
+	necessarily use the key pair right off the bat. You can do that later.
+* Read the "Everyday git" section under http://help.github.com
+* Fork the trevershick/jook project
 
-Fork the trevershick/jook project
-Clone your new project locally 
+Get the Source from GitHub
+=====================================================================
+
+Clone your new project locally::
+
 	git clone https://<username>@github.com/vijaysivaji/jook.git
 
-Clone the test project 
+Clone the test project::
+ 
 	git clone https://<username>@github.com/trevershick/testjook.git
 
 Play with Git a little
@@ -25,30 +34,36 @@ Play with Git a little
 Create a branch called 'playground' on your newly forked project
 	git branch playground
 
-List the available branches
+List the available branches::
+
 	git branch
 	
-		> * master
-  		> playground
+	> * master
+  	> playground
 
-Switch your brach to playground
+Switch your brach to playground::
+
 	git checkout playground
 
-Create a test file
+Create a test file::
+
 	notepad test.txt
 
-Add it to your changeset
+Add it to your changeset::
+
 	git add test.txt
 	
-Commit it to your local repository
+Commit it to your local repository::
+
 	git commit
 
-Push your branch up to the remote repository.
-	*Note - everything is in your local repository until you push it up.
+Push your branch up to the remote repository::
+
+*Note - everything is in your local repository until you push it up.
 	
 	git push origin playground
 
-Switch back to the master branch and clean up.
+Switch back to the master branch and clean up::
 	git branch
 	>   master
 	> * playground
