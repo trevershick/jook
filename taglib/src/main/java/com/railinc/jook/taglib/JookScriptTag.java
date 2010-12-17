@@ -17,7 +17,7 @@ public class JookScriptTag extends TagSupport {
 	 */
 	private static final long serialVersionUID = -6028258429021742387L;
 
-	private static final String scriptTag = "<script src=\"/jook/client/javascript/1.0/jook.js?ssoUser=%s&app=%s\" type=\"text/javascript\"></script>";
+	private static final String scriptTag = "<script src=\"/jook/client/javascript/1.0/jook.js?su=%s&app=%s\" type=\"text/javascript\"></script>";
 
 	String app;
 	String ssoUser;

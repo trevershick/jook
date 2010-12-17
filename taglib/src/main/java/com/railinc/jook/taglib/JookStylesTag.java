@@ -17,7 +17,7 @@ public class JookStylesTag extends TagSupport {
 	 */
 	private static final long serialVersionUID = -6028258429021742387L;
 
-	private static final String scriptTag = "<link rel=\"stylesheet\" type=\"text/css\" href=\"/jook/client/css/1.0/jook.css?ssoUser=%s&app=%s&_k=%s&_f=%s\"></script>";
+	private static final String scriptTag = "<link rel=\"stylesheet\" type=\"text/css\" href=\"/jook/client/css/1.0/jook.css?su=%s&app=%s&_k=%s&_f=%s\"></script>";
 
 	String app;
 	String ssoUser;
