@@ -24,11 +24,16 @@ public abstract class BaseServiceImpl<T> extends HibernateDaoSupport {
 
 	
 	protected long count() {
-		DetachedCriteria c = DetachedCriteria.forClass(domainClass());
+		DetachedCriteria c = createCriteria();
 		c.setProjection(Projections.rowCount());
 		return ((Number) getHibernateTemplate().findByCriteria(c).iterator()
 				.next()).longValue();
 	}
+
+	protected DetachedCriteria createCriteria() {
+		return DetachedCriteria.forClass(domainClass());
+	}
+	
 	protected long count(DetachedCriteria c) {
 		c.setProjection(Projections.rowCount());
 		return ((Number) getHibernateTemplate().findByCriteria(c).iterator()
@@ -38,7 +43,7 @@ public abstract class BaseServiceImpl<T> extends HibernateDaoSupport {
 	@SuppressWarnings("unchecked")
 	public List<T> list(int start, int count, String sortColumn,
 			boolean ascending) {
-		DetachedCriteria c = DetachedCriteria.forClass(this.domainClass());
+		DetachedCriteria c = createCriteria();
 		if (sortColumn != null) {
 			c.addOrder(Order.asc(sortColumn));
 		}
@@ -65,7 +70,7 @@ public abstract class BaseServiceImpl<T> extends HibernateDaoSupport {
 	
 	@SuppressWarnings("unchecked")
 	protected List<T> list() {
-		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(domainClass()));
+		return getHibernateTemplate().findByCriteria(createCriteria());
 	}
 
 	@SuppressWarnings("unchecked")

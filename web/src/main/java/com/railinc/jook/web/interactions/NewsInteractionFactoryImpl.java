@@ -9,10 +9,23 @@ import com.railinc.jook.Jook;
 import com.railinc.jook.domain.StaticInteraction;
 import com.railinc.jook.interaction.JookInteraction;
 import com.railinc.jook.service.NewsService;
+import com.railinc.jook.service.ViewTrackingService;
+import com.railinc.sso.rt.UserService;
 
 public class NewsInteractionFactoryImpl implements JookInteractionFactory {
 	NewsService service;
+	ViewTrackingService viewTracking;
+	public static final String VIEWTRACKING_APPNAME = "news";
+	public static final String VIEWTRACKING_RESOURCE = "/";
 	
+	public ViewTrackingService getViewTracking() {
+		return viewTracking;
+	}
+
+	public void setViewTracking(ViewTrackingService viewTracking) {
+		this.viewTracking = viewTracking;
+	}
+
 	public NewsService getNewsService() {
 		return service;
 	}
@@ -27,14 +40,22 @@ public class NewsInteractionFactoryImpl implements JookInteractionFactory {
 		List<JookInteraction> j = new ArrayList<JookInteraction>();
 
 		if (service.hasNewsItemsToShow(parameter)) {
+			String user = user(request);
 			StaticInteraction i = new StaticInteraction();
 			i.setTitle("News");
 			i.setType("tab");
 			i.setUrl(request.getContextPath() +"/services/news?app=" + parameter);
+			i.setShake(user != null && false == viewTracking.hasUserSeen(user, VIEWTRACKING_APPNAME, VIEWTRACKING_RESOURCE));
 			j.add(i);
 		}
 		
 		return j;
 	}
 
+	private String user(HttpServletRequest r) {
+		if (UserService.getInstance().isAuthenticated(r)) {
+			return UserService.getLoggedUser(r).getUserId();
+		}
+		return null;
+	}
 }

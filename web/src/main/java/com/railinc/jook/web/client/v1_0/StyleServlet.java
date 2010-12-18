@@ -21,7 +21,7 @@ public class StyleServlet extends HttpServlet {
 //		String moduleId = req.getParameter("app");
 //		String ssoUser = req.getParameter("ssoUser");
 		resp.setContentType("text/css");
-		//resp.setHeader("Cache-Control", "max-age=300, private");
+		resp.setHeader("Cache-Control", "max-age=1800, private");
 
 		if (null == req.getParameter("_k") || "true".equals(req.getParameter("_k"))) {
 			req.getRequestDispatcher("/WEB-INF/client/1.0/core/jook_css.jsp").include(req,resp);

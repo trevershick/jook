@@ -2,7 +2,7 @@
 <project-modules id="moduleCoreId" project-version="1.5.0">
 	<wb-module deploy-name="sso">
         <property name="java-output-path" value="/jook-ssodevhack/target/classes"/>
-        <property name="context-root" value="sso"/>
+        <property name="context-root" value="jook-ssodevhack"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>

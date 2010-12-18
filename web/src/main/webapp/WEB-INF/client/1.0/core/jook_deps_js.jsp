@@ -36,10 +36,26 @@ var Jook = {
 			} else {
 				jooklinksimg.attr("src", "<%=request.getContextPath()%>/client/resource/1.0/core/horizontal-tab.png");
 			}
-			
 			return false; 
-		});    	
-		
+		});   
+		jQuery("#jooklinksa").click(Jook.shakeDrawerPulls); 	
+		jQuery("#jooklinksa").click(Jook.openShakeDrawers);
+    },
+    
+    shakeJookTab : function(element) {
+    	element.effect("shake", { distance:10, direction:"up", times:3 }, 300);
+    },
+	
+    shakeDrawerPulls : function() {
+    	jQuery(".jooktrig.shake").each(function(idx,el) { Jook.shakeDrawerPull(jQuery(el)); });
+    },
+	
+    openShakeDrawers : function() {
+    	jQuery(".jooktrig.shake").each(function(idx,el) { jQuery(el).click(); });
+    },
+    
+    shakeDrawerPull : function(element) {
+    	element.effect("shake", { times:3, distance:10 }, 300);
     },
     
   	buildLinks : function(data) { 
@@ -57,7 +73,7 @@ var Jook = {
 		Jook.displayPopups(data.services);
 	    Jook.jookDivCount = Jook.jookTabCount;  
 	    if (Jook.shake) {
-	    	jQuery("#jooklinksa").effect("shake", { distance:20, direction:"up", times:2 }, 300);
+	    	Jook.shakeJookTab(jQuery("#jooklinksa"));
 	    }
 	},
 	
@@ -92,6 +108,9 @@ var Jook = {
 	    	var a = jQuery("<a></a>");
 	    	a.html(ts[i].title);
 	    	a.attr("class", "jooktrig");
+	    	if (ts[i].shake && ts[i].shake == "true") {
+	    		a.attr("class", a.attr("class") + " shake");
+	    	}
 	    	a.attr("id", "target_trigger_" + tabIndex);
 	    	a.attr("href","#");
 	    	Jook.jooklinks.append(a);
@@ -134,6 +153,7 @@ var Jook = {
 	    	trigger.click(function(ev){
 			 		var t = jQuery("#" + jQuery(this).attr("id").replace("_trigger",""));
 		 			t.toggle(Jook.duration);
+		 			jQuery(this).removeClass("shake");
 		 			if (!t.hasClass("jookloaded")) {
 			 			var src = jQuery("#" + jQuery(this).attr("id").replace("_trigger","")).attr("src");
 			 			if (src.indexOf("/") == 0) {

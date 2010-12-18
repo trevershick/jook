@@ -8,6 +8,6 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/jook-webapp/target/classes"/>
-        <property name="context-root" value="jook"/>
+        <property name="context-root" value="jook-webapp"/>
     </wb-module>
 </project-modules>

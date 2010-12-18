@@ -33,9 +33,13 @@ public class InteractionsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		Collection<JookInteraction> allInteractions = new ArrayList<JookInteraction>();
+		boolean shakeSet = false;
 		
 		for (JookInteractionFactory f : jookInteractionFactories) {
 			List<? extends JookInteraction> interactions = f.interactions(req);
+			if (!shakeSet) {
+				shakeSet = shakeSet(interactions);
+			}
  			allInteractions.addAll(interactions);
 		}
 		Map<String, Collection<JookInteraction>> partition = Collections.partition(allInteractions, 
@@ -43,11 +47,24 @@ public class InteractionsServlet extends HttpServlet {
 		
 		req.setAttribute("interactions", partition);
 		// 3 minute max age
-		resp.setHeader("Cache-Control", "max-age=180, private");
+		
+		// don't cache if 'shake' was set...
+		if (shakeSet) {
+			resp.setHeader("Cache-Control", "max-age=0, no-cache");
+		} else {
+			resp.setHeader("Cache-Control", "max-age=180, private");
+		}
 
 		req.getRequestDispatcher("/WEB-INF/jsp/interactions/interactions.jsp").forward(req, resp);
 	}
 
+	private boolean shakeSet(List<? extends JookInteraction> jis) {
+		for (JookInteraction ji : jis) {
+			if(ji.shake()) { return true; }
+		}
+		return false;
+	}
+	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);

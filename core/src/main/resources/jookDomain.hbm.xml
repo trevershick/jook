@@ -179,4 +179,17 @@
 		<property name="lastModified"/>
 		<property name="lastModifier"/>
 	</class>
+	
+	<class name="LastUserView">
+		<id name="id" column="LUV_ID">
+			<generator class="native" />
+		</id>
+		<properties name="uk1">
+			<property name="app"/>
+			<property name="name"/>
+			<property name="user"/>
+		</properties>
+		<property name="lastViewed"/>
+		
+	</class>
 </hibernate-mapping>

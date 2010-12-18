@@ -92,6 +92,7 @@
 	<bean name="downtimeServiceImpl" class="com.railinc.jook.service.impl.DowntimeServiceImpl" parent="basicService"/>
 	<bean name="mySupportServiceImpl" class="com.railinc.jook.service.impl.MySupportServiceImpl" parent="basicService"/>
 	<bean name="auditLogServiceImpl" class="com.railinc.common.hibernate.AuditLogServiceImpl" parent="basicService"/>
+	<bean name="viewTrackingServiceImpl" class="com.railinc.jook.service.impl.ViewTrackingServiceImpl" parent="basicService"/>
 
 
 
@@ -205,6 +206,16 @@
 		</property>
 	</bean>
 
+	<bean id="viewTrackingService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="viewTrackingServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
 
 
 </beans>

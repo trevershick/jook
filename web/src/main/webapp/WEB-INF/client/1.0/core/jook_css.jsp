@@ -42,7 +42,7 @@
 	text-decoration: none;
 	font-size: 10pt;
 	color:#fff;
-	padding: 10px 35px 10px 25px;
+	padding: 5px 35px 5px 5px;
 	background:#444444 url(<%=request.getContextPath() %>/railinc-template/images/icons/add.png) 95% no-repeat;
 	border:1px solid #333;
 	-moz-border-radius-topright: 20px;
@@ -54,7 +54,7 @@
 	background-size:16px;
 }
 
-#jooklinks a.jooktrig:hover{
+#jooklinks a.jooktrig:hover {
 	color: #444;
 	border-color: #33C;
 	background: #FFC url(<%=request.getContextPath() %>/railinc-template/images/icons/add.png) 95%  no-repeat;
@@ -69,4 +69,8 @@
 }
 #jooklinks a.jookactive:hover {
 	color:black;
+}
+
+#jooklinks a.shake {
+	background-color:#990000;
 }

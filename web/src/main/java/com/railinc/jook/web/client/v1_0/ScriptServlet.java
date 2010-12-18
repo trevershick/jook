@@ -14,7 +14,13 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.railinc.jook.domain.JookInteractionProvider;
 import com.railinc.jook.service.JookService;
-
+/**
+ * this is what loops over the interaction providers adn return jook.js. This should
+ * be as FAST as possible.
+ * 
+ * @author tshick
+ *
+ */
 public class ScriptServlet extends HttpServlet {
 
 	/**
@@ -31,8 +37,9 @@ public class ScriptServlet extends HttpServlet {
 		List<JookInteractionProvider> providersForModuleId = jookService.providersForModuleId(moduleId);
 		req.setAttribute("providers", providersForModuleId);
 		resp.setContentType("text/javascript");
-//		resp.setHeader("Cache-Control", "max-age=300, private");
 
+		// 180 seconds
+		resp.setHeader("Cache-Control", "max-age=1800, private");
 
 		req.getRequestDispatcher("/WEB-INF/client/1.0/core/jook_js.jsp").include(req, resp);
 

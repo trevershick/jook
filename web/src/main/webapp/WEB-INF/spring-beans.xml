@@ -11,7 +11,9 @@
 
 	<bean class="com.railinc.jook.DbPropertyPlaceholderConfigurer" p:configurationService-ref="configurationService"/>
 
-	<bean class="com.railinc.jook.web.interactions.NewsInteractionFactoryImpl" p:newsService-ref="newsService"/>
+	<bean class="com.railinc.jook.web.interactions.NewsInteractionFactoryImpl" 
+	p:newsService-ref="newsService"
+	p:viewTracking-ref="viewTrackingService" />
 	
 	<bean class="com.railinc.jook.web.interactions.DowntimeInteractionFactoryImpl"
 		p:downtimeService-ref="downtimeService" />

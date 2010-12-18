@@ -50,6 +50,6 @@
 	<bean class="com.railinc.jook.web.secure.DowntimeController" p:service-ref="downtimeService"/>
 	<bean class="com.railinc.jook.web.secure.HelpDeskController" p:service-ref="mySupportService" />
 	<bean class="com.railinc.jook.web.secure.AuditLogController" p:service-ref="auditLogService"/>
-	<bean class="com.railinc.jook.web.secure.NewsController" p:service-ref="newsService"/>
+	<bean class="com.railinc.jook.web.secure.NewsController" p:service-ref="newsService" p:viewTracking-ref="viewTrackingService"/>
 	<bean class="com.railinc.jook.web.secure.RefDataApplicationsController"/>
 </beans>
