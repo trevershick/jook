@@ -21,7 +21,7 @@ public class StyleServlet extends HttpServlet {
 //		String moduleId = req.getParameter("app");
 //		String ssoUser = req.getParameter("ssoUser");
 		resp.setContentType("text/css");
-		resp.setHeader("Cache-Control", "max-age=1800, private");
+		resp.setHeader("Cache-Control", "max-age=0, private");
 
 		if (null == req.getParameter("_k") || "true".equals(req.getParameter("_k"))) {
 			req.getRequestDispatcher("/WEB-INF/client/1.0/core/jook_css.jsp").include(req,resp);
@@ -29,6 +29,7 @@ public class StyleServlet extends HttpServlet {
 		if (null == req.getParameter("_f") || "true".equals(req.getParameter("_f"))) {
 			req.getRequestDispatcher("/WEB-INF/client/1.0/facebox/facebox_css.jsp").include(req,resp);
 		}
+		req.getRequestDispatcher("/WEB-INF/client/1.0/jgrowl/jquery.jgrowl-1.2.5.css").include(req,resp);
 	}
 
 	

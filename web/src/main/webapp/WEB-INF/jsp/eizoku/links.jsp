@@ -19,6 +19,9 @@ This page contains a list of registered links within the system. You can add new
 		<tr>
 			<th class="col1"><spring:message code="eizoku.links.th.key"/></th>
 			<th class="col2"><spring:message code="eizoku.links.th.value"/></th>
+			<% if (request.isUserInRole("eizoku_adm"))  {%>
+			<th><spring:message code="eizoku.links.th.creator"/></th>
+			<% } %>
 			<th class="col3"><spring:message code="eizoku.links.th.actions"/></th>
 		</tr>
 	</thead>
@@ -32,6 +35,9 @@ This page contains a list of registered links within the system. You can add new
 				<td>
 				<a href="update?k=${v.path }">${v.url }</a>
 				</td>
+			<% if (request.isUserInRole("eizoku_adm"))  {%>
+			<td>${v.creator }</td>
+			<% } %>
 				<td align="center">
 					<app:editicon url="update?k=${v.path }"/>
 					<app:deleteicon url="update?path=${v.path}&_eventId_delete=_eventId_delete"/>

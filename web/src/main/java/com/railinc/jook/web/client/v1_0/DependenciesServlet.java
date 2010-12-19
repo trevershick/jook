@@ -23,7 +23,7 @@ public class DependenciesServlet extends HttpServlet {
 //		List<JookInteractionProvider> providersForModuleId = jookService.providersForModuleId(moduleId);
 //		req.setAttribute("providers", providersForModuleId);
 		resp.setContentType("text/javascript");
-		resp.setHeader("Cache-Control", "max-age=1800, private");
+		resp.setHeader("Cache-Control", "max-age=0, private");
 		req.getRequestDispatcher("/WEB-INF/client/1.0/core/jook_deps_js.jsp").include(req, resp);
 	}
 

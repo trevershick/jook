@@ -57,11 +57,6 @@
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
-		<attribute>
-			<name>ssoUser</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>	
 	</tag>
 	
 	
@@ -78,20 +73,10 @@
 		<info>
     	</info>
 		<attribute>
-			<name>jquery</name>
-			<required>false</required>
-			<rtexprvalue>false</rtexprvalue>
-		</attribute>	
-		<attribute>
-			<name>jqueryForm</name>
-			<required>false</required>
-			<rtexprvalue>false</rtexprvalue>
-		</attribute>	
-		<attribute>
-			<name>facebox</name>
-			<required>false</required>
-			<rtexprvalue>false</rtexprvalue>
-		</attribute>	
+			<name>app</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 	<tag>
 		<name>styles</name>
@@ -109,23 +94,7 @@
 			<name>app</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>ssoUser</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>jook</name>
-			<required>false</required>
-			<rtexprvalue>false</rtexprvalue>
-		</attribute>	
-		<attribute>
-			<name>facebox</name>
-			<required>false</required>
-			<rtexprvalue>false</rtexprvalue>
-		</attribute>	
-			
+		</attribute>			
 	</tag>
 	
 </taglib>

@@ -35,23 +35,23 @@ public class JookServiceImpl extends BaseServiceImpl<JookInteractionProvider> im
 					public Boolean call(JookInteractionProvider o) { return o.getActive();}	
 				});
 	}
-
-	@Override
-	public JookInteractionProvider createProvider(String name, String url,String[] apps) {
-		JookInteractionProvider p = new JookInteractionProvider();
-		p.setName(name);
-		p.setServicesJsonPath(url);
-		if (apps != null) {
-			Set<String> s = new HashSet<String>();
-			for (String a : apps) {
-				s.add(a);
-			}
-			p.setApplications(s);
-		}
-		getHibernateTemplate().save(p);
-		
-		return p;
-	}
+//
+//	@Override
+//	public JookInteractionProvider createProvider(String name, String url,String[] apps) {
+//		JookInteractionProvider p = new JookInteractionProvider();
+//		p.setName(name);
+//		p.setServicesJsonPath(url);
+//		if (apps != null) {
+//			Set<String> s = new HashSet<String>();
+//			for (String a : apps) {
+//				s.add(a);
+//			}
+//			p.setApplications(s);
+//		}
+//		getHibernateTemplate().save(p);
+//		
+//		return p;
+//	}
 
 	@Override
 	public List<JookInteractionProvider> registeredProviders(int start,
@@ -111,9 +111,9 @@ public class JookServiceImpl extends BaseServiceImpl<JookInteractionProvider> im
 		return this.list(StaticInteraction.class, crit, 0, Integer.MAX_VALUE);
 	}
 	@Override
-	public List<? extends JookInteraction> active() {
+	public List<StaticInteraction> active(boolean secured) {
 		DetachedCriteria crit = DetachedCriteria.forClass(StaticInteraction.class).add(Restrictions.eq("active",Boolean.TRUE));
-		
+		crit.add(Restrictions.isNotNull(secured ? "secureUrl" : "unsecureUrl"));
 		return this.list(StaticInteraction.class, crit);
 	}
 }

@@ -1,4 +1,4 @@
-package com.railinc.jook.web.secure;
+package com.railinc.jook.web.secure.jook;
 
 import java.util.List;
 import java.util.Set;
@@ -23,7 +23,7 @@ import com.railinc.jook.web.util.SetOfStringEditor;
 import com.railinc.jook.web.util.StandardController;
 
 @Controller
-@RequestMapping("secure/providers")
+@RequestMapping("secure/jook/providers")
 public class Providers extends StandardController {
 	public static final String VIEW_PROVIDER_LIST = ".view.providerList";
 	private static final String REDIRECT_LIST = "redirect:list";
@@ -93,14 +93,15 @@ public class Providers extends StandardController {
 		JookInteractionProvider p = getService().getProvider(value.getName());
 		
 		ValidationUtils.rejectIfEmpty(result, "name", "required");
-		ValidationUtils.rejectIfEmpty(result, "servicesJsonPath", "required");
+		
 		
 		if (result.hasErrors()) {
 			return VIEW_PROVIDER_FORM;
 		}
 		
 		if (p != null) {
-			p.setServicesJsonPath(value.getServicesJsonPath());
+			p.setUnsecureUrl(value.getUnsecureUrl());
+			p.setSecureUrl(value.getSecureUrl());
 			p.setActive(value.getActive());
 		} else {
 			p = value;

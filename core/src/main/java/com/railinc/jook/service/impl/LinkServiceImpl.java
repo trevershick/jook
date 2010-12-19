@@ -1,8 +1,10 @@
 package com.railinc.jook.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.criterion.Restrictions;
 
 import com.railinc.jook.domain.DomainObject;
 import com.railinc.jook.domain.Link;
@@ -10,7 +12,7 @@ import com.railinc.jook.service.LinkService;
 
 public class LinkServiceImpl extends BaseServiceImpl<Link> implements LinkService {
 
-	public void createLink(String path, String url, String description) {
+	public void createLink(String path, String url, String description,String user) {
 		if (path == null || url == null || description == null) {
 			throw new IllegalArgumentException("path,value and description may not be null.");
 		}
@@ -18,16 +20,14 @@ public class LinkServiceImpl extends BaseServiceImpl<Link> implements LinkServic
 		c.setPath(path);
 		c.setUrl(url);
 		c.setDescription(description);
+		c.setCreated(new Date());
+		c.setCreator(user);
 	    getHibernateTemplate().save("Link", c);
 	}
 
 	@SuppressWarnings("unchecked")
 	public Link getLink(String path) {
-		List<Link> find = getHibernateTemplate().find("from Link WHERE path=?",path);
-		if (find.size() == 0) {
-			return null;
-		}
-		return (Link) find.get(0);
+		return single(createCriteria().add(Restrictions.eq("path", path)));
 	}
 
 
@@ -35,18 +35,20 @@ public class LinkServiceImpl extends BaseServiceImpl<Link> implements LinkServic
 		return list();
 	}
 
-	public void updateLink(String key, String value) {
+	public void updateLink(String key, String value, String user) {
 		Link configurationValue = getLink(key);
 		if (configurationValue != null) {
 			Link i = (Link) configurationValue;
 			if (StringUtils.isNotBlank(value)) {
 				i.setUrl(value);
 			}
+			i.setLastModified(new Date());
+			i.setLastModifier(user);
 			getHibernateTemplate().update(i);
 		}
 	}
 
-	public void updateLink(String key, String value, String description) {
+	public void updateLink(String key, String value, String description, String user) {
 		Link configurationValue = getLink(key);
 		if (configurationValue != null) {
 			Link i = (Link) configurationValue;
@@ -56,6 +58,8 @@ public class LinkServiceImpl extends BaseServiceImpl<Link> implements LinkServic
 			if (StringUtils.isNotBlank(description)) {
 				i.setDescription(description);
 			}
+			i.setLastModified(new Date());
+			i.setLastModifier(user);
 			getHibernateTemplate().update(i);
 		}
 	}
@@ -72,6 +76,16 @@ public class LinkServiceImpl extends BaseServiceImpl<Link> implements LinkServic
 	@Override
 	protected Class<? extends DomainObject> domainClass() {
 		return Link.class;
+	}
+
+	@Override
+	public Link getLinkByUser(String remoteUser, String key) {
+		return single(createCriteria().add(Restrictions.eq("path", key)).add(Restrictions.eq("creator", remoteUser)));
+	}
+
+	@Override
+	public List<Link> getLinksByUser(String remoteUser) {
+		return list(createCriteria().add(Restrictions.eq("creator", remoteUser)));
 	}
 	
 	

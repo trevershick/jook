@@ -1,15 +1,17 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
-<h1>Object History for ${entityName } @ ${entityId }</h1>
+<h1>Object History for ${entityName }</h1>
 
 <c:set scope="page" var="version" value="0"/>
 <c:forEach items="${txReferences }" var="txref">
 	<c:set var="rows" value="${records[txref] }"/>
 	<c:set scope="page" var="version" value="${version + 1 }"/>
 	
-<h2>v${version } ${rows[0].updatedBy } on <fmt:formatDate value="${rows[0].updatedDate }" pattern="yyyy-MM-dd HH:mm"/></h2>
-<a href="#" onclick="showTx('${txref}');">see full transaction</a>
+<b>v${version } ${rows[0].updatedBy } on <fmt:formatDate value="${rows[0].updatedDate }" pattern="yyyy-MM-dd HH:mm"/></b>
+
+	<a href="#" onclick="showTx('${txref}');">see full transaction</a>
+	<br/>
 		<div>
-		<table>
+		<table class="results" style="margin-top:5px;margin-bottom:5px;">
 			<tr>
 				<th>Transaction Type</th>
 				<th>What</th>
@@ -39,13 +41,3 @@
 		
 		</div>
 </c:forEach>
-<!-- 		private String entityAttribute;
-		private String entityId;
-		private String entityName;
-		private String message;
-		private String newValue;
-		private String oldValue;
-		private String updatedBy;
-		private String txRef;
-		
-		private Date updatedDate; -->

@@ -6,13 +6,15 @@ import java.util.Set;
 
 public class JookInteractionProvider extends DomainObject {
 	String name;
-	String servicesJsonPath;
+	
 	Set<String> applications;
 	Boolean active = Boolean.FALSE;
+
+	String secureUrl;
+	String unsecureUrl;
 	
-	
-	
-	
+
+
 	public Set<String> getApplications() {
 		return applications;
 	}
@@ -25,14 +27,29 @@ public class JookInteractionProvider extends DomainObject {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getServicesJsonPath() {
-		return servicesJsonPath;
-	}
-	public void setServicesJsonPath(String servicesJsonPath) {
-		this.servicesJsonPath = servicesJsonPath;
-	}
+
+
 	
 
+	public String getSecureUrl() {
+		return secureUrl;
+	}
+	public void setSecureUrl(String secureUrl) {
+		if(secureUrl != null && secureUrl.trim().length() == 0) {
+			secureUrl = null;
+		}
+		this.secureUrl = secureUrl;
+	}
+	public String getUnsecureUrl() {
+		return unsecureUrl;
+	}
+	public void setUnsecureUrl(String unsecureUrl) {
+		if(unsecureUrl != null && unsecureUrl.trim().length() == 0) {
+			unsecureUrl = null;
+		}
+
+		this.unsecureUrl = unsecureUrl;
+	}
 	public Boolean getActive() {
 		return active;
 	}

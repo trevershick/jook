@@ -6,6 +6,8 @@ package com.railinc.jook.web.secure.eizoku;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,20 +53,34 @@ public class LinkController extends StandardController {
 
 	@RequestMapping(value="update",params="_eventId_delete")
 	public String deleteLink(@RequestParam(value="path",required=true) String key, HttpServletRequest r, ModelMap map) {
-		getService().removeLink(key);
+		Link link = getLink(r, key);
+
+		if (link != null) {
+			getService().removeLink(key);
+			message(r, String.format("Successfully deleted the link"));
+		}
 		
-		message(r, String.format("Successfully deleted the link"));
 		
-		return listLinks(map);
+		return listLinks(map, r);
 	}
 	
 	
 	
 	
-	@RequestMapping(method=RequestMethod.GET, value="update")
-	public String updateALink(@RequestParam(value="k",required=true) String key, ModelMap map) {
+	private Link getLink(HttpServletRequest r, String key) {
+		if (isAdmin(r)) {
+			return getService().getLink(key);
+		} else {
+			return getService().getLinkByUser(r.getRemoteUser(), key);
+		}
+	}
 
-		Link Link = getService().getLink(key);
+
+
+	@RequestMapping(method=RequestMethod.GET, value="update")
+	public String updateALink(@RequestParam(value="k",required=true) String key, ModelMap map, HttpServletRequest r) {
+
+		Link Link = getLink(r, key);
 		map.addAttribute("link", Link);
 		return ".view.eizoku.link.update";
 	}
@@ -78,13 +94,14 @@ public class LinkController extends StandardController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="update",params="_eventId_save")
-	public String submitUpdate(@ModelAttribute("link") Link value, BindingResult result) {
+	public String submitUpdate(@ModelAttribute("link") Link value, BindingResult result, HttpServletRequest r) {
 		ValidationUtils.invokeValidator(new LinkValidator(), value, result);
-		
         if (result.hasErrors()) {
             return ".view.eizoku.link.update";
 	    } else {
-			getService().updateLink(value.getPath(), value.getUrl(), value.getDescription());
+			if (getLink(r, value.getPath()) != null) {
+				getService().updateLink(value.getPath(), value.getUrl(), value.getDescription(), r.getRemoteUser());
+			}
 			return "redirect:list";
         }
 	}
@@ -95,16 +112,17 @@ public class LinkController extends StandardController {
 	
 	
 	@RequestMapping(method=RequestMethod.GET, value="create")
-	public String createALink(ModelMap map) {
-		Link Link = new Link();
-		map.addAttribute("link", Link);
+	public String createALink(ModelMap map, HttpServletRequest r) {
+		Link newLink = new Link();
+		
+		map.addAttribute("link", newLink);
 		return ".view.eizoku.link.create";
 	}
 
 	
 	@RequestMapping(method=RequestMethod.POST, value="create",params="_eventId_cancel")
-	public String cancelCreate(ModelMap map,HttpServletRequest r) {
-		message(r,"No action has been taken");
+	public String cancelCreate(ModelMap map, HttpServletRequest r) {
+		message(r, "No action has been taken");
 		return "redirect:list";
 	}
 	
@@ -112,20 +130,21 @@ public class LinkController extends StandardController {
 	
 	
 	@RequestMapping(method=RequestMethod.POST,value="create",params="_eventId_save")
-	public String submitCreate(@ModelAttribute("link") Link value, BindingResult result) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+	public String submitCreate(@ModelAttribute("link") Link value, BindingResult result,HttpServletRequest r) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		if (StringUtils.isBlank(value.getPath())) {
 			String nextPath = findNextPath(value);
 			value.setPath(nextPath);
 		}
 		
 		ValidationUtils.invokeValidator(new LinkValidator(), value, result);
+		// this .getLink call cannot be filtered
 		if (service.getLink(value.getPath()) != null) {
 			result.reject("duplicate.path", new Object[]{value.getPath()}, null);
 		}
         if (result.hasErrors()) {
             return ".view.eizoku.link.create";
 	    } else {
-	    	getService().createLink(value.getPath(), value.getUrl(), value.getDescription());
+	    	getService().createLink(value.getPath(), value.getUrl(), value.getDescription(), r.getRemoteUser());
 	    	return "redirect:list";
         }
 	}
@@ -133,17 +152,27 @@ public class LinkController extends StandardController {
 	
 	private String findNextPath(Link i) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		String randomKey = null;
+		// this can't be filtered
 		while (service.getLink(randomKey = i.generatePath()) != null);
 		return randomKey;
 	}
 	
 	
-	
+	protected boolean isAdmin(HttpServletRequest request) {
+		return request.isUserInRole("eizoku_adm");
+	}
 	
 	@RequestMapping("list")
-	public String listLinks(ModelMap map) {
+	public String listLinks(ModelMap map, HttpServletRequest request) {
 		log.info("Loaded Links List");
-		map.addAttribute("links",getService().getLinks());
+		List<Link> links = null;
+		if (isAdmin(request)) {
+			links = getService().getLinks();
+		} else {
+			links = getService().getLinksByUser(request.getRemoteUser());
+		}
+			
+		map.addAttribute("links",links);
 		return ".view.eizoku.links";
 	}	
 }

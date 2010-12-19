@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.railinc.jook.Jook;
-import com.railinc.jook.domain.StaticInteraction;
 import com.railinc.jook.interaction.JookInteraction;
 import com.railinc.jook.service.NewsService;
 import com.railinc.jook.service.ViewTrackingService;
@@ -38,15 +37,15 @@ public class NewsInteractionFactoryImpl implements JookInteractionFactory {
 	public List<? extends JookInteraction> interactions(HttpServletRequest request) {
 		String parameter = request.getParameter(Jook.JOOK_PARAM_APP);
 		List<JookInteraction> j = new ArrayList<JookInteraction>();
+		if (!UserService.getInstance().isAuthenticated(request)) {
+			return j;
+		}
 
 		if (service.hasNewsItemsToShow(parameter)) {
 			String user = user(request);
-			StaticInteraction i = new StaticInteraction();
-			i.setTitle("News");
-			i.setType("tab");
-			i.setUrl(request.getContextPath() +"/services/news?app=" + parameter);
-			i.setShake(user != null && false == viewTracking.hasUserSeen(user, VIEWTRACKING_APPNAME, VIEWTRACKING_RESOURCE));
-			j.add(i);
+			j.add(new JookInteractionVO("tab", "News", 
+					request.getContextPath() +"/services/news?app=" + parameter,
+					user != null && false == viewTracking.hasUserSeen(user, VIEWTRACKING_APPNAME, VIEWTRACKING_RESOURCE)));
 		}
 		
 		return j;

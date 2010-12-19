@@ -26,13 +26,6 @@
 	</tr>
 	<tr>
 		<td class="fieldname">
-			<spring:message code="providers.fields.servicesJsonPath" />
-			
-		</td>
-		<td>${provider.servicesJsonPath }</td>
-	</tr>
-	<tr>
-		<td class="fieldname">
 			<spring:message code="providers.fields.applications" />
 			
 		</td>

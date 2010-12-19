@@ -19,6 +19,7 @@ import com.railinc.jook.Collections;
 import com.railinc.jook.Predicate;
 import com.railinc.jook.interaction.JookInteraction;
 import com.railinc.jook.web.interactions.JookInteractionFactory;
+import com.railinc.sso.rt.UserService;
 
 public class InteractionsServlet extends HttpServlet {
 
@@ -37,6 +38,7 @@ public class InteractionsServlet extends HttpServlet {
 		
 		for (JookInteractionFactory f : jookInteractionFactories) {
 			List<? extends JookInteraction> interactions = f.interactions(req);
+			
 			if (!shakeSet) {
 				shakeSet = shakeSet(interactions);
 			}

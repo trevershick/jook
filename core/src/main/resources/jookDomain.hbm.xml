@@ -43,9 +43,9 @@
 		</id>
 		<property name="type" not-null="true"/>
 		<property name="title" not-null="true"/>
-		<property name="url" not-null="true"/>
+		<property name="unsecureUrl" not-null="true"/>
+		<property name="secureUrl" not-null="true"/>
 		<property name="active" not-null="true" />
-		<property name="secured" not-null="true" />
 		<property name="excludeApplications" not-null="true" />
 		<set name="applications" table="SIApplication">
             <key column="interaction_id"/>
@@ -62,7 +62,8 @@
 			<generator class="native"/>
 		</id>
 		<property name="name" not-null="true"/>
-		<property name="servicesJsonPath" not-null="true"/>
+		<property name="unsecureUrl" not-null="true"/>
+		<property name="secureUrl" not-null="true"/>
 		<property name="active" not-null="true"/>
 		<set name="applications" table="JIApplication">
             <key column="provider_id"/>

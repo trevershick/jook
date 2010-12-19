@@ -19,7 +19,7 @@ public class LinkServiceImplTest extends TestCase {
 		
 	}
 	public void testGetConfigurationValues() {
-		service.createLink("/test", "http://test.com","no description");
+		service.createLink("/test", "http://test.com","no description", "tshick");
 		List<Link> configurationValues = service.getLinks();
 		assertTrue(configurationValues.size() > 0);
 	}

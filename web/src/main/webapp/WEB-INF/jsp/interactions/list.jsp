@@ -19,15 +19,14 @@
 			<th><spring:message code="interactions.list.th.type"/></th>
 			<th><spring:message code="interactions.list.th.title"/></th>
 			<th><spring:message code="interactions.list.th.apps"/></th>
-			<th><spring:message code="interactions.list.th.secured"/></th>
 			<th><spring:message code="interactions.list.th.active"/></th>
-			<th></th>
+			<th> </th>
 		</tr>
 		</thead>
 		<tbody>
 		<c:forEach items="${interactions}" var="p">
 			<tr>
-				<td>${p.type }</td>
+				<td>${p.verboseType }</td>
 				<td>${p.title}</td>
 				<td> 
 				<c:choose>
@@ -39,16 +38,6 @@
 				</c:when>
 				</c:choose>
 				
-				</td>
-				<td>
-						<c:choose>
-				<c:when test="${p.secured }">
-					<img width="16" src="${pageContext.request.contextPath }/railinc-template/images/icons/green_check.png"/>
-				</c:when>
-				<c:otherwise>
-					<!-- <img width="16" src="${pageContext.request.contextPath }/railinc-template/images/icons/red_x.png"/> -->
-				</c:otherwise>
-				</c:choose>
 				</td>
 				<td>
 				<c:choose>
@@ -69,15 +58,16 @@
 		</tbody>
 	</table>
 	
+<div style="min-height:100px;">
+</div>
 	
 <h1>Current Response for ${pageContext.request.contextPath }/client/interactions/1.0/interactions.json?app=EXAMPLE </h1>
 <pre id="currentJson" style="overflow:scroll;">
 </pre>
-
 <script>
 $("#currentJson").load("${pageContext.request.contextPath }/client/interactions/1.0/interactions.json?app=EXAMPLE");
 	
 $().ready(function() { 
-	$("#interactionsTable").tablesorter({widgets: ['zebra'], headers: {4:{sorter:false}}});
+	$("#interactionsTable").tablesorter({widgets: ['zebra'], headers: {2:{sorter:false},3:{sorter:false},4:{sorter:false},5:{sorter:false}}});
     } 
 ); </script>

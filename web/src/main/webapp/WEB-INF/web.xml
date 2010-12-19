@@ -56,6 +56,15 @@
 		<url-pattern>/main/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
+		<filter-name>ssoPrincipalFilter</filter-name>
+		<url-pattern>/secured/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sessionValidationFilter</filter-name>
+		<url-pattern>/secured/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
 		<filter-name>SSOUserProviderFilter</filter-name>
 		<url-pattern>/main/*</url-pattern>
 	</filter-mapping>
@@ -190,11 +199,15 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DowntimeServlet</servlet-name>
-		<url-pattern>/services/downtime</url-pattern>
+		<url-pattern>/secured/services/downtime</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>RedirectServlet</servlet-name>
 		<url-pattern>/link/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NewsServlet</servlet-name>
+		<url-pattern>/services/news</url-pattern>
 	</servlet-mapping>
 
 <!--  
@@ -225,9 +238,26 @@ this would mean the taglib needs to switched based on whether a person is logged
 		<servlet-name>InteractionsServlet</servlet-name>
 		<url-pattern>/client/interactions/1.0/interactions.json</url-pattern>
 	</servlet-mapping>
+
 	<servlet-mapping>
-		<servlet-name>NewsServlet</servlet-name>
-		<url-pattern>/services/news</url-pattern>
+		<servlet-name>ClientStyleServlet</servlet-name>
+		<url-pattern>/secured/client/css/1.0/jook.css</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ClientDependenciesServlet</servlet-name>
+		<url-pattern>/secured/client/javascript/1.0/jookdeps.js</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ClientScriptServlet</servlet-name>
+		<url-pattern>/secured/client/javascript/1.0/jook.js</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ClientResourceServlet</servlet-name>
+		<url-pattern>/secured/client/resource/1.0/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>InteractionsServlet</servlet-name>
+		<url-pattern>/secured/client/interactions/1.0/interactions.json</url-pattern>
 	</servlet-mapping>
 	<session-config>
 		<session-timeout>30</session-timeout>

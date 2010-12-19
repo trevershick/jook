@@ -3,14 +3,17 @@
 	<jsp:include page="/WEB-INF/client/1.0/jquery/jquery-1.4.4.min.js"/>
 <% } %>
 <% if (null == request.getParameter("_u") || "true".equals(request.getParameter("_u"))) {%>
-	<jsp:include page="/WEB-INF/client/1.0/jquery/jquery-ui-1.8.7.custom.min.js"/>
+	<jsp:include page="/WEB-INF/client/1.0/jquery/ui/jquery.ui-1.8.7.custom.min.js"/>
 <% } %>
 <% if (null == request.getParameter("_m") || "true".equals(request.getParameter("_m"))) {%>
-	<jsp:include page="/WEB-INF/client/1.0/jquery/jquery.form.js"/>
+	<jsp:include page="/WEB-INF/client/1.0/jquery/form/jquery.form-2.5.2.js"/>
 <% } %>
 <% if (null == request.getParameter("_f") || "true".equals(request.getParameter("_f"))) {%>
-	<jsp:include page="/WEB-INF/client/1.0/facebox/facebox_js.jsp"/>
+	<jsp:include page="/WEB-INF/client/1.0/facebox/facebox-1.2_js.jsp"/>
 <% } %>
+
+<jsp:include page="/WEB-INF/client/1.0/jgrowl/jquery.jgrowl-1.2.5.js"/>
+
 var Jook = {
 	duration : 100,
 	jookTabCount : 0,
@@ -130,7 +133,7 @@ var Jook = {
 	buildPopupTab : function(services) {
 	    var pts = services.popuptab;
 	    for (var i=0;pts && i < pts.length;i++) {
-	    	Jook.maybeShake(ts[i]);
+	    	Jook.maybeShake(pts[i]);
 	    
 	    	var tabIndex = Jook.jookTabCount;
 	    	var a = jQuery("<a></a>");
@@ -193,5 +196,16 @@ var Jook = {
 	    for (var i=0;ps && i < ps.length;i++) {
 	        jQuery.facebox({ ajax: ps[i].url });
 	    }
+	},
+	
+	message : function(messageText, argumentsDict) {
+		jQuery.jGrowl(messageText, argumentsDict);
+	},
+	
+	closeMyDrawer : function(element) {
+		/** pass the jquery selector of an element in the drawer's html like '#jook_feedback_results' **/
+		if ("string" == typeof(element)) {
+			jQuery(element).parents(".target").prev().trigger('click',this);
+		}
 	}
 }

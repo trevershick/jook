@@ -1,7 +1,8 @@
-package com.railinc.jook.web.secure;
+package com.railinc.jook.web.secure.jook;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ import com.railinc.jook.web.util.SetOfStringEditor;
 import com.railinc.jook.web.util.StandardController;
 
 @Controller
-@RequestMapping("secure/interactions")
+@RequestMapping("secure/jook/interactions")
 public class Interactions extends StandardController {
 	public static final String VIEW_INTERACTION_LIST = ".view.interactionList";
 	private static final String REDIRECT_LIST = "redirect:list";
@@ -58,13 +59,8 @@ public class Interactions extends StandardController {
 	
 
 	@ModelAttribute("availableTypes")
-	public List<String> types() {
-		List<String> list = new ArrayList<String>();
-		list.add("popupext");
-		list.add("popup");
-		list.add("popuptab");
-		list.add("tab");
-		return list;
+	public Map<String,String> types() {
+		return StaticInteraction.TYPES;
 	}
 	
 	
@@ -106,7 +102,6 @@ public class Interactions extends StandardController {
 		
 		ValidationUtils.rejectIfEmpty(result, "type", "required");
 		ValidationUtils.rejectIfEmpty(result, "title", "required");
-		ValidationUtils.rejectIfEmpty(result, "url", "required");
 		
 		if (result.hasErrors()) {
 			return VIEW_INTERACTION_FORM;
@@ -115,11 +110,11 @@ public class Interactions extends StandardController {
 		if (p != null) {
 			p.setActive(value.getActive());
 			p.setApplications(value.getApplications());
-			p.setSecured(value.getSecured());
+			p.setSecureUrl(value.getSecureUrl());
+			p.setUnsecureUrl(value.getUnsecureUrl());
 			p.setExcludeApplications(value.getExcludeApplications());
 			p.setTitle(value.getTitle());
 			p.setType(value.getType());
-			p.setUrl(value.getUrl());
 		} else {
 			p = value;
 		}

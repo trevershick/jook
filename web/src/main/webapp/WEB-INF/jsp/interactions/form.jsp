@@ -16,7 +16,7 @@
 	<h1><spring:message code="interactions.form.pagetitle" /></h1>
 	<table>
 		<tr>
-			<td><form:label path="type">
+			<td width="100"><form:label path="type">
 				<spring:message code="interactions.fields.type" />
 				<spring:message code="support.field.separator" />
 			</form:label></td>
@@ -31,12 +31,20 @@
 		</tr>
 
 		<tr>
-			<td><form:label path="url">
-				<spring:message code="interactions.fields.url" />
+			<td><form:label path="unsecureUrl">
+				<spring:message code="interactions.fields.unsecureUrl" />
 				<spring:message code="support.field.separator" />
 			</form:label></td>
-			<td><form:input size="30" path="url" cssErrorClass="noticeError" /></td>
-			<td>Available Parameters - %app%, %ssoUser%</td>
+			<td><form:input size="30" path="unsecureUrl" cssErrorClass="noticeError" /></td>
+			<td>Available Parameters - %app%</td>
+		</tr>
+		<tr>
+			<td><form:label path="secureUrl">
+				<spring:message code="interactions.fields.secureUrl" />
+				<spring:message code="support.field.separator" />
+			</form:label></td>
+			<td><form:input size="30" path="secureUrl" cssErrorClass="noticeError" /></td>
+			<td>Available Parameters - %app%</td>
 		</tr>
 			
 		<tr>
@@ -59,15 +67,6 @@
 			</form:label><form:checkbox id="active" path="active" cssErrorClass="noticeError" />
 			</td>
 			<td><spring:message code="interactions.fields.active.whatisit" /></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td><form:label path="secured">
-				<spring:message code="interactions.fields.secured" />
-				</form:label>
-				<form:checkbox id="secured" path="secured" cssErrorClass="noticeError" />
-			</td>
-			<td><spring:message code="interactions.fields.secured.whatisit" /></td>
 		</tr>
 
 
@@ -114,7 +113,6 @@ jQuery(function() {
 	
 	jQuery("#excludeApplications").button({icons: {primary:'ui-icon-check'}});
 	jQuery("#active").button({icons: {primary:'ui-icon-check'}});
-	jQuery("#secured").button({icons: {primary:'ui-icon-check'}});
 	});
 
 </script>

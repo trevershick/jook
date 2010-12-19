@@ -6,9 +6,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.railinc.jook.Jook;
-import com.railinc.jook.domain.StaticInteraction;
 import com.railinc.jook.interaction.JookInteraction;
 import com.railinc.jook.service.DowntimeService;
+import com.railinc.sso.rt.UserService;
 
 public class DowntimeInteractionFactoryImpl implements JookInteractionFactory {
 	DowntimeService downtimeService;
@@ -25,19 +25,15 @@ public class DowntimeInteractionFactoryImpl implements JookInteractionFactory {
 	public List<? extends JookInteraction> interactions(HttpServletRequest request) {
 		String parameter = request.getParameter(Jook.JOOK_PARAM_APP);
 		List<JookInteraction> j = new ArrayList<JookInteraction>();
+		if (!UserService.getInstance().isAuthenticated(request)) {
+			return j;
+		}
 
 		if (downtimeService.hasDowntimeOverNextNDays(parameter, 30)) {
-			StaticInteraction i = new StaticInteraction();
-			i.setTitle("Downtime");
-			i.setType("tab");
-			i.setUrl(request.getContextPath() +"/services/downtime?content=tab&app=" + parameter);
-			j.add(i);
+			j.add(new JookInteractionVO("tab","Downtime",request.getContextPath() +"/secured/services/downtime?content=tab&app=" + parameter, false));
 		}
 		if (downtimeService.hasImminentDowntime(parameter)) {
-			StaticInteraction i = new StaticInteraction();
-			i.setType("popup");
-			i.setUrl(request.getContextPath() +"/services/downtime?content=popup&app=" + parameter);
-			j.add(i);
+			j.add(new JookInteractionVO("popup","Downtime",request.getContextPath() +"/secured/services/downtime?content=popup&app=" + parameter, false));
 			
 		}
 		return j;

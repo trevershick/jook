@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.railinc.jook.domain.Incident;
-import com.railinc.jook.domain.StaticInteraction;
 import com.railinc.jook.service.MySupportService;
 import com.railinc.jook.web.util.StandardController;
 

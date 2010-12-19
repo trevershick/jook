@@ -1,7 +1,6 @@
 package com.railinc.jook.web.client.v1_0;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

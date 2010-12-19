@@ -13,7 +13,7 @@ public interface JookManagementService {
 	long registeredProviderCount();
 	
 	JookInteractionProvider getProvider(String name);
-	JookInteractionProvider createProvider(String name, String url,String[] apps);
+//	JookInteractionProvider createProvider(String name, String url,String[] apps);
 	void updateProvider(JookInteractionProvider p);
 	void deleteProvider(JookInteractionProvider f);
 	void updateInteraction(StaticInteraction p);
@@ -21,7 +21,7 @@ public interface JookManagementService {
 	StaticInteraction getInteraction(Long id);
 	List<StaticInteraction> interactions(int i, int maxValue, Object object,
 			boolean b);
-	List<? extends JookInteraction> active();
+	List<StaticInteraction> active(boolean secured);
 	
 	
 }

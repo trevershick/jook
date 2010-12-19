@@ -5,7 +5,6 @@ package com.railinc.jook.interaction;
  *
  */
 public interface JookInteraction {
-	
 	String getType();
 	String getTitle();
 	String getUrl();

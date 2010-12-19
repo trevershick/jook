@@ -156,25 +156,33 @@
 	
 	
 	
+	<definition name=".jookModule" extends=".railincMain">
+		<put-attribute name="appTitle" value="Jook" />
+		<put-attribute name="sidebarcolumns" value="2"/>
+		<put-attribute name="sidebarTail" value="/WEB-INF/jsp/jook/sidebar.jsp"/>
+	</definition>
+	<definition name=".view.jook.home" extends=".jookModule">
+		<put-attribute name="appTitle" value="Jook - Home"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/null.jsp" />
+	</definition>	
 	
-	
-	<definition name=".view.providerDetails" extends=".railincMain">
+	<definition name=".view.providerDetails" extends=".jookModule">
 		<put-attribute name="appTitle" value="Jook - Provider Details"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/providers/provider.jsp" />
 	</definition>
-	<definition name=".view.providerForm" extends=".railincMain">
+	<definition name=".view.providerForm" extends=".jookModule">
 		<put-attribute name="appTitle" value="Jook - Create/Update Provider"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/providers/form.jsp" />
 	</definition>
-	<definition name=".view.providerList" extends=".railincMain">
+	<definition name=".view.providerList" extends=".jookModule">
 		<put-attribute name="appTitle" value="Jook - Interaction Providers"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/providers/list.jsp" />
 	</definition>
-	<definition name=".view.interactionForm" extends=".railincMain">
+	<definition name=".view.interactionForm" extends=".jookModule">
 		<put-attribute name="appTitle" value="Jook - Create/Update Provider"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/interactions/form.jsp" />
 	</definition>
-	<definition name=".view.interactionList" extends=".railincMain">
+	<definition name=".view.interactionList" extends=".jookModule">
 		<put-attribute name="appTitle" value="Jook - Interaction Providers"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/interactions/list.jsp" />
 	</definition>
