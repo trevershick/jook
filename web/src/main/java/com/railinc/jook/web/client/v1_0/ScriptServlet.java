@@ -16,7 +16,6 @@ import com.railinc.jook.Jook;
 import com.railinc.jook.domain.JookInteractionProvider;
 import com.railinc.jook.service.JookService;
 import com.railinc.jook.web.Constants;
-import com.railinc.sso.rt.UserService;
 /**
  * this is what loops over the interaction providers adn return jook.js. This should
  * be as FAST as possible.
@@ -45,7 +44,7 @@ public class ScriptServlet extends BaseServlet {
 		
 		List<JookInteractionProvider> providersForModuleId = jookService.providersForModuleId(moduleId);
 		
-		boolean secured = UserService.getInstance().isAuthenticated(req);
+		boolean secured = req.getRemoteUser() != null;
 		for (JookInteractionProvider p : providersForModuleId) {
 			if (secured && p.getSecureUrl() != null && p.isAvailableForApp(moduleId)) {
 				urls.add(p.getSecureUrl());

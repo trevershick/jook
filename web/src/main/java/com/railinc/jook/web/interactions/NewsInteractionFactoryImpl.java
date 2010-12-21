@@ -9,7 +9,6 @@ import com.railinc.jook.interaction.JookInteraction;
 import com.railinc.jook.service.NewsService;
 import com.railinc.jook.service.ViewTrackingService;
 import com.railinc.jook.web.Constants;
-import com.railinc.sso.rt.UserService;
 
 public class NewsInteractionFactoryImpl implements JookInteractionFactory {
 	NewsService service;
@@ -37,12 +36,12 @@ public class NewsInteractionFactoryImpl implements JookInteractionFactory {
 	public List<? extends JookInteraction> interactions(HttpServletRequest request) {
 		String parameter = request.getParameter(Constants.JOOK_PARAM_APP);
 		List<JookInteraction> j = new ArrayList<JookInteraction>();
-		if (!UserService.getInstance().isAuthenticated(request)) {
+		if (request.getRemoteUser() == null) {
 			return j;
 		}
 
 		if (service.hasNewsItemsToShow(parameter)) {
-			String user = user(request);
+			String user = request.getRemoteUser();
 			j.add(new JookInteractionVO("tab", "News", 
 					request.getContextPath() +"/services/news?app=" + parameter,
 					user != null && false == viewTracking.hasUserSeen(user, VIEWTRACKING_APPNAME, VIEWTRACKING_RESOURCE)));
@@ -51,10 +50,4 @@ public class NewsInteractionFactoryImpl implements JookInteractionFactory {
 		return j;
 	}
 
-	private String user(HttpServletRequest r) {
-		if (UserService.getInstance().isAuthenticated(r)) {
-			return UserService.getLoggedUser(r).getUserId();
-		}
-		return null;
-	}
 }

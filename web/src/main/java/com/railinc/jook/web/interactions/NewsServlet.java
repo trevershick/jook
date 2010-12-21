@@ -18,7 +18,6 @@ import com.railinc.jook.domain.NewsItem;
 import com.railinc.jook.service.NewsService;
 import com.railinc.jook.service.ViewTrackingService;
 import com.railinc.jook.web.Constants;
-import com.railinc.sso.rt.UserService;
 
 /**
  * Servlet implementation class DowntimeServlet
@@ -64,7 +63,7 @@ public class NewsServlet extends HttpServlet {
 		}
 		writer.write("</div>");
 		
-		String user = viewTracking != null ? user(request) : null;
+		String user = viewTracking != null ? request.getRemoteUser() : null;
 		if (user != null && viewTracking != null) {
 			viewTracking.userJustSaw(user, NewsInteractionFactoryImpl.VIEWTRACKING_APPNAME, NewsInteractionFactoryImpl.VIEWTRACKING_RESOURCE);
 		}
@@ -86,10 +85,5 @@ public class NewsServlet extends HttpServlet {
 				.hasNext() ? beans.values().iterator().next() : null);
 	}
 
-	private String user(HttpServletRequest r) {
-		if (UserService.getInstance().isAuthenticated(r)) {
-			return UserService.getLoggedUser(r).getUserId();
-		}
-		return null;
-	}
+
 }

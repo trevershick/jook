@@ -9,7 +9,6 @@ import com.railinc.jook.JookManagementService;
 import com.railinc.jook.domain.StaticInteraction;
 import com.railinc.jook.interaction.JookInteraction;
 import com.railinc.jook.web.Constants;
-import com.railinc.sso.rt.UserService;
 
 /**
  * returns the StaticJookInteraction objects from the database.
@@ -31,9 +30,10 @@ public class StaticInteractionFactoryImpl implements JookInteractionFactory {
 	public List<? extends JookInteraction> interactions(HttpServletRequest request) {
 		
 		String moduleId = request.getParameter(Constants.JOOK_PARAM_APP);
-		List<StaticInteraction> active = getService().active(UserService.getInstance().isAuthenticated(request));
+		boolean authenticated = request.getRemoteUser() != null;
+
+		List<StaticInteraction> active = getService().active(authenticated);
 		List<JookInteractionVO> al = new ArrayList<JookInteractionVO>(active.size());
-		boolean authenticated = UserService.getInstance().isAuthenticated(request);
 		
 		for (StaticInteraction si : active) {
 			if (authenticated && si.getSecureUrl() != null && si.isAvailableForApp(moduleId)) {
