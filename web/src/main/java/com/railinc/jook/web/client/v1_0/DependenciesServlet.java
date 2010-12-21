@@ -3,11 +3,12 @@ package com.railinc.jook.web.client.v1_0;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class DependenciesServlet extends HttpServlet {
+import com.railinc.jook.web.Constants;
+
+public class DependenciesServlet extends BaseServlet {
 
 	/**
 	 * 
@@ -22,8 +23,9 @@ public class DependenciesServlet extends HttpServlet {
 //		String moduleId = req.getParameter("app");
 //		List<JookInteractionProvider> providersForModuleId = jookService.providersForModuleId(moduleId);
 //		req.setAttribute("providers", providersForModuleId);
-		resp.setContentType("text/javascript");
-		resp.setHeader("Cache-Control", "max-age=0, private");
+		resp.setContentType(Constants.CONTENT_TYPE_JAVASCRIPT);
+		
+		setCacheControlHeader(resp, Constants.PROPKEY_CACHE_JOOKDEPS_MAXAGE, Constants.DEFAULT_CACHE_JOOKDEPS_MAXAGE);
 		req.getRequestDispatcher("/WEB-INF/client/1.0/core/jook_deps_js.jsp").include(req, resp);
 	}
 

@@ -3,11 +3,12 @@ package com.railinc.jook.web.client.v1_0;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ResourceServlet extends HttpServlet {
+import com.railinc.jook.web.Constants;
+
+public class ResourceServlet extends BaseServlet {
 	private static final String MIMETYPE_JS = "text/javascript";
 	private static final String MIMETYPE_CSS = "text/css";
 	private static final String MIMETYPE_GIF = "image/gif";
@@ -33,7 +34,10 @@ public class ResourceServlet extends HttpServlet {
 			ext = path.substring(pIdx + 1);
 		}
 		applyMimeType(ext,resp);
-		resp.setHeader("Cache-Control", "max-age=3600, private");
+		setCacheControlHeader(resp, Constants.PROPKEY_CACHE_JOOKRESOURCES_MAXAGE, 
+				Constants.DEFAULT_CACHE_JOOKRESOURCES_MAXAGE);
+		
+		resp.setHeader(Constants.HTTP_HEADER_CACHE_CONTROL, "max-age=0, private");
 
 		req.getRequestDispatcher("/WEB-INF/client/1.0" + path).forward(req, resp);
 	}

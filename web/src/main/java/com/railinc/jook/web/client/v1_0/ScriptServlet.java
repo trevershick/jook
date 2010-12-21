@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,7 +24,7 @@ import com.railinc.sso.rt.UserService;
  * @author tshick
  *
  */
-public class ScriptServlet extends HttpServlet {
+public class ScriptServlet extends BaseServlet {
 
 	
 
@@ -59,7 +58,8 @@ public class ScriptServlet extends HttpServlet {
 		resp.setContentType(Constants.CONTENT_TYPE_JAVASCRIPT);
 
 		// 180 seconds
-		resp.setHeader(Constants.HTTP_HEADER_CACHE_CONTROL, "max-age=1800, private");
+		setCacheControlHeader(resp, Constants.PROPKEY_CACHE_JOOKSCRIPT_MAXAGE, 
+				Constants.DEFAULT_CACHE_JOOKSCRIPT_MAXAGE);
 
 		req.getRequestDispatcher("/WEB-INF/client/1.0/core/jook_js.jsp").include(req, resp);
 

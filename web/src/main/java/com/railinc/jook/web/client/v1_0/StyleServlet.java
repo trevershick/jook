@@ -3,11 +3,12 @@ package com.railinc.jook.web.client.v1_0;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class StyleServlet extends HttpServlet {
+import com.railinc.jook.web.Constants;
+
+public class StyleServlet extends BaseServlet {
 
 	/**
 	 * 
@@ -18,11 +19,11 @@ public class StyleServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-//		String moduleId = req.getParameter("app");
-//		String ssoUser = req.getParameter("ssoUser");
-		resp.setContentType("text/css");
-		resp.setHeader("Cache-Control", "max-age=0, private");
 
+		setCacheControlHeader(resp, Constants.PROPKEY_CACHE_JOOKSTYLE_MAXAGE, 
+				Constants.DEFAULT_CACHE_JOOKSTYLE_MAXAGE);
+
+		resp.setContentType("text/css");
 		if (null == req.getParameter("_k") || "true".equals(req.getParameter("_k"))) {
 			req.getRequestDispatcher("/WEB-INF/client/1.0/core/jook_css.jsp").include(req,resp);
 		}

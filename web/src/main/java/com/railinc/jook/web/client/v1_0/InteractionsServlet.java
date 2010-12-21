@@ -1,4 +1,4 @@
-package com.railinc.jook.web;
+package com.railinc.jook.web.client.v1_0;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,9 +17,10 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.railinc.jook.Collections;
 import com.railinc.jook.Predicate;
 import com.railinc.jook.interaction.JookInteraction;
+import com.railinc.jook.web.Constants;
 import com.railinc.jook.web.interactions.JookInteractionFactory;
 
-public class InteractionsServlet extends HttpServlet {
+public class InteractionsServlet extends BaseServlet {
 
 	/**
 	 * 
@@ -49,11 +49,14 @@ public class InteractionsServlet extends HttpServlet {
 		req.setAttribute("interactions", partition);
 		// 3 minute max age
 		
+
 		// don't cache if 'shake' was set...
 		if (shakeSet) {
-			resp.setHeader("Cache-Control", "max-age=0, no-cache");
+			setCacheControlHeader(resp, Constants.PROPKEY_CACHE_INTERACTIONS_MAXAGE_SHAKE, 
+					Constants.DEFAULT_CACHE_INTERACTIONS_MAXAGE_SHAKE);
 		} else {
-			resp.setHeader("Cache-Control", "max-age=180, private");
+			setCacheControlHeader(resp, Constants.PROPKEY_CACHE_INTERACTIONS_MAXAGE_NOSHAKE, 
+					Constants.DEFAULT_CACHE_INTERACTIONS_MAXAGE_NOSHAKE);
 		}
 
 		req.getRequestDispatcher("/WEB-INF/jsp/interactions/interactions.jsp").forward(req, resp);

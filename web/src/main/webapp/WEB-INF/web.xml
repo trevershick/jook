@@ -170,7 +170,7 @@
 		</description>
 		<display-name>*** Special - Jook Interactions Servlet ***</display-name>
 		<servlet-name>InteractionsServlet</servlet-name>
-		<servlet-class>com.railinc.jook.web.InteractionsServlet</servlet-class>
+		<servlet-class>com.railinc.jook.web.client.v1_0.InteractionsServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet>
