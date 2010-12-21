@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.railinc.jook.Jook;
 import com.railinc.jook.domain.Downtime;
 import com.railinc.jook.service.DowntimeService;
+import com.railinc.jook.web.Constants;
 
 /**
  * Servlet implementation class DowntimeServlet
@@ -39,7 +39,7 @@ public class DowntimeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String param = request.getParameter("content");
-		String app = request.getParameter(Jook.JOOK_PARAM_APP);
+		String app = request.getParameter(Constants.JOOK_PARAM_APP);
 		if ("tab".equals(param)) {
 			response.setContentType("text/html");
 			response.getWriter().write("<h1>Upcoming Downtime</h1>");
@@ -70,10 +70,12 @@ public class DowntimeServlet extends HttpServlet {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		context = WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext());
+		
 		Map beans = context.getBeansOfType(DowntimeService.class);
 		this.downtimeService = (DowntimeService) (beans.values().iterator().hasNext() ? beans.values().iterator().next() : null);
 	}

@@ -25,6 +25,11 @@ import org.w3c.dom.NodeList;
 
 public class SVGServlet extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5418967839103738610L;
+	
 	private XPathFactory xpathfactory;
 
 	@Override

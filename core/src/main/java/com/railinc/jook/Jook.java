@@ -1,6 +1,7 @@
 package com.railinc.jook;
 
 public interface Jook {
-	String JOOK_PARAM_APP = "app";
-	String JOOK_PARAM_SSOUSER = "su";
+
+	String SPRING_BEAN_NAME_JOOK_SERVICE = "jookService";
+
 }

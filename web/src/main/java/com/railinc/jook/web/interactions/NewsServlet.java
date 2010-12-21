@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.railinc.jook.Jook;
 import com.railinc.jook.domain.NewsItem;
 import com.railinc.jook.service.NewsService;
 import com.railinc.jook.service.ViewTrackingService;
+import com.railinc.jook.web.Constants;
 import com.railinc.sso.rt.UserService;
 
 /**
@@ -35,7 +35,7 @@ public class NewsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String app = request.getParameter(Jook.JOOK_PARAM_APP);
+		String app = request.getParameter(Constants.JOOK_PARAM_APP);
 
 		response.setContentType("text/html");
 
@@ -71,6 +71,7 @@ public class NewsServlet extends HttpServlet {
 
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);

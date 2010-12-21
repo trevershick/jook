@@ -26,7 +26,6 @@ public class ResourceServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String servletPath = req.getServletPath();
 		String path = req.getPathInfo();
 		String ext = null;
 		int pIdx = path.lastIndexOf('.');

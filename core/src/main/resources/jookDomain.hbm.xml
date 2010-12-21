@@ -47,7 +47,7 @@
 		<property name="secureUrl" not-null="true"/>
 		<property name="active" not-null="true" />
 		<property name="excludeApplications" not-null="true" />
-		<set name="applications" table="SIApplication">
+		<set name="applications" table="SIApplication" fetch="join" lazy="false">
             <key column="interaction_id"/>
            	<element column="name" type="string"/>
       	</set>
@@ -65,7 +65,8 @@
 		<property name="unsecureUrl" not-null="true"/>
 		<property name="secureUrl" not-null="true"/>
 		<property name="active" not-null="true"/>
-		<set name="applications" table="JIApplication">
+		<property name="excludeApplications" not-null="true" />
+		<set name="applications" table="JIApplication" fetch="join" lazy="false">
             <key column="provider_id"/>
            	<element column="name" type="string"/>
       	</set>

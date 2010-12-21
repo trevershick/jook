@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.railinc.jook.Jook;
 import com.railinc.jook.interaction.JookInteraction;
 import com.railinc.jook.service.NewsService;
 import com.railinc.jook.service.ViewTrackingService;
+import com.railinc.jook.web.Constants;
 import com.railinc.sso.rt.UserService;
 
 public class NewsInteractionFactoryImpl implements JookInteractionFactory {
@@ -35,7 +35,7 @@ public class NewsInteractionFactoryImpl implements JookInteractionFactory {
 
 	@Override
 	public List<? extends JookInteraction> interactions(HttpServletRequest request) {
-		String parameter = request.getParameter(Jook.JOOK_PARAM_APP);
+		String parameter = request.getParameter(Constants.JOOK_PARAM_APP);
 		List<JookInteraction> j = new ArrayList<JookInteraction>();
 		if (!UserService.getInstance().isAuthenticated(request)) {
 			return j;

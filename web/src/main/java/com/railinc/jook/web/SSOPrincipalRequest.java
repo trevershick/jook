@@ -59,7 +59,8 @@ public class SSOPrincipalRequest extends HttpServletRequestWrapper {
 		if (user == null) {
 			return false;
 		}
-		Collection entities = user.getEntities(roleId);
+		@SuppressWarnings("unchecked")
+		Collection<String> entities = user.getEntities(roleId);
 		return entities != null && entities.contains(roleId);
 	}
 
@@ -69,7 +70,7 @@ public class SSOPrincipalRequest extends HttpServletRequestWrapper {
 		}
 		if (arg0.contains("\\")) {
 			String[] split = arg0.split("\\\\");
-			String mark = split[0];
+//			String mark = split[0];
 			String roleId = split[1];
 			return userHasRole(roleId, loggedUser());
 		} else {

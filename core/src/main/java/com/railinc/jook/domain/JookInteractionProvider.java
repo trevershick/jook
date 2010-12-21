@@ -2,11 +2,24 @@ package com.railinc.jook.domain;
 
 import java.util.Set;
 
+import com.railinc.fukumu.Fukumu;
+
 
 
 public class JookInteractionProvider extends DomainObject {
 	String name;
 	
+	Boolean excludeApplications = Boolean.FALSE;
+	public Boolean getExcludeApplications() {
+		if (excludeApplications == null) {
+			excludeApplications = Boolean.FALSE;
+		}
+		return excludeApplications;
+	}
+	public void setExcludeApplications(Boolean excludeApplications) {
+		this.excludeApplications = excludeApplications;
+	}
+
 	Set<String> applications;
 	Boolean active = Boolean.FALSE;
 
@@ -56,5 +69,9 @@ public class JookInteractionProvider extends DomainObject {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
-	
+
+	public boolean isAvailableForApp(String moduleId) {
+		return new Fukumu<String>(getApplications()).includeByDefault(!this.getExcludeApplications()).includes(moduleId);
+	}
+
 }

@@ -1,9 +1,7 @@
 package com.railinc.jook.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -14,7 +12,6 @@ import com.railinc.jook.Predicate;
 import com.railinc.jook.domain.DomainObject;
 import com.railinc.jook.domain.JookInteractionProvider;
 import com.railinc.jook.domain.StaticInteraction;
-import com.railinc.jook.interaction.JookInteraction;
 import com.railinc.jook.service.JookService;
 
 public class JookServiceImpl extends BaseServiceImpl<JookInteractionProvider> implements JookService, JookManagementService {
@@ -23,9 +20,7 @@ public class JookServiceImpl extends BaseServiceImpl<JookInteractionProvider> im
 	List<JookInteractionProvider> providers = new ArrayList<JookInteractionProvider>();
 
 	public  JookServiceImpl() {
-//		providers.add(new JookInteractionProvider("Notices", "/notices/services.json"));
-//		providers.add(new JookInteractionProvider("News", "/garygnu/services.json"));
-//		providers.add(new JookInteractionProvider("Jook Services", "/jook/interactions"));
+
 	}
 
 	@Override
@@ -35,23 +30,7 @@ public class JookServiceImpl extends BaseServiceImpl<JookInteractionProvider> im
 					public Boolean call(JookInteractionProvider o) { return o.getActive();}	
 				});
 	}
-//
-//	@Override
-//	public JookInteractionProvider createProvider(String name, String url,String[] apps) {
-//		JookInteractionProvider p = new JookInteractionProvider();
-//		p.setName(name);
-//		p.setServicesJsonPath(url);
-//		if (apps != null) {
-//			Set<String> s = new HashSet<String>();
-//			for (String a : apps) {
-//				s.add(a);
-//			}
-//			p.setApplications(s);
-//		}
-//		getHibernateTemplate().save(p);
-//		
-//		return p;
-//	}
+
 
 	@Override
 	public List<JookInteractionProvider> registeredProviders(int start,

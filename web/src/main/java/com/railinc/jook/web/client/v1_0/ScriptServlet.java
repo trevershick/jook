@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.railinc.jook.Jook;
 import com.railinc.jook.domain.JookInteractionProvider;
 import com.railinc.jook.service.JookService;
+import com.railinc.jook.web.Constants;
 import com.railinc.sso.rt.UserService;
 /**
  * this is what loops over the interaction providers adn return jook.js. This should
@@ -24,6 +26,10 @@ import com.railinc.sso.rt.UserService;
  *
  */
 public class ScriptServlet extends HttpServlet {
+
+	
+
+	public static final String MODEL_PROVIDER_URL_COLLECTION = "providers";
 
 	/**
 	 * 
@@ -35,25 +41,25 @@ public class ScriptServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String moduleId = req.getParameter("app");
+		String moduleId = req.getParameter(Constants.JOOK_PARAM_APP);
 		List<String> urls = new ArrayList<String>();
 		
 		List<JookInteractionProvider> providersForModuleId = jookService.providersForModuleId(moduleId);
 		
 		boolean secured = UserService.getInstance().isAuthenticated(req);
 		for (JookInteractionProvider p : providersForModuleId) {
-			if (secured && p.getSecureUrl() != null) {
+			if (secured && p.getSecureUrl() != null && p.isAvailableForApp(moduleId)) {
 				urls.add(p.getSecureUrl());
-			} else if (!secured && p.getUnsecureUrl() != null) {
+			} else if (!secured && p.getUnsecureUrl() != null && p.isAvailableForApp(moduleId)) {
 				urls.add(p.getUnsecureUrl());
 			}
 		}
 		
-		req.setAttribute("providers", urls);
-		resp.setContentType("text/javascript");
+		req.setAttribute(MODEL_PROVIDER_URL_COLLECTION, urls);
+		resp.setContentType(Constants.CONTENT_TYPE_JAVASCRIPT);
 
 		// 180 seconds
-		resp.setHeader("Cache-Control", "max-age=1800, private");
+		resp.setHeader(Constants.HTTP_HEADER_CACHE_CONTROL, "max-age=1800, private");
 
 		req.getRequestDispatcher("/WEB-INF/client/1.0/core/jook_js.jsp").include(req, resp);
 
@@ -63,7 +69,7 @@ public class ScriptServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext());
-		jookService = (JookService) context.getBean("jookService");
+		jookService = (JookService) context.getBean(Jook.SPRING_BEAN_NAME_JOOK_SERVICE);
 	}
 
 	

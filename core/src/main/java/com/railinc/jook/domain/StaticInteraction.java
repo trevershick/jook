@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.railinc.fukumu.Fukumu;
+
 public class StaticInteraction extends DomainObject {
 
 	public String getSecureUrl() {
@@ -82,6 +84,11 @@ public class StaticInteraction extends DomainObject {
 		list.put("popuptab", "Drawer Popup Dialog");
 		list.put("tab", "Drawer");
 		StaticInteraction.TYPES = Collections.unmodifiableMap(list);
+	}
+
+
+	public boolean isAvailableForApp(String moduleId) {
+		return new Fukumu<String>(getApplications()).includeByDefault(!this.getExcludeApplications()).includes(moduleId);
 	}
 
 }
