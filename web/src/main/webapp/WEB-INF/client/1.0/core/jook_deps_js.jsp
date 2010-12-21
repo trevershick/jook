@@ -13,6 +13,25 @@
 <% } %>
 
 <jsp:include page="/WEB-INF/client/1.0/jgrowl/jquery.jgrowl-1.2.5.js"/>
+var gadgets = {};
+
+function gadgets_Prefs(moduleId) {
+	var thedata = null;
+	jQuery.ajax({
+		url:"<%=request.getContextPath()%>/secured/client/preferences/1.0/" + moduleId + ".json",
+		dataType:"json",success:function(data){thedata=data;},async:false});
+	this.data = thedata;
+	this.getString = function(preferenceName) {
+		if (typeof(this.data[preferenceName]) == "undefined" || this.data[preferenceName] == null) {return null;}
+		return this.data[preferenceName].value;
+	}
+	this.set = function(key,val) {
+		this.data['key'] = val;
+		jQuery.ajax({
+		url:"<%=request.getContextPath()%>/secured/client/preferences/1.0/" + moduleId + ".json",
+		type:"POST", dataType:"json",data:{key:key,value:val}});}
+}
+gadgets.Prefs = gadgets_Prefs;
 
 var Jook = {
 	duration : 100,

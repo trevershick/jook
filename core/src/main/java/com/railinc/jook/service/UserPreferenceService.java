@@ -25,4 +25,7 @@ public interface UserPreferenceService {
 	 * @return a list of preference objects populated with defaults from the preference specs (never null)
 	 */
 	public List<Preference> getApplicationDefaults(String applicationKey);
+
+	public void updateUserPreference(String app, String user, String key,
+			String value);
 }

@@ -3,6 +3,7 @@ package com.railinc.jook.service.impl;
 import static com.railinc.jook.ExceptionUtils.argumentCantBeNull;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -40,7 +41,7 @@ public class UserPreferenceServiceImpl extends BaseServiceImpl<Preference> imple
 		c1.createAlias("group", "g");
 		c1.add(Restrictions.eq("g.applicationKey", applicationKey));
 		if (specsAlreadyLoaded.size() > 0) {
-			c1.add(Restrictions.not(Restrictions.in("specId", specsAlreadyLoaded)));
+			c1.add(Restrictions.not(Restrictions.in("id", specsAlreadyLoaded)));
 		}
 		
 		List<PreferenceSpec> objs = list(PreferenceSpec.class, c1);
@@ -103,6 +104,27 @@ public class UserPreferenceServiceImpl extends BaseServiceImpl<Preference> imple
 	@Override
 	protected Class<? extends DomainObject> domainClass() {
 		return Preference.class;
+	}
+
+
+
+	@Override
+	public void updateUserPreference(String app, String user, String key,
+			String value) {
+		List<Preference> userPreferences = getUserPreferences(app, user);
+		for (Preference p : userPreferences) {
+			if (p.getSpecification().getKey().equals(key)) {
+				p.setValue(value);
+				if (p.getId() == null) {
+					p.setCreated(new Date());
+					p.setCreator(user);
+					p.setUserId(user);
+				}
+				p.setLastModified(new Date());
+				p.setLastModifier(user);
+				getHibernateTemplate().save(p);
+			}
+		}
 	}
 
 }

@@ -1,0 +1,22 @@
+<div id="theResults">
+
+
+Preference 1 Value - <input type="text" id="jook_prefs_text"/>
+<input type="button" onclick="update_prefs()" value="Update Preferences"/>
+
+
+
+
+
+</div>
+<script type="text/javascript">
+var prefs = new gadgets.Prefs("jook_prefs");
+
+var someStringPref = prefs.getString("pref1");
+jQuery("#jook_prefs_text").val(someStringPref);
+
+
+function update_prefs() {
+	prefs.set("pref1", jQuery("#jook_prefs_text").val());
+}
+</script>

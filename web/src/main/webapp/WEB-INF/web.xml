@@ -49,15 +49,11 @@
 	
 	<filter-mapping>
 		<filter-name>ssoPrincipalFilter</filter-name>
-		<url-pattern>/main/*</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>sessionValidationFilter</filter-name>
 		<url-pattern>/main/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>ssoPrincipalFilter</filter-name>
-		<url-pattern>/secured/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>sessionValidationFilter</filter-name>
@@ -75,6 +71,12 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<servlet>
+		<display-name>Barkley Preferences Servlet</display-name>
+		<servlet-name>UserPreferencesServlet</servlet-name>
+		<servlet-class>com.railinc.jook.web.client.v1_0.PreferencesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 	<servlet>
 		<description>
 		Used to drive the Spring MVC for the main jook administrative application.
@@ -239,6 +241,10 @@ this would mean the taglib needs to switched based on whether a person is logged
 		<url-pattern>/client/interactions/1.0/interactions.json</url-pattern>
 	</servlet-mapping>
 
+	<servlet-mapping>
+		<servlet-name>UserPreferencesServlet</servlet-name>
+		<url-pattern>/secured/client/preferences/1.0/*</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ClientStyleServlet</servlet-name>
 		<url-pattern>/secured/client/css/1.0/jook.css</url-pattern>

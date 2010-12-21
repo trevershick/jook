@@ -43,8 +43,8 @@
 		</id>
 		<property name="type" not-null="true"/>
 		<property name="title" not-null="true"/>
-		<property name="unsecureUrl" not-null="true"/>
-		<property name="secureUrl" not-null="true"/>
+		<property name="unsecureUrl" />
+		<property name="secureUrl" />
 		<property name="active" not-null="true" />
 		<property name="excludeApplications" not-null="true" />
 		<set name="applications" table="SIApplication" fetch="join" lazy="false">
@@ -62,8 +62,8 @@
 			<generator class="native"/>
 		</id>
 		<property name="name" not-null="true"/>
-		<property name="unsecureUrl" not-null="true"/>
-		<property name="secureUrl" not-null="true"/>
+		<property name="unsecureUrl" />
+		<property name="secureUrl" />
 		<property name="active" not-null="true"/>
 		<property name="excludeApplications" not-null="true" />
 		<set name="applications" table="JIApplication" fetch="join" lazy="false">
