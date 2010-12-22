@@ -47,6 +47,7 @@ public class Providers extends StandardController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
 		binder.registerCustomEditor(Set.class, "applications", new SetOfStringEditor());
+		binder.registerCustomEditor(Set.class, "requiredRoles", new SetOfStringEditor());
 	}
 
 	@ModelAttribute("totalProviderCount")
@@ -102,6 +103,9 @@ public class Providers extends StandardController {
 		if (p != null) {
 			p.setUnsecureUrl(value.getUnsecureUrl());
 			p.setSecureUrl(value.getSecureUrl());
+			p.setApplications(value.getApplications());
+			p.setExcludeApplications(value.getExcludeApplications());
+			p.setRequiredRoles(value.getRequiredRoles());
 			p.setActive(value.getActive());
 		} else {
 			p = value;

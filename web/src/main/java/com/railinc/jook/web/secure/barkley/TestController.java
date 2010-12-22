@@ -66,6 +66,7 @@ public class TestController {
 	public String upreferences(ModelMap model, @RequestParam(value="app",required=false) String appKey, @RequestParam(value="user",required=false) String userId) {
 		if (StringUtils.isNotBlank(userId) && StringUtils.isNotBlank(appKey)) {
 			List<Preference> preferences = getService().getUserPreferences(appKey, userId);
+
 			model.addAttribute("preferences", preferences);
 		}
 		return ".view.barkley.prefs.upreferences";

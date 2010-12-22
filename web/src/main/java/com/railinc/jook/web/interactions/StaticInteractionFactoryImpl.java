@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.railinc.jook.Collections;
 import com.railinc.jook.JookManagementService;
+import com.railinc.jook.Predicate;
 import com.railinc.jook.domain.StaticInteraction;
+import com.railinc.jook.domain.StaticInteraction.RoleInterrogator;
 import com.railinc.jook.interaction.JookInteraction;
 import com.railinc.jook.web.Constants;
 
@@ -27,21 +30,50 @@ public class StaticInteractionFactoryImpl implements JookInteractionFactory {
 	}
 
 	@Override
-	public List<? extends JookInteraction> interactions(HttpServletRequest request) {
+	public List<? extends JookInteraction> interactions(final HttpServletRequest request) {
 		
-		String moduleId = request.getParameter(Constants.JOOK_PARAM_APP);
-		boolean authenticated = request.getRemoteUser() != null;
+		final String moduleId = request.getParameter(Constants.JOOK_PARAM_APP);
 
-		List<StaticInteraction> active = getService().active(authenticated);
+		final boolean secured = request.getRemoteUser() != null;
+
+		List<StaticInteraction> active = getService().active(secured);
 		List<JookInteractionVO> al = new ArrayList<JookInteractionVO>(active.size());
+
 		
-		for (StaticInteraction si : active) {
-			if (authenticated && si.getSecureUrl() != null && si.isAvailableForApp(moduleId)) {
-				al.add(new JookInteractionVO(si.getType(), si.getTitle(), si.getSecureUrl(), false));
-			} else if (!authenticated && si.getUnsecureUrl() != null && si.isAvailableForApp(moduleId)) {
-				al.add(new JookInteractionVO(si.getType(), si.getTitle(), si.getSecureUrl(), false));
+
+		// pick out the providers that have URLs that are secured or unsecured based on the secure variable
+		active = Collections.selectAsList(active, new Predicate<StaticInteraction , Boolean>() {
+			@Override
+			public Boolean call(StaticInteraction o) {
+				if (secured) {
+					return o.getSecureUrl() != null;
+				} else {
+					return o.getUnsecureUrl() != null;
+				}
 			}
-		}
+		});
+
+		
+		final RoleInterrogator interrogator = new RoleInterrogator() {
+			@Override
+			public boolean hasRole(String role) {
+				return request.isUserInRole(role);
+			}
+		};
+
+		active = Collections.selectAsList(active, new Predicate<StaticInteraction, Boolean>() {
+			@Override
+			public Boolean call(StaticInteraction o) {
+				return o.isAvailableForApp(moduleId) && o.isAvailableToUser(interrogator);
+			}
+		});
+
+
+		
+				
+		for (StaticInteraction si : active) {
+			al.add(new JookInteractionVO(si.getType(), si.getTitle(), si.getSecureUrl(), false));
+		}			
 		return al;
 	}
 

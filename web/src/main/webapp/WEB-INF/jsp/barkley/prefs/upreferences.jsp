@@ -8,13 +8,7 @@
 <spring:message code="barkley.prefs.upreferences.p"/>
 </p>
 
-<h1><spring:message code="barkley.prefs.upreferences.serviceurls.header"/></h1>
-<c:if test="${! empty param.user && ! empty param.app}">
-<ul>
-<li><a href="${pageContext.request.contextPath }/main/global/service/preferences?user=${param.user }&app=${param.app }">/barkley/main/global/service?user=${param.user }&app=${param.app }</a></li>
-<li><a href="${pageContext.request.contextPath }/main/global/service/preferences?user=${param.user }&app=${param.app }&format=xml">/barkley/main/global/service?user=${param.user }&app=${param.app }&format=xml</a></li>
-</ul>
-</c:if>
+
 
 
 <c:if test="${empty param.user || empty param.app}">
@@ -93,18 +87,3 @@ $().ready(function() {
 ); </script>
 
 
-<c:if test="${not empty param.user and not empty param.app}">
-
-
-<h1>JSON Results</h1>
-<div id="jsonResults">
-</div>
-
-<script>
-$().ready(function() 
-    { 
-        $("#jsonResults").load("${pageContext.request.contextPath }/main/global/service/preferences?user=${param.user }&app=${param.app }");         
-    } 
-); 
-</script>
-</c:if>

@@ -48,7 +48,7 @@
 				</td>
 				<td>
 				<app:editicon url="update?id=${result.id }"/>
-				<app:deleteicon url="update?prefId=${p.prefId }&q=${param.q }"/>
+				<app:deleteicon url="update?prefId=${p.id }&q=${param.q }"/>
 				<app:objecthistoryicon objectId="${result.id}" objectType="com.railinc.jook.domain.PreferenceSpec"/>			
 				</td>
 			</tr>

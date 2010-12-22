@@ -47,6 +47,13 @@
 			</form:label></td>
 			<td><form:input path="applications" cssErrorClass="noticeError" size="35"/></td>
 		</tr>
+		<tr>
+			<td><form:label path="requiredRoles">
+				<spring:message code="providers.fields.requiredRoles" />
+				<spring:message code="support.field.separator" />
+			</form:label></td>
+			<td><form:input path="requiredRoles" cssErrorClass="noticeError" size="35"/></td>
+		</tr>
 
 		<tr>
 			<td>

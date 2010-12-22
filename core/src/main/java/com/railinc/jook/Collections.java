@@ -47,4 +47,17 @@ public class Collections {
 		return l;
 		
 	}
+	public static <T,O> List<O> map(
+			List<T> ts,
+			Predicate<T,O> predicate) {
+		List<O> l = new ArrayList<O>();
+		for (T t : ts) {
+			O call = predicate.call(t);
+			if (call != null) {
+				l.add(call);
+			}
+		}
+		return l;
+		
+	}
 }

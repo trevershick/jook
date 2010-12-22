@@ -5,7 +5,7 @@
 <hibernate-mapping package="com.railinc.jook.domain">
 	
 	
-	<class name="NewsItem">
+	<class name="NewsItem" table="newsitem">
 		<id name="id" type="java.lang.Long">
 			<generator class="native"/>
 		</id>
@@ -23,7 +23,7 @@
 		<property name="lastModified"/>
 		<property name="lastModifier"/>
 	</class>
-	<class name="Link">
+	<class name="Link" table="link">
 		<id name="id" type="java.lang.Long">
 			<generator class="native"/>
 		</id>
@@ -37,7 +37,7 @@
 		
 	</class>	
 
-	<class name="StaticInteraction">
+	<class name="StaticInteraction" table="interaction">
 		<id name="id" type="java.lang.Long">
 			<generator class="native"/>
 		</id>
@@ -47,9 +47,13 @@
 		<property name="secureUrl" />
 		<property name="active" not-null="true" />
 		<property name="excludeApplications" not-null="true" />
-		<set name="applications" table="SIApplication" fetch="join" lazy="false">
+		<set name="applications" table="interaction_app" fetch="join" lazy="false">
             <key column="interaction_id"/>
            	<element column="name" type="string"/>
+      	</set>
+		<set name="requiredRoles" table="interaction_role" fetch="join" lazy="false">
+            <key column="provider_id"/>
+           	<element column="role_name" type="string" not-null="true"/>
       	</set>
 		<property name="creator"/>
 		<property name="created"/>
@@ -57,7 +61,7 @@
 		<property name="lastModifier"/>
 	</class>
 
-	<class name="JookInteractionProvider">
+	<class name="JookInteractionProvider" table="provider">
 		<id name="id" type="java.lang.Long">
 			<generator class="native"/>
 		</id>
@@ -66,9 +70,13 @@
 		<property name="secureUrl" />
 		<property name="active" not-null="true"/>
 		<property name="excludeApplications" not-null="true" />
-		<set name="applications" table="JIApplication" fetch="join" lazy="false">
+		<set name="applications" table="provider_app" fetch="join" lazy="false">
             <key column="provider_id"/>
            	<element column="name" type="string"/>
+      	</set>
+		<set name="requiredRoles" table="provider_role" fetch="join" lazy="false">
+            <key column="provider_id"/>
+           	<element column="role_name" type="string" not-null="true"/>
       	</set>
 		<property name="creator"/>
 		<property name="created"/>
@@ -76,7 +84,7 @@
 		<property name="lastModifier"/>
 	</class>
 	
-	<class name="Downtime">
+	<class name="Downtime" table="downtime">
 		<id name="id" type="java.lang.Long">
 			<generator class="native"/>
 		</id>
@@ -92,7 +100,7 @@
 	
 	
 		
-	<class name="ConfigurationValue">
+	<class name="ConfigurationValue" table="configurationvalue">
 		<id name="id" type="java.lang.Long">
 			<generator class="native"/>
 		</id>
@@ -106,7 +114,7 @@
 	</class>
 
 
-	<class name="PreferenceGroup" table="PREF_GROUP">
+	<class name="PreferenceGroup" table="pref_group">
 		<id name="id" column="GROUP_ID">
         	<generator class="native"/>
         </id>
@@ -120,7 +128,7 @@
 		<property name="lastModifier"/>
 	</class>
 	
-	<class name="PreferenceSpec" table="PREF_SPEC">
+	<class name="PreferenceSpec" table="pref_spec">
 		<id name="id" column="SPEC_ID">
         	<generator class="native"/>
         </id>
@@ -136,7 +144,7 @@
 		<property name="lastModifier"/>
 	</class>
 	
-	<class name="Preference" table="PREF_VALUES">
+	<class name="Preference" table="pref_values">
 		<id name="id" column="PREF_ID">
         	<generator class="native"/>
         </id>
@@ -149,7 +157,7 @@
 		<property name="lastModifier"/>
 	</class>
 
-	<class name="Incident" table="MYSUPPORT_INCIDENT">
+	<class name="Incident" table="mysupport_incident">
 		<id name="id" column="INC_ID">
 			<generator class="native" />
 		</id>
@@ -182,7 +190,7 @@
 		<property name="lastModifier"/>
 	</class>
 	
-	<class name="LastUserView">
+	<class name="LastUserView" table="lastuserview">
 		<id name="id" column="LUV_ID">
 			<generator class="native" />
 		</id>
@@ -192,6 +200,5 @@
 			<property name="user"/>
 		</properties>
 		<property name="lastViewed"/>
-		
 	</class>
 </hibernate-mapping>

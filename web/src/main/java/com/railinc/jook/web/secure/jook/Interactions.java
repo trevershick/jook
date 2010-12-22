@@ -54,6 +54,7 @@ public class Interactions extends StandardController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
 		binder.registerCustomEditor(Set.class, "applications", new SetOfStringEditor());
+		binder.registerCustomEditor(Set.class, "requiredRoles", new SetOfStringEditor());
 	}
 
 	
@@ -62,18 +63,6 @@ public class Interactions extends StandardController {
 	public Map<String,String> types() {
 		return StaticInteraction.TYPES;
 	}
-	
-	
-//	@RequestMapping(method=RequestMethod.GET,value="details")
-//	public String showInteractionDetails(StaticInteraction interaction, Model model)  {
-//		StaticInteraction productByName = service.getInteraction(interaction.getId());
-//		 
-//		model.addAttribute("interaction", productByName);
-//
-//		
-//		return VIEW_INTERACTION_DETAILS;
-//	}
-
 	
 	
 	// show edit form
@@ -110,6 +99,7 @@ public class Interactions extends StandardController {
 		if (p != null) {
 			p.setActive(value.getActive());
 			p.setApplications(value.getApplications());
+			p.setRequiredRoles(value.getRequiredRoles());
 			p.setSecureUrl(value.getSecureUrl());
 			p.setUnsecureUrl(value.getUnsecureUrl());
 			p.setExcludeApplications(value.getExcludeApplications());
@@ -150,6 +140,7 @@ public class Interactions extends StandardController {
 	public String redirectLanding() {
 		return "redirect:interactions/list";
 	}
+	
 	@RequestMapping(method=RequestMethod.GET,value={"list"})
 	public String allInteractions(Model model) {
 		List<StaticInteraction> interactions = service.interactions(0, Integer.MAX_VALUE, null, true);
@@ -157,7 +148,4 @@ public class Interactions extends StandardController {
 
 		return VIEW_INTERACTION_LIST;
 	}
-	
-
-	
 }

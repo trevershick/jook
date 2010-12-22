@@ -22,7 +22,7 @@ import com.railinc.jook.domain.ConfigurationValue;
 public class ConfigurationController extends SupportControllerBaseImpl {
 
 	public ConfigurationController() {
-		System.out.println("Yay!");
+
 	}
 //	@ModelAttribute("random")
 //	public String getNextRandom() {
