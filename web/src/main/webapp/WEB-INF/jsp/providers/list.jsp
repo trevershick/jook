@@ -43,7 +43,7 @@
 					</c:otherwise>
 				</c:choose></td>
 				<td><app:editicon url="update?name=${p.name}" /> <app:deleteicon
-					url="submit?name=${p.name}&_eventId_delete=_eventId_delete" /></td>
+					url="update?name=${p.name}&_eventId_delete=_eventId_delete" /></td>
 			</tr>
 		</c:forEach>
 	</tbody>

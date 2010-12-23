@@ -44,7 +44,6 @@
 		p:preferenceService-ref="preferenceService"
 		p:service-ref="userPreferenceService"/>
 		
-	<bean class="com.railinc.jook.web.global.ServiceController" p:service-ref="userPreferenceService"/>
 	<bean class="com.railinc.jook.web.secure.jook.JookController"/>
 	<bean class="com.railinc.jook.web.secure.jook.Interactions" p:service-ref="jookService"/>
 	<bean class="com.railinc.jook.web.secure.jook.Providers" p:service-ref="jookService"/>

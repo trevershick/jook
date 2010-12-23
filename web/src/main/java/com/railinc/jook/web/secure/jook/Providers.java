@@ -116,7 +116,7 @@ public class Providers extends StandardController {
 		return REDIRECT_LIST;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="update",params="_eventId_delete")
+	@RequestMapping(method=RequestMethod.GET, value="update",params="_eventId_delete")
 	public String deleteProduct(@ModelAttribute("provider") final JookInteractionProvider value, ModelMap map, HttpServletRequest r) {
 		boolean ok = doQuietly(new WebCommand() {
 			@Override
