@@ -40,7 +40,7 @@ public class ScriptServlet extends BaseServlet {
 	@Override
 	protected void doGet(final HttpServletRequest request,
 			HttpServletResponse resp) throws ServletException, IOException {
-		final String moduleId = request.getParameter(Constants.JOOK_PARAM_APP);
+		final String moduleId = request.getParameter(Constants.HTTP_PARAM_JOOK_APP);
 
 		List<JookInteractionProvider> providersForModuleId = jookService
 				.providersForModuleId(moduleId);

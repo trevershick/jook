@@ -1,4 +1,8 @@
+<%@page import="com.railinc.jook.web.Constants"%>
 <%@page contentType="text/javascript" %>
+<%
+	String theme = (String) request.getAttribute(Constants.REQUEST_ATTR_THEME_KEY);
+%>
 <% if (null == request.getParameter("_j") || "true".equals(request.getParameter("_j"))) {%>
 	<jsp:include page="/WEB-INF/client/1.0/jquery/jquery-1.4.4.min.js"/>
 <% } %>
@@ -11,7 +15,6 @@
 <% if (null == request.getParameter("_f") || "true".equals(request.getParameter("_f"))) {%>
 	<jsp:include page="/WEB-INF/client/1.0/facebox/facebox-1.2_js.jsp"/>
 <% } %>
-
 <jsp:include page="/WEB-INF/client/1.0/jgrowl/jquery.jgrowl-1.2.5.js"/>
 var gadgets = {};
 
@@ -45,7 +48,7 @@ var Jook = {
     	/* setup the "railinc tab" and attach event handlers to it. */
 		jQuery('body').append('<div id="jookstage"></div>');
 		var jookstage = jQuery("#jookstage");
-		jookstage.append("<a id='jooklinksa' href='#'><img title='Click to Toggle' class='vertical' src='<%=request.getContextPath()%>/client/resource/1.0/core/vertical-tab.png' id='jooklinksimg'></img></a>");
+		jookstage.append("<a id='jooklinksa' href='#'><img title='Click to Toggle' class='vertical' src='<%=request.getContextPath()%>/client/resource/1.0/themes/<%=theme%>/vertical-tab.png' id='jooklinksimg'></img></a>");
 		jookstage.append('<div id="jooklinks" style="display:none;"></div>');
     	Jook.jooklinks = jQuery("#jooklinks");
 		jQuery("#jooklinksa").click( function() {
@@ -54,14 +57,26 @@ var Jook = {
 			jQuery("#jooklinksa").toggleClass("active");
 			jooklinksimg.toggleClass("vertical");
 			if (jooklinksimg.hasClass("vertical")) {
-				jooklinksimg.attr("src", "<%=request.getContextPath()%>/client/resource/1.0/core/vertical-tab.png");
+				jooklinksimg.attr("src", "<%=request.getContextPath()%>/client/resource/1.0/themes/<%=theme%>/vertical-tab.png");
 			} else {
-				jooklinksimg.attr("src", "<%=request.getContextPath()%>/client/resource/1.0/core/horizontal-tab.png");
+				jooklinksimg.attr("src", "<%=request.getContextPath()%>/client/resource/1.0/themes/<%=theme%>/horizontal-tab.png");
 			}
 			return false; 
 		});   
 		jQuery("#jooklinksa").click(Jook.shakeDrawerPulls); 	
 		jQuery("#jooklinksa").click(Jook.openShakeDrawers);
+    },
+    
+    showLoading : function(element) {
+    	element.addClass("jookloading");
+    },
+    doneLoading : function(element) {
+    	element.removeClass("jookloading");
+    },
+    loadingError : function(element) {
+    	Jook.doneLoading(element);
+    	element.addClass("jookloadingerror");
+    	element.html("There was a problem loading the content for this drawer.");
     },
     
     shakeJookTab : function(element) {
@@ -177,9 +192,10 @@ var Jook = {
 		 			t.toggle(Jook.duration);
 		 			jQuery(this).removeClass("shake");
 		 			if (!t.hasClass("jookloaded")) {
+			 			Jook.showLoading(t);
 			 			var src = jQuery("#" + jQuery(this).attr("id").replace("_trigger","")).attr("src");
 			 			if (src.indexOf("/") == 0) {
-			     			t.load(src);
+			     			t.load(src,  function(response, status, xhr) {if("error"==status){Jook.loadingError(t);}else {Jook.doneLoading(t);}});
 			     		} else {
 			     			var a = jQuery("<iframe></iframe>");
 	    					a.attr("src", src);
@@ -188,6 +204,7 @@ var Jook = {
 	    					t.append(a);
 			     		}
 			     		t.addClass("jookloaded");
+		 				
 		 			}
 		 			jQuery(this).toggleClass("jookactive");
 		 			return false;

@@ -1,7 +1,7 @@
 package com.railinc.jook.web;
 
 public interface Constants {
-	String JOOK_PARAM_APP = "app";
+	String HTTP_PARAM_JOOK_APP = "app";
 	String CONTENT_TYPE_JAVASCRIPT = "text/javascript";
 	String HTTP_HEADER_CACHE_CONTROL = "Cache-Control";
 
@@ -18,4 +18,9 @@ public interface Constants {
 	int DEFAULT_CACHE_JOOKRESOURCES_MAXAGE = 0;
 	int DEFAULT_CACHE_JOOKSCRIPT_MAXAGE = 0;
 	int DEFAULT_CACHE_JOOKSTYLE_MAXAGE = 0;
+	
+	String REQUEST_ATTR_THEME_KEY = "jook.theme";
+	String REQUEST_ATTR_THEME_DEFAULT = "default";
+	
+	String PROPKEY_APP_THEME_FORMAT = "app.%s.theme";
 }

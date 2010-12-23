@@ -34,7 +34,7 @@ public class NewsInteractionFactoryImpl implements JookInteractionFactory {
 
 	@Override
 	public List<? extends JookInteraction> interactions(HttpServletRequest request) {
-		String parameter = request.getParameter(Constants.JOOK_PARAM_APP);
+		String parameter = request.getParameter(Constants.HTTP_PARAM_JOOK_APP);
 		List<JookInteraction> j = new ArrayList<JookInteraction>();
 		if (request.getRemoteUser() == null) {
 			return j;

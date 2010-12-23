@@ -32,7 +32,7 @@ public class StaticInteractionFactoryImpl implements JookInteractionFactory {
 	@Override
 	public List<? extends JookInteraction> interactions(final HttpServletRequest request) {
 		
-		final String moduleId = request.getParameter(Constants.JOOK_PARAM_APP);
+		final String moduleId = request.getParameter(Constants.HTTP_PARAM_JOOK_APP);
 
 		final boolean secured = request.getRemoteUser() != null;
 

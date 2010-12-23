@@ -39,7 +39,7 @@ public class DowntimeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String param = request.getParameter("content");
-		String app = request.getParameter(Constants.JOOK_PARAM_APP);
+		String app = request.getParameter(Constants.HTTP_PARAM_JOOK_APP);
 		if ("tab".equals(param)) {
 			response.setContentType("text/html");
 			response.getWriter().write("<h1>Upcoming Downtime</h1>");

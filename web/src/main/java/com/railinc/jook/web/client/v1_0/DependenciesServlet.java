@@ -6,10 +6,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.railinc.jook.web.Constants;
 
 public class DependenciesServlet extends BaseServlet {
 
+	private static final String JOOK_DEPS_JSP = "/WEB-INF/client/1.0/core/jook_deps_js.jsp";
+	private static final Log log = LogFactory.getLog(DependenciesServlet.class);
 	/**
 	 * 
 	 */
@@ -21,9 +26,12 @@ public class DependenciesServlet extends BaseServlet {
 			throws ServletException, IOException {
 
 		resp.setContentType(Constants.CONTENT_TYPE_JAVASCRIPT);
-		
+		setTheme(req);
 		setCacheControlHeader(resp, Constants.PROPKEY_CACHE_JOOKDEPS_MAXAGE, Constants.DEFAULT_CACHE_JOOKDEPS_MAXAGE);
-		req.getRequestDispatcher("/WEB-INF/client/1.0/core/jook_deps_js.jsp").include(req, resp);
+		if (log.isDebugEnabled()) {
+			log.debug("Loading Dependencies JSP " + JOOK_DEPS_JSP);
+		}
+		req.getRequestDispatcher(JOOK_DEPS_JSP).include(req, resp);
 	}
 
 }

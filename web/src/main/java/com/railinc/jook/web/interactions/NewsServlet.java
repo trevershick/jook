@@ -34,7 +34,7 @@ public class NewsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String app = request.getParameter(Constants.JOOK_PARAM_APP);
+		String app = request.getParameter(Constants.HTTP_PARAM_JOOK_APP);
 
 		response.setContentType("text/html");
 
