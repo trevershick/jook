@@ -18,9 +18,6 @@
 
 	<!-- <build> <defaultGoal>install</defaultGoal> </build> -->
 
-
-
-
 	<properties>
 		<!-- Application settings -->
 		<copyright.year>2008</copyright.year>
