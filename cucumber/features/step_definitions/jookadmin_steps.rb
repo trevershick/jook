@@ -63,7 +63,6 @@ Then /^I (can|cannot)? see "([^"]*)" in the table$/i do |cancannot, value|
   if cancannot == "cannot" then
     @expected_count = 0
   end
-  print "Expected count for #{value} is #{@expected_count}"
   page.should have_xpath("//table//*[contains(text(), '#{value}')]", :count => @expected_count)
 end
 
