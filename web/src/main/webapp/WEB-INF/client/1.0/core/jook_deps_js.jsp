@@ -157,6 +157,7 @@ var Jook = {
 	    	var divIndex = Jook.jookDivCount;
 	    	a = jQuery("<div></div>");
 	    	a.addClass("target");
+	    	a.addClass("drawer");
 	    	a.attr("id", "target_" + divIndex);
 	    	a.attr("src", ts[i].url);
 	    	Jook.jooklinks.append(a);

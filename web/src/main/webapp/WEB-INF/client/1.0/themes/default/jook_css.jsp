@@ -18,6 +18,14 @@
 	height:330px;
 }
 
+div#facebox div.content {
+	font-size:10px;
+}
+
+div.drawer {
+	font-size:10px;
+}
+
 #jooklinks div.target {
 	display: none;
 	background-color: white;

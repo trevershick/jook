@@ -1,0 +1,1 @@
+mysqldump -ujook -pjook jook > initial_data.sql
