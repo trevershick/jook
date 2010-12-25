@@ -1,0 +1,1 @@
+java -jar apachedevhack-0.0.1-SNAPSHOT-alldeps.jar -i \workspaces\jook\jook\ssodevhack\src\main\resources\sso.properties

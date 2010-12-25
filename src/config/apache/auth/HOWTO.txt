@@ -1,0 +1,54 @@
+Apache Dev Hack
+---------------
+
+The Apache Dev Hack is the apache level sister of our standard SSO Dev Hack.  It operates differently
+from the sso dev hack in that it doesn't do ANYTHING at the VM system property level.  What it does
+is actually mimics the SAME SSO Cookies that GetAccess sends down and that the sso-rt-3.x.jar 
+interprets.  
+
+This is not accomplished via basic apache authentication (for username/password) as well as some creative
+URL rewriting via mod_rewrite.  .htpasswd is a password file used by apache basic auth. it contains
+a list of users (from your own sso.properties file in your ssodevhack project) and a crypted password of 'password'.
+.htgroup is a list of roles and their members (also generated from your own sso.properties file).  The final 
+file is a property file called ssodevhack.properties.  All THREE files are generated via a tool I wrote from 
+your sso.properties file.  This means that you can add users and roles freely to sso.properties and they will
+be usable from Apache.
+
+The benefit to using apache over the sso dev hack is that you can span multiple java servers and multiple servers
+in ANY other language. So you tie together Java based servers and say, Django or Rails applications, and they
+would be tied together in the same manner as our real dev/preprod/prod environments (via cookies and the sso runtime jar).
+
+Caveat - I do NOT have Django Middleware written to parse the cookies and work with the django auth. Nor do i have a
+Ruby on Rails plugin for handling the cookies.  I will probably end up writing a Django middleware component soon though.
+Ruby on Rails users are on their own.
+
+Most of the Apache directives can be copied/pasted to suit your needs.  If you want to really mimic the GetAccess 
+permissions, you can do so with further Apache Requires directives and Location directives.
+
+
+Not Done Yet
+------------
+Logout - Logout doesn't work, so you have to either clear your cookies, or my favorite, create a new incognito window
+    when you want to login as a different user.
+
+
+1) Install Apache
+	This has been tested with Apache 2.2 on Windows.
+
+2) Add the following to your <apache home>/conf/httpd.conf
+
+    Include <your project dir>\src\config\apache\conf
+    
+3) create the <your project dir>\src\config\apache\conf\ directory
+
+4) Add the my.conf file to <your project dir>\src\config\apache\conf\
+    a. Update the contents to match the paths to your project and context paths
+
+5) Convert <your project>\ssodevhack\src\main\resources\sso.properties
+    a. Create the \workspaces\jook\jook\src\config\apache\auth directory
+	b. swith to the directory
+	c. run java -jar apachedevhack-0.0.1-SNAPSHOT-alldeps.jar -i \workspaces\jook\jook\ssodevhack\src\main\resources\sso.properties
+	    This will convert the ssodevhack sso.properties file into three files used for this solution. (.htpasswd, .htgroup and ssodevhack.properties)
+
+6) Start Apache
+
