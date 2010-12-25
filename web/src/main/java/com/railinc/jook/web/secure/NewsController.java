@@ -34,16 +34,6 @@ public class NewsController extends StandardController {
 	public static final String VIEW_INTERACTION_FORM = ".view.newsItemForm";
 	public static final String VIEW_INTERACTION_DETAILS = ".view.newsItemDetails";
 	
-	ViewTrackingService viewTracking = null;
-	
-	public ViewTrackingService getViewTracking() {
-		return viewTracking;
-	}
-
-
-	public void setViewTracking(ViewTrackingService viewTracking) {
-		this.viewTracking = viewTracking;
-	}
 
 	NewsService service = null;
 
@@ -127,7 +117,6 @@ public class NewsController extends StandardController {
 		p.setModuleId(StringUtils.defaultIfEmpty(p.getModuleId(), null));
 		getService().save(p);
 		message(r, String.format("Successfully saved the newsItem '%s'", p.getTitle()));
-		viewTracking.resetViewState(NewsInteractionFactoryImpl.VIEWTRACKING_APPNAME, NewsInteractionFactoryImpl.VIEWTRACKING_RESOURCE);
 		return REDIRECT_LIST;
 	}
 	

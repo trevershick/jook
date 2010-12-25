@@ -10,5 +10,5 @@ public interface NewsService {
 	NewsItem save(NewsItem value);
 	NewsItem getNewsItem(Long specId);
 	void delete(NewsItem newsItem);
-	boolean hasNewsItemsToShow(String moduleId);
+	List<?> newsItemsToShow(String moduleId);
 }

@@ -2,6 +2,7 @@ package com.railinc.jook.web.interactions;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -48,9 +49,26 @@ public class NewsServlet extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 		writer.write(sb.toString());
 		List<NewsItem> ds = downtimeService.showNews(app);
+		// i need to remove the items already seen
+		
+		
+		String user = viewTracking != null ? request.getRemoteUser() : null;
+		
+		List<String> idsseen = new ArrayList<String>(0);
+		if (user != null && viewTracking != null) {
+			idsseen = this.viewTracking.whatHasUserSeen(user, NewsInteractionFactoryImpl.VIEWTRACKING_APPNAME);
+		}
+		
 		writer.write("<div id='news'>");
 
+		
+		List<Long> newsItemIdsToMarkAsSeen = new ArrayList<Long>();
+		
 		for (NewsItem d : ds) {
+			if (idsseen.contains(d.getId().toString())) {
+				continue;
+			}
+			newsItemIdsToMarkAsSeen.add(d.getId());
 			writer.write("<div>");
 			writer.write("<h2>");
 			writer.write(d.getTitle());
@@ -63,9 +81,8 @@ public class NewsServlet extends HttpServlet {
 		}
 		writer.write("</div>");
 		
-		String user = viewTracking != null ? request.getRemoteUser() : null;
 		if (user != null && viewTracking != null) {
-			viewTracking.userJustSaw(user, NewsInteractionFactoryImpl.VIEWTRACKING_APPNAME, NewsInteractionFactoryImpl.VIEWTRACKING_RESOURCE);
+			viewTracking.userJustSawItems(user, NewsInteractionFactoryImpl.VIEWTRACKING_APPNAME, newsItemIdsToMarkAsSeen);
 		}
 
 	}

@@ -111,7 +111,10 @@
 		<property name="created"/>
 		<property name="lastModified"/>
 		<property name="lastModifier"/>
+		
 	</class>
+	
+	
 
 
 	<class name="PreferenceGroup" table="pref_group">
@@ -190,6 +193,8 @@
 		<property name="lastModifier"/>
 	</class>
 	
+	
+	
 	<class name="LastUserView" table="lastuserview">
 		<id name="id" column="LUV_ID">
 			<generator class="native" />
@@ -201,4 +206,20 @@
 		</properties>
 		<property name="lastViewed"/>
 	</class>
+
+
+
+	<database-object>
+		<create>create unique index IDX_CONFIGKEY on configurationvalue (config_key)</create>
+		<drop>alter table configurationvalue drop index IDX_CONFIGKEY</drop>
+		<dialect-scope name="org.hibernate.dialect.MySQL5InnoDBDialect" />
+	</database-object>
+
+
+	<database-object>
+		<create>create index IDX_LUV_NAMEAPP on lastuserview (name,app)</create>
+		<drop>alter table lastuserview drop index IDX_LUV_NAMEAPP</drop>
+		<dialect-scope name="org.hibernate.dialect.MySQL5InnoDBDialect" />
+	</database-object>
+	
 </hibernate-mapping>

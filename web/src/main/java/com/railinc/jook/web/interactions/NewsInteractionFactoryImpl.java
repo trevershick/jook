@@ -40,11 +40,12 @@ public class NewsInteractionFactoryImpl implements JookInteractionFactory {
 			return j;
 		}
 
-		if (service.hasNewsItemsToShow(parameter)) {
-			String user = request.getRemoteUser();
+		String user = request.getRemoteUser();
+		List<?> newsItemIds = service.newsItemsToShow(parameter);
+		if (!newsItemIds.isEmpty() && viewTracking.userHasNotSeenAll(user, VIEWTRACKING_APPNAME, newsItemIds)) {
 			j.add(new JookInteractionVO("tab", "News", 
 					request.getContextPath() +"/services/news?app=" + parameter,
-					user != null && false == viewTracking.hasUserSeen(user, VIEWTRACKING_APPNAME, VIEWTRACKING_RESOURCE)));
+					user != null));
 		}
 		
 		return j;

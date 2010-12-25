@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.railinc.jook.domain.DomainObject;
@@ -66,15 +67,16 @@ public class NewsServiceImpl extends BaseServiceImpl<NewsItem> implements
 	}
 
 	@Override
-	public boolean hasNewsItemsToShow(String moduleId) {
+	public List<Object> newsItemsToShow(String moduleId) {
 		Date now = new Date();
 		DetachedCriteria c = DetachedCriteria.forClass(this.domainClass());
 		c.add(Restrictions.eq("published", Boolean.TRUE));
 		c.add(Restrictions.le("launchDate", now));
 		c.add(Restrictions.or(Restrictions.ge("expirationDate", now), Restrictions.isNull("expirationDate")));
 		c.add(Restrictions.or(Restrictions.eq("moduleId", moduleId), Restrictions.isNull("moduleId")));
+		c.setProjection(Projections.id());
 		c.addOrder(Order.desc("authoredDate"));
-		return count(c) > 0;
+		return list(Long.class, c);
 	}
 
 }
