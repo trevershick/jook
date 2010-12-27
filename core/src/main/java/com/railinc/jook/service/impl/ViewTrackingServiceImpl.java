@@ -56,6 +56,7 @@ public class ViewTrackingServiceImpl extends BaseServiceImpl<LastUserView> imple
 		return super.count(
 				createCriteria().add(
 						Restrictions.in("name", ids))
+						.add(Restrictions.eq("user", user))
 						.add(Restrictions.eq("app", viewtrackingAppname)
 						)) < ids.size();
 	}
