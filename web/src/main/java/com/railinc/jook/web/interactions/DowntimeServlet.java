@@ -31,7 +31,6 @@ public class DowntimeServlet extends HttpServlet {
      */
     public DowntimeServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

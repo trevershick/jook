@@ -123,7 +123,6 @@ private ActorProvider actorProvider;
    @Override
    public final void onPostInsert(final PostInsertEvent event) {
        try {
-           // TODO : need to get the actor ID somehow
            final String actorId = getActor();
            final String txref = getTxRef();
            
@@ -132,7 +131,7 @@ private ActorProvider actorProvider;
                     : "";
            final String entityName = event.getEntity().getClass().getCanonicalName();
            final Date transTime = new Date(); // new Date(event.getSource().getTimestamp());
-           final EntityMode entityMode = event.getPersister().guessEntityMode(event.getEntity());
+//           final EntityMode entityMode = event.getPersister().guessEntityMode(event.getEntity());
 //           Object newPropValue = null;
 
            // need to have a separate session for audit save
@@ -169,7 +168,6 @@ private ActorProvider actorProvider;
    @Override
    public final boolean onPreUpdate(PreUpdateEvent event) {
        try {
-           // TODO : need to get the actor ID somehow
            final String actorId = getActor();
            final String txref = getTxRef();
 
@@ -255,7 +253,7 @@ private ActorProvider actorProvider;
     */
    @Override
    public final void onPreLoad(final PreLoadEvent event) {
-       // TODO : complete load audit log if desired
+
    }
 }
 

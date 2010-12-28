@@ -50,9 +50,9 @@ public class AuditLogInterceptor implements Interceptor {
         this.sessionFactory = sessionFactory;
     }
  
-    private Set inserts = new HashSet();
-    private Set updates = new HashSet();
-    private Set deletes = new HashSet();
+    private Set<AuditLogRecord> inserts = new HashSet<AuditLogRecord>();
+    private Set<AuditLogRecord> updates = new HashSet<AuditLogRecord>();
+    private Set<AuditLogRecord> deletes = new HashSet<AuditLogRecord>();
  
     /*
      * (non-Javadoc)
@@ -63,7 +63,6 @@ public class AuditLogInterceptor implements Interceptor {
      */
     public boolean onLoad(Object arg0, Serializable arg1, Object[] arg2, String[] arg3, Type[] arg4)
             throws CallbackException {
-        // TODO Auto-generated method stub
         return false;
     }
  
@@ -80,7 +79,7 @@ public class AuditLogInterceptor implements Interceptor {
         if (obj instanceof Auditable) {
             
             Session session = sessionFactory.openSession();
-            Class objectClass = obj.getClass();
+            Class<?> objectClass = obj.getClass();
             String className = objectClass.getName();
  
             // Just get the class name without the package structure 
@@ -97,13 +96,10 @@ public class AuditLogInterceptor implements Interceptor {
                 logChanges(obj, preUpdateState, null, persistedObjectId.toString(), UPDATE, className);
                 
             } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             
@@ -125,7 +121,7 @@ public class AuditLogInterceptor implements Interceptor {
         if (obj instanceof Auditable) {
             
             try {
-                Class objectClass = obj.getClass();
+                Class<?> objectClass = obj.getClass();
                 String className = objectClass.getName();
                 String[] tokens = className.split("\\.");
                 int lastToken = tokens.length - 1;
@@ -134,13 +130,10 @@ public class AuditLogInterceptor implements Interceptor {
                 logChanges(obj, null, null, null, INSERT, className);
                 
             } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -162,7 +155,7 @@ public class AuditLogInterceptor implements Interceptor {
  
             try {
                 
-                Class objectClass = obj.getClass();
+                Class<?> objectClass = obj.getClass();
                 String className = objectClass.getName();
                 String[] tokens = className.split("\\.");
                 int lastToken = tokens.length - 1;
@@ -171,13 +164,10 @@ public class AuditLogInterceptor implements Interceptor {
                 logChanges(obj, null, null, id.toString(), DELETE, className);
                 
             } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
  
@@ -190,8 +180,7 @@ public class AuditLogInterceptor implements Interceptor {
      * 
      * @see net.sf.hibernate.Interceptor#preFlush(java.util.Iterator)
      */
-    public void preFlush(Iterator arg0) throws CallbackException {
-        // TODO Auto-generated method stub
+    public void preFlush(@SuppressWarnings("rawtypes") Iterator arg0) throws CallbackException {
  
     }
  
@@ -200,22 +189,22 @@ public class AuditLogInterceptor implements Interceptor {
      * 
      * @see net.sf.hibernate.Interceptor#postFlush(java.util.Iterator)
      */
-    public void postFlush(Iterator arg0) throws CallbackException {
+    public void postFlush(@SuppressWarnings("rawtypes") Iterator arg0) throws CallbackException {
         log.debug("In postFlush of AuditLogInterceptor..");
  
         Session session = sessionFactory.openSession();
  
         try {
-            for (Iterator itr = inserts.iterator(); itr.hasNext();) {
+            for (Iterator<AuditLogRecord> itr = inserts.iterator(); itr.hasNext();) {
                 AuditLogRecord logRecord = (AuditLogRecord) itr.next();
                 logRecord.setEntityId(getObjectId(logRecord.getEntity()).toString());
                 session.save(logRecord);
             }
-            for (Iterator itr = updates.iterator(); itr.hasNext();) {
+            for (Iterator<AuditLogRecord> itr = updates.iterator(); itr.hasNext();) {
                 AuditLogRecord logRecord = (AuditLogRecord) itr.next();
                 session.save(logRecord);
             }
-            for (Iterator itr = deletes.iterator(); itr.hasNext();) {
+            for (Iterator<AuditLogRecord> itr = deletes.iterator(); itr.hasNext();) {
                 AuditLogRecord logRecord = (AuditLogRecord) itr.next();
                 session.save(logRecord);
             }
@@ -237,7 +226,6 @@ public class AuditLogInterceptor implements Interceptor {
      * @see net.sf.hibernate.Interceptor#isUnsaved(java.lang.Object)
      */
     public Boolean isUnsaved(Object arg0) {
-        // TODO Auto-generated method stub
         return null;
     }
  
@@ -249,7 +237,6 @@ public class AuditLogInterceptor implements Interceptor {
      *      java.lang.String[], net.sf.hibernate.type.Type[])
      */
     public int[] findDirty(Object arg0, Serializable arg1, Object[] arg2, Object[] arg3, String[] arg4, Type[] arg5) {
-        // TODO Auto-generated method stub
         return null;
     }
  
@@ -259,8 +246,7 @@ public class AuditLogInterceptor implements Interceptor {
      * @see net.sf.hibernate.Interceptor#instantiate(java.lang.Class,
      *      java.io.Serializable)
      */
-    public Object instantiate(Class arg0, Serializable arg1) throws CallbackException {
-        // TODO Auto-generated method stub
+    public Object instantiate(Class<?> arg0, Serializable arg1) throws CallbackException {
         return null;
     }
  
@@ -270,7 +256,6 @@ public class AuditLogInterceptor implements Interceptor {
      * @see org.hibernate.Interceptor#isTransient(java.lang.Object)
      */
     public Boolean isTransient(Object arg0) {
-        // TODO Auto-generated method stub
         return null;
     }
  
@@ -281,7 +266,6 @@ public class AuditLogInterceptor implements Interceptor {
      *      org.hibernate.EntityMode, java.io.Serializable)
      */
     public Object instantiate(String arg0, EntityMode arg1, Serializable arg2) throws CallbackException {
-        // TODO Auto-generated method stub
         return null;
     }
  
@@ -291,7 +275,6 @@ public class AuditLogInterceptor implements Interceptor {
      * @see org.hibernate.Interceptor#getEntityName(java.lang.Object)
      */
     public String getEntityName(Object arg0) throws CallbackException {
-        // TODO Auto-generated method stub
         return null;
     }
  
@@ -302,7 +285,6 @@ public class AuditLogInterceptor implements Interceptor {
      *      java.io.Serializable)
      */
     public Object getEntity(String arg0, Serializable arg1) throws CallbackException {
-        // TODO Auto-generated method stub
         return null;
     }
  
@@ -312,7 +294,6 @@ public class AuditLogInterceptor implements Interceptor {
      * @see org.hibernate.Interceptor#afterTransactionBegin(org.hibernate.Transaction)
      */
     public void afterTransactionBegin(Transaction arg0) {
-        // TODO Auto-generated method stub
  
     }
  
@@ -322,7 +303,6 @@ public class AuditLogInterceptor implements Interceptor {
      * @see org.hibernate.Interceptor#beforeTransactionCompletion(org.hibernate.Transaction)
      */
     public void beforeTransactionCompletion(Transaction arg0) {
-        // TODO Auto-generated method stub
  
     }
  
@@ -357,7 +337,7 @@ private void logChanges(Object newObject, Object existingObject, Object parentOb
                         String persistedObjectId, String event, String className)
      throws IllegalArgumentException, IllegalAccessException, InvocationTargetException  {     
  
-      Class objectClass = newObject.getClass();      
+      Class<?> objectClass = newObject.getClass();      
       //get an array of all fields in the class including those in superclasses if this is a subclass.
       Field[] fields = getAllFields(objectClass, null);
  
@@ -379,7 +359,7 @@ private void logChanges(Object newObject, Object existingObject, Object parentOb
           String fieldName = fields[ii].getName();
           if(! fieldName.equals("id")) {
              
-          Class interfaces[] = fields[ii].getType().getInterfaces();
+          Class<?> interfaces[] = fields[ii].getType().getInterfaces();
               for (int i = 0; i < interfaces.length;) {
                   if (interfaces[i].getName().equals("java.util.Collection")) {
                       continue fieldIteration;
@@ -397,10 +377,8 @@ private void logChanges(Object newObject, Object existingObject, Object parentOb
                               try {
                                   existingComponent = newComponent.getClass().newInstance();
                               } catch (InstantiationException e) {
-                                // TODO Auto-generated catch block
                                 e.printStackTrace();
                               } catch (IllegalAccessException e) {
-                                // TODO Auto-generated catch block
                                 e.printStackTrace();
                               }
                          } else {
@@ -537,7 +515,7 @@ private void logChanges(Object newObject, Object existingObject, Object parentOb
      * @param fields the current field list
      * @return an array of fields
      */
-    private Field[] getAllFields(Class objectClass, Field[] fields) {
+    private Field[] getAllFields(Class<?> objectClass, Field[] fields) {
         
         Field[] newFields = objectClass.getDeclaredFields();
         
@@ -562,7 +540,7 @@ private void logChanges(Object newObject, Object existingObject, Object parentOb
            System.arraycopy(newFields, 0, totalFields, fieldsSize, newFieldsSize);
        }
        
-       Class superClass = objectClass.getSuperclass();
+       Class<?> superClass = objectClass.getSuperclass();
        
        Field[] finalFieldsArray;
        
@@ -583,7 +561,7 @@ private void logChanges(Object newObject, Object existingObject, Object parentOb
      */
     private Serializable getObjectId(Object obj) {
         
-        Class objectClass = obj.getClass();
+        Class<?> objectClass = obj.getClass();
         Method[] methods = objectClass.getMethods();
  
         Serializable persistedObjectId = null;
@@ -591,7 +569,7 @@ private void logChanges(Object newObject, Object existingObject, Object parentOb
             // If the method name equals 'getId' then invoke it to get the id of the object.
             if (methods[ii].getName().equals("getId")) {
                 try {
-                    persistedObjectId = (Serializable)methods[ii].invoke(obj, null);
+                    persistedObjectId = (Serializable)methods[ii].invoke(obj, (Object[]) null);
                     break;      
                 } catch (Exception e) {
                     log.warn("Audit Log Failed - Could not get persisted object id: " + e.getMessage());
@@ -637,27 +615,24 @@ private void logChanges(Object newObject, Object existingObject, Object parentOb
 	@Override
 	public void onCollectionRecreate(Object collection, Serializable key)
 			throws CallbackException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onCollectionRemove(Object collection, Serializable key)
 			throws CallbackException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onCollectionUpdate(Object collection, Serializable key)
 			throws CallbackException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public String onPrepareStatement(String sql) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
  

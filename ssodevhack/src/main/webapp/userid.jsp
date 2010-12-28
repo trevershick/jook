@@ -2,7 +2,7 @@
 																   	String ssoConfig = System.getProperty("sso.configuration");
 																   														   int i = 0;
 																   														   String usr = com.railinc.jook.ssodeveloperhack.config.Config.getInstance().getProperty("SSO_USR_" + (i++));
-																   														   java.util.List usrs = new java.util.ArrayList();
+																   														   java.util.List<String> usrs = new java.util.ArrayList<String>();
 
 																   														   while (usr!=null)
 																   														   {

@@ -25,7 +25,6 @@ public class LinkServiceImpl extends BaseServiceImpl<Link> implements LinkServic
 	    getHibernateTemplate().save("Link", c);
 	}
 
-	@SuppressWarnings("unchecked")
 	public Link getLink(String path) {
 		return single(createCriteria().add(Restrictions.eq("path", path)));
 	}

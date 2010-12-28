@@ -115,7 +115,7 @@ public class SupportFormTag extends TagSupport {
 		PrintWriter pw = new PrintWriter(sw);
 		sw.append(String.valueOf(request.getAttribute("javax.servlet.error.request_uri")));
 		
-		Enumeration e = request.getParameterNames();
+		Enumeration<?> e = request.getParameterNames();
 		pw.append("\nParameters\n--------------------------");
 		while (e.hasMoreElements()) {
 			String nm = e.nextElement().toString();
@@ -134,7 +134,7 @@ public class SupportFormTag extends TagSupport {
 			String nm = e.nextElement().toString();
 			pw.append("\n").append(nm).append("=");
 			
-			Enumeration vals = request.getHeaders(nm);
+			Enumeration<?> vals = request.getHeaders(nm);
 			int i = 0;
 			while (vals.hasMoreElements()) {
 				if (i > 0) pw.append(",");

@@ -455,7 +455,6 @@ Rico.AjaxEngine.prototype = {
    },
    _onRequestComplete : function(request) {
 
-      //!!TODO: error handling infrastructure?? 
       if (request.status != 200)
         return;
 

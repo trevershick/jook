@@ -26,6 +26,7 @@ public class SetOfStringEditor extends PropertyEditorSupport {
 
 	@Override
 	public String getAsText() {
+		@SuppressWarnings("unchecked")
 		Set<String> o = (Set<String>) getValue();
 		return StringUtils.join(o, ",");
 	}

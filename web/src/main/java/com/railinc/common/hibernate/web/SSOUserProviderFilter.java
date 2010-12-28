@@ -28,14 +28,12 @@ public class SSOUserProviderFilter implements Filter {
      * Default constructor. 
      */
     public SSOUserProviderFilter() {
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	/**

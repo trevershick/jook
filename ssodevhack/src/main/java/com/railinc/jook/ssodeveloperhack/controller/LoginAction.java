@@ -22,6 +22,11 @@ import com.railinc.sso.rt.UserService;
  */
 public class LoginAction extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1339825910092765803L;
+
 	// The next two properties should be kept in sync with properties defined in
 	// the com.railinc.sso.rt.UserService and LoggedUser classes.
 	static final String SSO_USER_TAG = UserService.SSO_USER_TAG;
@@ -78,7 +83,7 @@ public class LoginAction extends HttpServlet {
 			System.getProperties().remove(SSO_USER_TAG);
 		}
 		
-		LoggedUser loggedUser = getUserService().getLoggedUser(request);
+		LoggedUser loggedUser = UserService.getLoggedUser(request);
 		
 		// the user is not authenticated, forward to the login template
 		if (loggedUser == null || getUserService().isAuthenticated(request) == false) {

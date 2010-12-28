@@ -57,7 +57,6 @@ public class SessionValidationFilter implements Filter {
 	}
 
 	public void destroy() {
-		// TODO Auto-generated method stub
 		
 	}
 }

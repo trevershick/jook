@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.railinc.jook.domain.NewsItem;
 import com.railinc.jook.service.NewsService;
-import com.railinc.jook.service.ViewTrackingService;
-import com.railinc.jook.web.interactions.NewsInteractionFactoryImpl;
 import com.railinc.jook.web.util.StandardController;
 
 @Controller

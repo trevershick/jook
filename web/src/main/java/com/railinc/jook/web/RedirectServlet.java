@@ -26,12 +26,10 @@ public class RedirectServlet extends HttpServlet {
      */
     public RedirectServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
 		super.init(config);
 		WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext());
 		String[] beanNamesForType = context.getBeanNamesForType(LinkService.class);

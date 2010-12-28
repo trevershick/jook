@@ -28,7 +28,7 @@ public class RequestHelper {
 	
 	public String substituteParameters(String pattern) {
 		String tmp = pattern;
-		Enumeration e = request.getParameterNames();
+		Enumeration<?> e = request.getParameterNames();
 		while (e.hasMoreElements()) {
 			String p = (String) e.nextElement();
 			String v = request.getParameter(p);

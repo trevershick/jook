@@ -4,9 +4,9 @@
 		Called by the interactions servlet to return JSON to the client JavaScript	
 	*/
 RequestHelper helper = new RequestHelper(request);
-Map is = (Map) request.getAttribute("interactions");
+Map<?,?> is = (Map<?,?>) request.getAttribute("interactions");
 %>{ "services" : { <% 
-		Iterator typeIterator = is.keySet().iterator();
+		Iterator<?> typeIterator = is.keySet().iterator();
 		boolean sawFirst = false;
 		while (typeIterator.hasNext()) {
 			String type = typeIterator.next().toString();
@@ -15,8 +15,8 @@ Map is = (Map) request.getAttribute("interactions");
 			}
 			sawFirst = true; %> 
 	"<%=type %>" : [ <%
-			Collection collectionByType = (Collection) is.get(type);
-			Iterator i = collectionByType.iterator();
+			Collection<?> collectionByType = (Collection<?>) is.get(type);
+			Iterator<?> i = collectionByType.iterator();
 			boolean first = true;
 			while (i.hasNext()) {
 				JookInteraction ji = (JookInteraction) i.next();

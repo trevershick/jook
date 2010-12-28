@@ -18,7 +18,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.railinc.jook.Jook;
 import com.railinc.jook.domain.Preference;
-import com.railinc.jook.service.PreferenceService;
 import com.railinc.jook.service.UserPreferenceService;
 
 
@@ -110,16 +109,16 @@ public class PreferencesServlet extends HttpServlet {
 		userPreferenceService = (UserPreferenceService) context.getBean(Jook.SPRING_BEAN_NAME_USERPREF_SERVICE);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void marshal(List<Preference> prefs, Writer writer) throws IOException {
 		JSONObject o = new JSONObject();
-		
-		
 		for (Preference p : prefs) {
 			o.put(p.getSpecification().getKey(), toJsonObject(p));
 		}
 		o.writeJSONString(writer);
 	}
 	
+	@SuppressWarnings("unchecked")
 	private JSONObject toJsonObject(Preference p) {
 		JSONObject j = new JSONObject();
 		j.put("key", p.getSpecification().getKey());

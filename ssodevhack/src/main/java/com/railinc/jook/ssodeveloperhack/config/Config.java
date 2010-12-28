@@ -59,9 +59,6 @@ public class Config
 			} catch (FileNotFoundException e1) {
 				throw new RuntimeException(e1);
 			}
-			if (resourceAsStream == null) {
-				throw new RuntimeException(property + " could not be loaded");
-			}
 			Properties properties2 = new Properties();
 			try {
 				properties2.load(resourceAsStream);

@@ -106,9 +106,8 @@ public class UserAgentStringInfoProvider {
 		OutputStream os = null;
 		try {
 			String urlString = MessageFormat.format(urlPattern, hostName);
-			byte[] decodeBase64 = Base64.encodeBase64(userAgent.getBytes());
 			
-			String uaBase64 = new String(new Base64().encodeBase64(userAgent.getBytes()),"UTF-8");
+			String uaBase64 = new String(Base64.encodeBase64(userAgent.getBytes()),"UTF-8");
 			String requestBody = MessageFormat.format(rawXml, uaBase64, key);
 			URL url = new URL(urlString);
 			URLConnection con = url.openConnection();

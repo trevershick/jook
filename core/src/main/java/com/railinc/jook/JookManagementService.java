@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.railinc.jook.domain.JookInteractionProvider;
 import com.railinc.jook.domain.StaticInteraction;
-import com.railinc.jook.interaction.JookInteraction;
 
 public interface JookManagementService {
 	

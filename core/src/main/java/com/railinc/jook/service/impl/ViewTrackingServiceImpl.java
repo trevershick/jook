@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -76,7 +75,6 @@ public class ViewTrackingServiceImpl extends BaseServiceImpl<LastUserView> imple
 	@Override
 	public List<String> whatHasUserSeen(String user,
 			String viewtrackingAppname) {
-		Date now = new Date();
 		DetachedCriteria c = DetachedCriteria.forClass(this.domainClass());
 		c.add(Restrictions.eq("app", viewtrackingAppname));
 		c.add(Restrictions.eq("user", user));

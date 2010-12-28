@@ -11,6 +11,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class AuditLogServiceImpl extends HibernateDaoSupport implements AuditLogService {
 	
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<AuditLogRecord> records(String entityName, String entityId,
 			String txRef) {
@@ -21,6 +22,7 @@ public class AuditLogServiceImpl extends HibernateDaoSupport implements AuditLog
 		return getHibernateTemplate().findByCriteria(c);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> txReferences(String entityName, String entityId) {
 		DetachedCriteria c = DetachedCriteria.forClass(AuditLogRecord.class);
@@ -31,6 +33,7 @@ public class AuditLogServiceImpl extends HibernateDaoSupport implements AuditLog
 		return getHibernateTemplate().findByCriteria(c);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> entityIdsInvolvedInTx(String txRef, String entityType) {
 		DetachedCriteria c = DetachedCriteria.forClass(AuditLogRecord.class);
@@ -40,6 +43,7 @@ public class AuditLogServiceImpl extends HibernateDaoSupport implements AuditLog
 		return getHibernateTemplate().findByCriteria(c);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> entityTypesInvolvedInTx(String txRef) {
 		DetachedCriteria c = DetachedCriteria.forClass(AuditLogRecord.class);

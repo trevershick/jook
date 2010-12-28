@@ -103,8 +103,6 @@ public class SVGServlet extends HttpServlet {
 			if (null == evaluate) return servletName;
 			return evaluate.trim();
 		} catch (XPathExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			return e.getMessage() + ":" +servletName;
 		}
 	}

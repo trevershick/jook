@@ -5,30 +5,14 @@ package com.railinc.common.hibernate;
 | Created: Mar 3, 2008
 | Author:  Will Hoover
 */
-import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.EntityMode;
-import org.hibernate.HibernateException;
-import org.hibernate.StatelessSession;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.event.Initializable;
-import org.hibernate.event.PreDeleteEvent;
-import org.hibernate.event.PreDeleteEventListener;
 import org.hibernate.event.PreInsertEvent;
 import org.hibernate.event.PreInsertEventListener;
-import org.hibernate.event.PreLoadEvent;
 import org.hibernate.event.PreUpdateEvent;
 import org.hibernate.event.PreUpdateEventListener;
-import org.hibernate.persister.entity.EntityPersister;
-import org.hibernate.proxy.HibernateProxyHelper;
-import org.hibernate.type.ImmutableType;
-import org.hibernate.type.MutableType;
-import org.hibernate.type.Type;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.railinc.jook.domain.Modifiable;
 /*http://community.jboss.org/wiki/auditlogging*/

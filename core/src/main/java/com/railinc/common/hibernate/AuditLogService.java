@@ -1,6 +1,5 @@
 package com.railinc.common.hibernate;
 
-import java.io.Serializable;
 import java.util.List;
 
 public interface AuditLogService {
