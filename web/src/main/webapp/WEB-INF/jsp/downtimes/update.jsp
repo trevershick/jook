@@ -27,13 +27,13 @@
 			<td><label><spring:message
 				code="downtime.fields.startTime" /> <spring:message
 				code="downtime.field.separator" /></label></td>
-			<td><form:input id="startTime" path="startTime" cssErrorClass="noticeError" /></td>
+			<td><form:input size="14" id="startTime" path="startTime" cssErrorClass="noticeError" /></td>
 		</tr>
 		<tr>
 			<td><label><spring:message
 				code="downtime.fields.durationInMinutes" /> <spring:message
 				code="downtime.field.separator" /></label></td>
-			<td><form:input path="durationInMinutes" cssErrorClass="noticeError"/></td>
+			<td><form:input path="durationInMinutes" size="3" cssErrorClass="noticeError"/></td>
 		</tr>
 		<tr>
 			<td><label><spring:message
@@ -49,7 +49,16 @@
 
 
 </form:form>
+
+
 <script>
-// jQuery("#startTime").datepicker({ dateFormat : "yy-mm-dd" });
+$('#htmlContent').markItUp(mySettings);
 
 </script>
+<style>
+.markItUpEditor { 
+	height:100px; 
+}
+</style>
+
+

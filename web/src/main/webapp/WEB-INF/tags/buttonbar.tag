@@ -11,15 +11,13 @@
 	<spring:message code="default.buttons.delete" var="buttonDelete"/>
 	<div class="controlBar">
 		<c:if test="${ showSave or showSave == null}">
-			<input class="actionPositive" type="submit" name="_eventId_save" value="${buttonSave }"/>
+			<input class="actionPositive" type="submit" id="_eventId_save" name="_eventId_save" value="${buttonSave }"/>
 		</c:if>
 		<c:if test="${ showCancel or showCancel == null}">
-			<input class="actionModerate" type="submit" name="_eventId_cancel" value="${buttonCancel }"/>
+			<input class="actionModerate" type="submit" id="_eventId_cancel" name="_eventId_cancel" value="${buttonCancel }"/>
 		</c:if>
 		<c:if test="${ showDelete or showDelete == null}">
-			<input class="actionNegative" type="submit" name="_eventId_delete" value="${buttonDelete }"/>
+			<input class="actionNegative" type="submit" id="_eventId_delete" name="_eventId_delete" value="${buttonDelete }"/>
 		</c:if>
 	</div>
-	
-	
 </div>
