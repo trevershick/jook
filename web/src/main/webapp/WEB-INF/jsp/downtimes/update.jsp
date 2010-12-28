@@ -53,7 +53,14 @@
 
 <script>
 $('#htmlContent').markItUp(mySettings);
-
+$("#startTime").datepicker({
+	dateFormat : "yy-mm-dd",
+	timeFormat : "H:m",
+	time24h : true,
+	duration: '',
+    showTime: true,
+    constrainInput: false
+ });
 </script>
 <style>
 .markItUpEditor { 
