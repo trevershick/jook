@@ -138,13 +138,9 @@ It's better to use git from the command line to learn it anyhow..
 	dont' forget to copy mysql connector driver into <tomcat_home>/lib
 	
 	Note: ensure that the path of your Web Modules are set to the following
-	
 	1. Path: /jook
-
- 	2. Path: /jookTest
- 	
+	2. Path: /jookTest
 	3. Path: /sso
- 	
 	4. Path: /drawer-myapps
 
 Open the Project Pages
