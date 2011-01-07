@@ -30,5 +30,63 @@
 			<input type="button" onClick="Jook.closeMyDrawer('#api_example')" value="Close My Drawer"/>
 		</p>
 	</li>
+	<li>
+		<h1>gadgets.Prefs</h1>
+		<p>
+			<table width="300">
+				<tr>
+					<th></th>
+					<th>String</th>
+					<th>Boolean</th>
+					<th>Float</th>
+					<th>Int</th>
+					<th>Array</th>
+				</tr>
+				<tr>
+					<td>Known Values</td>
+					<td><span id="api_td_s"/></td>
+					<td><span id="api_td_b"/></td>
+					<td><span id="api_td_f"/></td>
+					<td><span id="api_td_i"/></td>
+					<td><span id="api_td_a"/></td>
+				</tr>
+				<tr>
+					<td>Unknown Values</td>
+					<td><span id="api_td_s_unk"/></td>
+					<td><span id="api_td_b_unk"/></td>
+					<td><span id="api_td_f_unk"/></td>
+					<td><span id="api_td_i_unk"/></td>
+					<td><span id="api_td_a_unk"/></td>
+				</tr>
+			</table>
+		</p>
+	</li>
 </ul>
 </div>
+
+<script type="text/javascript">
+// create a new preferences object with a unique name
+// the unique name shoudl really be specific to this 'drawer'
+// the preferences, when stored will automatically be assigned
+// to the current user.
+var prefs = new gadgets.Prefs("jook_api_example");
+prefs.set("spref", "String Value");
+prefs.set("bpref", true);
+prefs.set("fpref", 3.14);
+prefs.set("ipref", 42);
+prefs.setArray("apref", ["test3","test4"]);
+
+jQuery(document).ready(function() {
+	jQuery("#api_td_s").html(prefs.getString("spref"));
+	jQuery("#api_td_b").html(prefs.getBool("bpref").toString());
+	jQuery("#api_td_f").html(prefs.getFloat("fpref"));
+	jQuery("#api_td_i").html(prefs.getInt("ipref"));
+	jQuery("#api_td_a").html(prefs.getArray("apref").toString());
+
+	jQuery("#api_td_s_unk").html(prefs.getString("spref_unk"));
+	jQuery("#api_td_b_unk").html(prefs.getBool("bpref_unk").toString());
+	jQuery("#api_td_f_unk").html(prefs.getFloat("fpref_unk"));
+	jQuery("#api_td_i_unk").html(prefs.getInt("ipref_unk"));
+	jQuery("#api_td_a_unk").html(prefs.getArray("apref_unk").toString());
+});
+</script>

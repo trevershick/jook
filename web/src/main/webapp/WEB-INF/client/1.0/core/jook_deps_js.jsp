@@ -27,12 +27,21 @@ function gadgets_Prefs(moduleId) {
 	this.getString = function(preferenceName) {
 		if (typeof(this.data[preferenceName]) == "undefined" || this.data[preferenceName] == null) {return null;}
 		return this.data[preferenceName].value;
-	}
+	};
 	this.set = function(key,val) {
-		this.data['key'] = val;
+		this.data[key] = new Object();
+		this.data[key].value = val;
 		jQuery.ajax({
 		url:"<%=request.getContextPath()%>/secured/client/preferences/1.0/" + moduleId + ".json",
-		type:"POST", dataType:"json",data:{key:key,value:val}});}
+		type:"POST", dataType:"json",data:{key:key,value:val}});
+	};
+
+	this.getBool = function(key) { return new Boolean(this.getString(key)) };
+	this.getFloat = function(key) { f = parseFloat(this.getString(key)); return isNaN(f) ? 0:f; };
+	this.getInt = function(key) { i = parseInt(this.getString(key)); return isNaN(i) ? 0:i; };
+	this.getArray = function(key) { a = this.getString(key); return a == null ? new Array(0) : a.split("|"); };
+	this.setArray = function(key,values) { if (values == null) return; this.set(key, values.join("|")) };
+		
 }
 gadgets.Prefs = gadgets_Prefs;
 
