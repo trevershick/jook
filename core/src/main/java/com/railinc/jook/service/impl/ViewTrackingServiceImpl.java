@@ -36,6 +36,11 @@ public class ViewTrackingServiceImpl extends BaseServiceImpl<LastUserView> imple
 	public void resetViewState(String application, String resource) {
 		getHibernateTemplate().bulkUpdate("DELETE FROM LastUserView WHERE app=? AND name=?", application,resource);
 	}
+	@Override
+	public void resetViewState(String viewtrackingAppname, Object id) {
+		resetViewState(viewtrackingAppname, String.valueOf(id));
+	}
+	
 
 	@Override
 	protected Class<? extends DomainObject> domainClass() {
@@ -80,6 +85,10 @@ public class ViewTrackingServiceImpl extends BaseServiceImpl<LastUserView> imple
 		c.add(Restrictions.eq("user", user));
 		c.setProjection(Projections.property("name"));
 		return list(String.class, c);		
+	}
+	@Override
+	public void userJustSaw(String user, String viewtrackingAppname, Object id) {
+		this.userJustSaw(user, viewtrackingAppname, String.valueOf(id));
 	}
 
 }

@@ -18,22 +18,22 @@
 		<property name="authoredDate" not-null="true" />
 		<property name="expirationDate" />
 		<property name="published" not-null="true"/>
-		<property name="creator"/>
+		<property name="creator" length="25"/>
 		<property name="created"/>
 		<property name="lastModified"/>
-		<property name="lastModifier"/>
+		<property name="lastModifier" length="25"/>
 	</class>
 	<class name="Link" table="link">
 		<id name="id" type="java.lang.Long">
 			<generator class="native"/>
 		</id>
-		<property name="path" not-null="true"/>
-		<property name="url" not-null="true" />
+		<property name="path" not-null="true" length="255"/>
+		<property name="url" not-null="true" length="255"/>
 		<property name="description" not-null="true" length="255"/>
-		<property name="creator"/>
+		<property name="creator" length="25"/>
 		<property name="created"/>
 		<property name="lastModified"/>
-		<property name="lastModifier"/>
+		<property name="lastModifier" length="25"/>
 		
 	</class>	
 
@@ -41,24 +41,24 @@
 		<id name="id" type="java.lang.Long">
 			<generator class="native"/>
 		</id>
-		<property name="type" not-null="true"/>
-		<property name="title" not-null="true"/>
-		<property name="unsecureUrl" />
-		<property name="secureUrl" />
+		<property name="type" not-null="true" length="15"/>
+		<property name="title" not-null="true" length="20"/>
+		<property name="unsecureUrl" length="255"/>
+		<property name="secureUrl" length="255"/>
 		<property name="active" not-null="true" />
 		<property name="excludeApplications" not-null="true" />
 		<set name="applications" table="interaction_app" fetch="join" lazy="false">
             <key column="interaction_id"/>
-           	<element column="name" type="string"/>
+           	<element column="name" type="string" length="25"/>
       	</set>
 		<set name="requiredRoles" table="interaction_role" fetch="join" lazy="false">
             <key column="provider_id"/>
-           	<element column="role_name" type="string" not-null="true"/>
+           	<element column="role_name" type="string" not-null="true" length="25"/>
       	</set>
-		<property name="creator"/>
+		<property name="creator" length="25"/>
 		<property name="created"/>
 		<property name="lastModified"/>
-		<property name="lastModifier"/>
+		<property name="lastModifier" length="25"/>
 	</class>
 
 	<class name="JookInteractionProvider" table="provider">
@@ -72,16 +72,16 @@
 		<property name="excludeApplications" not-null="true" />
 		<set name="applications" table="provider_app" fetch="join" lazy="false">
             <key column="provider_id"/>
-           	<element column="name" type="string"/>
+           	<element column="name" type="string" length="25"/>
       	</set>
 		<set name="requiredRoles" table="provider_role" fetch="join" lazy="false">
             <key column="provider_id"/>
-           	<element column="role_name" type="string" not-null="true"/>
+           	<element column="role_name" type="string" not-null="true" length="25"/>
       	</set>
-		<property name="creator"/>
+		<property name="creator" length="25"/>
 		<property name="created"/>
 		<property name="lastModified"/>
-		<property name="lastModifier"/>
+		<property name="lastModifier" length="25"/>
 	</class>
 	
 	<class name="Downtime" table="downtime">
@@ -91,11 +91,12 @@
 		<property name="moduleId" not-null="true"/>
 		<property name="durationInMinutes" not-null="true" />
 		<property name="startTime" not-null="true" length="255"/>
-		<property name="htmlContent" />
-		<property name="creator"/>
+		<property name="title" length="50" />
+		<property name="htmlContent" length="32767" />
+		<property name="creator" length="25"/>
 		<property name="created"/>
 		<property name="lastModified"/>
-		<property name="lastModifier"/>
+		<property name="lastModifier" length="25"/>
 	</class>
 	
 	
@@ -107,10 +108,10 @@
 		<property name="key" column="config_key" not-null="true" length="64"/>
 		<property name="stringValue" column="config_value" not-null="true" length="64" />
 		<property name="description" not-null="true" length="255" />
-		<property name="creator"/>
+		<property name="creator" length="25"/>
 		<property name="created"/>
 		<property name="lastModified"/>
-		<property name="lastModifier"/>
+		<property name="lastModifier" length="25"/>
 		
 	</class>
 	
@@ -121,30 +122,30 @@
 		<id name="id" column="GROUP_ID">
         	<generator class="native"/>
         </id>
-        <property name="applicationKey" not-null="true" length="16" column="APP_KEY"/>
-        <property name="key" not-null="true" length="16" column="GROUP_K" unique-key="true"/>
+        <property name="applicationKey" not-null="true" length="25" column="APP_KEY"/>
+        <property name="key" not-null="true" length="25" column="GROUP_K" unique-key="true"/>
         <property name="name" not-null="true" length="32" column="GROUP_N"/>
         <property name="description" not-null="false" length="255" column="GROUP_D"/>
-		<property name="creator"/>
+		<property name="creator" length="25"/>
 		<property name="created"/>
 		<property name="lastModified"/>
-		<property name="lastModifier"/>
+		<property name="lastModifier" length="25"/>
 	</class>
 	
 	<class name="PreferenceSpec" table="pref_spec">
 		<id name="id" column="SPEC_ID">
         	<generator class="native"/>
         </id>
-        <property name="key" not-null="true" length="16" column="SPEC_KEY"/>
+        <property name="key" not-null="true" length="25" column="SPEC_KEY"/>
         <property name="type" not-null="true" length="32" column="SPEC_TYPE"/>
         <property name="name" not-null="true" length="32" column="SPEC_NAME"/>
         <property name="description" not-null="false" length="255" column="SPEC_DESC"/>
         <property name="defaultValue" not-null="false" length="255" column="SPEC_DEF_VALUE"/>
         <many-to-one name="group" column="SPEC_GROUP_ID" not-null="true"></many-to-one>
-		<property name="creator"/>
+		<property name="creator" length="25"/>
 		<property name="created"/>
 		<property name="lastModified"/>
-		<property name="lastModifier"/>
+		<property name="lastModifier" length="25"/>
 	</class>
 	
 	<class name="Preference" table="pref_values">
@@ -154,10 +155,10 @@
         <many-to-one name="specification" column="PREF_SPEC_ID" not-null="true"></many-to-one>
         <property name="userId" not-null="true" length="16" column="PREF_USER"/>
         <property name="value" not-null="false" length="255" column="PREF_VALUE"/>
-		<property name="creator"/>
+		<property name="creator" length="25"/>
 		<property name="created"/>
 		<property name="lastModified"/>
-		<property name="lastModifier"/>
+		<property name="lastModifier" length="25"/>
 	</class>
 
 	<class name="Incident" table="mysupport_incident">
@@ -187,10 +188,10 @@
 		<property name="stackTrace" />
 		<property name="requestDetails" />
 
-		<property name="creator"/>
+		<property name="creator" length="25"/>
 		<property name="created"/>
 		<property name="lastModified"/>
-		<property name="lastModifier"/>
+		<property name="lastModifier" length="25"/>
 	</class>
 	
 	

@@ -22,6 +22,7 @@ public interface ViewTrackingService {
 	boolean hasUserSeen(String user, String application, String resource);
 	void resetViewState(String application, String resource);
 	void resetViewState(String application, List<? extends Object> itemIds);
+	void resetViewState(String viewtrackingAppname, Object id);
 	
 	boolean userHasNotSeenAll(String user, String viewtrackingAppname,
 			List<? extends Object> itemIds);
@@ -29,4 +30,5 @@ public interface ViewTrackingService {
 			List<? extends Object> itemIds);
 	List<String> whatHasUserSeen(String user,
 			String viewtrackingAppname);
+	void userJustSaw(String user, String viewtrackingAppname, Object id);
 }

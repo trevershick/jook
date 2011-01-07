@@ -67,11 +67,13 @@ var Jook = {
 		jQuery("#jooklinksa").click(Jook.openShakeDrawers);
     },
     
+    
     showLoading : function(element) {
     	element.addClass("jookloading");
     },
     doneLoading : function(element) {
     	element.removeClass("jookloading");
+		Jook.updateJookPopupLinks();    	
     },
     loadingError : function(element) {
     	Jook.doneLoading(element);
@@ -215,13 +217,15 @@ var Jook = {
 	    offset += ts ? ts.length : 0;            
 	    
 	    // attach the click handlers to the popup tab
+	    // i think this coul dbe redone by setting a speccifc class on the link and
+	    // then just using jquery and facebox to do the work.
 	    pts = services.popuptab;
 	    for (var i=0;pts && i < pts.length;i++) {
 	    	var tmp = "#target_" + (i+offset);
 			jQuery("#target_trigger_" + (i+offset)).click(function(){
 				var t = jQuery("#" + jQuery(this).attr("id").replace("_trigger",""));
 			   	var theUrlToLoad = jQuery(this).attr("src");
-			   	jQuery.facebox({ajax:theUrlToLoad});
+			   	Jook.popupWithUrl(theUrlToLoad);
 				return false;
 			});
 			offset++;
@@ -234,15 +238,34 @@ var Jook = {
 	        jQuery.facebox({ ajax: ps[i].url });
 	    }
 	},
+	// this is called after loading a tab so that any
+	// links inside the tab can be attached and 'faceboxed'
+	updateJookPopupLinks : function() {
+		jQuery('a.jook_popup_link').facebox()
+	},
 	
+	
+	/* public */
+	popupWithString : function(simpleStringValue) {
+		jQuery.facebox(simpleStringValue); 
+	},
+	
+	/* public */
+	popupWithUrl : function(remoteUrl) {
+		jQuery.facebox({ ajax:remoteUrl });
+	},
+	 
+	/* public */
 	message : function(messageText, argumentsDict) {
 		jQuery.jGrowl(messageText, argumentsDict);
 	},
 	
+	/* public */
 	closeMyDrawer : function(element) {
 		/** pass the jquery selector of an element in the drawer's html like '#jook_feedback_results' **/
 		if ("string" == typeof(element)) {
 			jQuery(element).parents(".target").prev().trigger('click',this);
 		}
 	}
+	
 }

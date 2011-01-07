@@ -1,13 +1,18 @@
 package com.railinc.jook.service.impl;
 
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.railinc.jook.domain.DomainObject;
 import com.railinc.jook.domain.Downtime;
@@ -68,8 +73,16 @@ public class DowntimeServiceImpl extends BaseServiceImpl<Downtime> implements Do
 	/* (non-Javadoc)
 	 * @see com.railinc.jook.downtime.DowntimeService#getDowntimeById(java.lang.Long)
 	 */
-	public Downtime getDowntimeById(Long id) {
-		return getHibernateTemplate().load(Downtime.class, id);
+	public Downtime getDowntimeById(final Long id) {
+			return getHibernateTemplate().executeWithNativeSession(new HibernateCallback<Downtime>() {
+				@Override
+				public Downtime doInHibernate(Session session)
+						throws HibernateException, SQLException {
+					Downtime load2 = (Downtime) session.load(Downtime.class, id);
+					Hibernate.initialize(load2);
+					return load2;
+				}
+			});
 	}
 	
 	@Override
@@ -87,7 +100,7 @@ public class DowntimeServiceImpl extends BaseServiceImpl<Downtime> implements Do
 	}
 
 	@Override
-	public boolean hasDowntimeOverNextNDays(String moduleId, int nDays) {
+	public List<Long> downtimeOverNextNDaysKeys(String moduleId, int nDays) {
 		
 		Date now = new Date();
 		Calendar c = Calendar.getInstance();
@@ -95,10 +108,11 @@ public class DowntimeServiceImpl extends BaseServiceImpl<Downtime> implements Do
 		Date until = c.getTime();
 		
 		DetachedCriteria crit = DetachedCriteria.forClass(domainClass());
+		crit.setProjection(Projections.id());
 		crit.add(Restrictions.eq("moduleId", moduleId));
 		crit.add(Restrictions.ge("startTime", now));
 		crit.add(Restrictions.le("startTime", until));
-		return count(crit) > 0;
+		return list(Long.class, crit);
 	}
 
 	@Override

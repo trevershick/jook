@@ -21,7 +21,13 @@
 			<td><label><spring:message
 				code="downtime.fields.moduleId" /> <spring:message
 				code="downtime.field.separator" /></label></td>
-			<td><form:input path="moduleId" cssErrorClass="noticeError" /></td>
+			<td><form:input path="moduleId" cssErrorClass="noticeError" size="16" /></td>
+		</tr>
+		<tr>
+			<td><label><spring:message
+				code="downtime.fields.title" /> <spring:message
+				code="downtime.field.separator" /></label></td>
+			<td><form:input path="title" cssErrorClass="noticeError" size="50"/></td>
 		</tr>
 		<tr>
 			<td><label><spring:message

@@ -9,7 +9,7 @@ public interface DowntimeService {
 
 	boolean hasImminentDowntime(String moduleId);
 	Downtime imminentDowntime(String moduleId);
-	boolean hasDowntimeOverNextNDays(String moduleId, int nDays);
+	List<Long> downtimeOverNextNDaysKeys(String moduleId, int nDays);
 	List<Downtime> downtimeOverNextNDays(String moduleId, int nDays);
 	
 	long getCountOfDowntime();

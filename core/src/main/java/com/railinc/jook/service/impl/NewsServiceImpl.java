@@ -67,7 +67,7 @@ public class NewsServiceImpl extends BaseServiceImpl<NewsItem> implements
 	}
 
 	@Override
-	public List<Object> newsItemsToShow(String moduleId) {
+	public List<Long> newsItemsToShow(String moduleId) {
 		Date now = new Date();
 		DetachedCriteria c = DetachedCriteria.forClass(this.domainClass());
 		c.add(Restrictions.eq("published", Boolean.TRUE));
