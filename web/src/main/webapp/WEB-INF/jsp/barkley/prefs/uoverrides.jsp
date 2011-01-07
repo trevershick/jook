@@ -10,7 +10,7 @@
 
 <div class="formContainer">
 	<div class="section">
-	<form>
+	<form id="searchform">
 			<spring:message code="barkley.prefs.uoverrides.searchfield.app.prompt"  />
 			<select name="app" onchange="this.form.submit();">
 				<option value=""><spring:message code="barkley.prefs.uoverrides.app.prompttext"/></option>
@@ -26,7 +26,7 @@
 				</c:forEach>
 			</select>
 			<spring:message code="barkley.prefs.uoverrides.searchfield.user.prompt"  />
-			<input name="user" value="${param.user }"/>
+			<input name="user" id="user" value="${param.user }"/>
 			<spring:message code="barkley.prefs.uoverrides.buttons.search" var="searchButtonText" />
 			<input type="submit" value="${searchButtonText }"/>
 	</form>
@@ -68,6 +68,13 @@
 <script>
 $().ready(function() { 
 	$("#daTableId").tablesorter({widgets: ['zebra']});
-	        
-    } 
-); </script>
+	$("#user").autocomplete(
+			{ source:"/jook/main/secure/barkley/test/users.json",
+				select: function( event, ui ) {
+					$( "#user" ).val( ui.item.label );
+					$( "#searchform" ).submit();
+					return false;
+				},
+				maxHeight:15 });
+    }); 
+ </script>
