@@ -100,7 +100,7 @@ public class LoginAction extends HttpServlet {
 	
 	
 	public String buildRedirectUrl(HttpServletRequest request) {
-		String url = getConfiguration().getProperty("appUrl");
+		String url = request.getParameter("app"); //getConfiguration().getProperty("appUrl");
 		debug("Redirect URL : %s", url);
 		String template = "%s://%s:%d%s";
 		String protocol = (request.isSecure() ? "https" : "http");
