@@ -34,7 +34,7 @@ div.drawer {
 	-webkit-border-top-right-radius: 10px;
 	-moz-border-radius-bottomright: 10px;
 	-webkit-border-bottom-right-radius: 10px;
-	width: 330px;
+	min-width: 330px;
 	min-height:50px;
 	height: auto;
 	padding: 5px;
