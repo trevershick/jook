@@ -33,9 +33,16 @@
        Documentation at /docs/jndi-resources-howto.html
   -->
   <GlobalNamingResources>
-	<Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="15" maxIdle="30" maxWait="10000" name="JookDataSource" password="jook" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/jook" username="jook"/>    
+    <!-- Editable user database that can also be used by
+         UserDatabaseRealm to authenticate users
+    -->
     <Resource auth="Container" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase" pathname="conf/tomcat-users.xml" type="org.apache.catalina.UserDatabase"/>
-    <Environment name="globalDataServicesUrl" type="java.lang.String" value="http://datasvcs.dev.railinc.com"/>
+    <Environment type="java.lang.String" name="globalDataServicesUrl" value="http://datasvcs.dev.railinc.com"/>
+    
+    <Resource name="JookDataSource" auth="Container" type="javax.sql.DataSource"
+               maxActive="10" maxIdle="30" maxWait="3000"
+               username="jook" password="jook" driverClassName="com.mysql.jdbc.Driver"
+               url="jdbc:mysql://localhost:3306/jook"/>
   </GlobalNamingResources>
 
   <!-- A "Service" is a collection of one or more "Connectors" that share
@@ -78,6 +85,7 @@
     -->
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
+    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443"/>
 
 
     <!-- An Engine represents the entry point (within Catalina) that processes
@@ -129,7 +137,7 @@
                prefix="localhost_access_log." suffix=".txt" pattern="common" resolveHosts="false"/>
         -->
 
-      <Context docBase="jooktest-webapp" path="/jooktest" reloadable="true" source="org.eclipse.jst.j2ee.server:jooktest-webapp"/><Context docBase="jook-ssodevhack" path="/sso" reloadable="true" source="org.eclipse.jst.j2ee.server:jook-ssodevhack"/><Context docBase="jook-webapp" path="/jook" reloadable="true" source="org.eclipse.jst.j2ee.server:jook-webapp"/><Context docBase="drawer-myapps" path="/drawer-myapps" reloadable="true" source="org.eclipse.jst.j2ee.server:drawer-myapps"/></Host>
+      <Context docBase="drawer-myapps" path="/drawer-myapps" reloadable="true" source="org.eclipse.jst.j2ee.server:drawer-myapps"/><Context docBase="drawer-feedback" path="/drawer-feedback" reloadable="true" source="org.eclipse.jst.j2ee.server:drawer-feedback"/><Context docBase="jooktest-webapp" path="/jooktest" reloadable="true" source="org.eclipse.jst.j2ee.server:jooktest-webapp"/><Context docBase="jook-ssodevhack" path="/sso" reloadable="true" source="org.eclipse.jst.j2ee.server:jook-ssodevhack"/><Context docBase="jook-webapp" path="/jook" reloadable="true" source="org.eclipse.jst.j2ee.server:jook-webapp"/></Host>
     </Engine>
   </Service>
 </Server>
