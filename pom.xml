@@ -43,5 +43,6 @@
 		<module>taglib</module>
 		<module>web</module>
 		<module>ssodevhack</module>
+		<module>jooktest</module>
 	</modules>
 </project>

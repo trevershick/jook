@@ -244,7 +244,7 @@ var Jook = {
 	displayPopups : function(services) {
 	    var ps = services.popup;
 	    for (var i=0;ps && i < ps.length;i++) {
-	        Jook.popupWithUrl({ ajax: ps[i].url });
+	        jQuery.facebox({ ajax: ps[i].url }); // can't call Jook.popupWithUrl here.
 	    }
 	},
 	// this is called after loading a tab so that any
