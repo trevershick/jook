@@ -24,9 +24,9 @@ Clone your new project locally::
 
 	git clone https://<username>@github.com/vijaysivaji/jook.git
 
-Clone the test project::
+Clone the drawers project::
  
-	git clone https://<username>@github.com/trevershick/testjook.git
+	git clone https://<username>@github.com/vijaysivaji/drawers-parent.git
 
 Play with Git a little
 =====================================================================
@@ -123,12 +123,12 @@ It's better to use git from the command line to learn it anyhow..
 	
 2) You may see errors in the jook-webapp project...
 	Right click the project and choose Properties
-	Select Apache Tomcat 6 for the Targeted Runtime.
-	
-3) repeat 1 & 2 for testjook
+	Select "Apache tomcat 6.0 on JDK 6" for the Targeted Runtime.
+
+3) Repeat steps 1 & 2 for drawers-parent	
 
 4) Create a server
-	add jook-ssodevhack, jook-webapp and jooktest-webapp to the server
+	add jook-ssodevhack, jook-webapp and jooktest to the server
 	ensure the paths in the modules tab are /sso /jook and /jooktest
 	change the server to 'Serve Modules without Publishing'
 	
@@ -146,6 +146,8 @@ It's better to use git from the command line to learn it anyhow..
 	3. Path: /sso
  	
 	4. Path: /drawer-myapps
+
+	5. Path: /drawer-feedback
 
 Open the Project Pages
 =======================================================================
