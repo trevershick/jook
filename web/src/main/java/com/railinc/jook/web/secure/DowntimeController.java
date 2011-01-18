@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.railinc.jook.domain.Downtime;
 import com.railinc.jook.service.DowntimeService;
+import com.railinc.jook.service.ViewTrackingService;
+import com.railinc.jook.web.interactions.DowntimeInteractionFactoryImpl;
 import com.railinc.jook.web.util.StandardController;
 
 @Controller
@@ -28,8 +30,22 @@ import com.railinc.jook.web.util.StandardController;
 public class DowntimeController extends StandardController {
 
 	
+	ViewTrackingService viewTracking;
 	
-	
+	public ViewTrackingService getViewTracking() {
+		return viewTracking;
+	}
+
+
+
+
+	public void setViewTracking(ViewTrackingService viewTracking) {
+		this.viewTracking = viewTracking;
+	}
+
+
+
+
 	public DowntimeService getService() {
 		return service;
 	}
@@ -76,33 +92,32 @@ public class DowntimeController extends StandardController {
 	
 	
 	@RequestMapping(value="update",params="!id")
-	public String downtimeUpdate(ModelMap map) {
+	public String newDowntimeForm(ModelMap map) {
 		Downtime configurationValue = new Downtime();
 		map.addAttribute("downtime", configurationValue);
 		return ".view.downtimes.update";
 	}
 
 	@RequestMapping("update")
-	public String downtimeUpdate(Downtime value, ModelMap map) {
+	public String updateDowntimeForm(Downtime value, ModelMap map) {
 		Downtime configurationValue = getService().getDowntimeById(value.getId());
 		map.addAttribute("downtime", configurationValue);
 		return ".view.downtimes.update";
 	}
 
 	@RequestMapping(value="submit",params="_eventId_cancel")
-	public String configurationCancelUpdate(ModelMap map, HttpServletRequest request) {
+	public String cancelUpdateForm(ModelMap map, HttpServletRequest request) {
 		message(request,"No action has been taken");
-
-
 		return "redirect:list";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="submit",params="_eventId_save")
-	public String downtimeUpdateObject(@ModelAttribute("downtime") Downtime value, BindingResult result, ModelMap map, HttpServletRequest request) {
+	public String save(@ModelAttribute("downtime") Downtime value, BindingResult result, ModelMap map, HttpServletRequest request) {
 
 		ValidationUtils.rejectIfEmpty(result, "moduleId", "required");
 		ValidationUtils.rejectIfEmpty(result, "durationInMinutes", "required");
 		ValidationUtils.rejectIfEmpty(result, "startTime", "required");
+		ValidationUtils.rejectIfEmpty(result, "title", "required");
 		ValidationUtils.rejectIfEmpty(result, "htmlContent", "required");
 		if (result.hasErrors()) {
 			return ".view.downtimes.update";
@@ -110,7 +125,9 @@ public class DowntimeController extends StandardController {
 		try {
 			getService().update(value);
 			message(request, String.format("Successfully saved the downtime record"));
-
+			if (viewTracking != null) {
+				viewTracking.resetViewState(DowntimeInteractionFactoryImpl.VIEWTRACKING_APPNAME, value.getId());
+			}
 		} catch (DataIntegrityViolationException cve) {
 			map.addAttribute("downtime", value);
 			result.rejectValue("key", "data.integrity.downtime.key.duplicated");

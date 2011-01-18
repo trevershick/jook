@@ -16,7 +16,8 @@
 	p:viewTracking-ref="viewTrackingService" />
 	
 	<bean class="com.railinc.jook.web.interactions.DowntimeInteractionFactoryImpl"
-		p:downtimeService-ref="downtimeService" />
+		p:downtimeService-ref="downtimeService"
+		p:viewTracking-ref="viewTrackingService"  />
 
 	<bean class="com.railinc.jook.web.interactions.StaticInteractionFactoryImpl"
 		p:service-ref="jookService" />

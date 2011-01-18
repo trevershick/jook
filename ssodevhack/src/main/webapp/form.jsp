@@ -57,10 +57,14 @@ User Id:
 <jsp:include flush="true" page="userid.jsp" />
 </div>
 <div style="margin-top:15px;font-size:10pt;">
-Password:
+Site:
 </div>
 <div>
-<input style="width:100%;margin-top:5px;font-size:10pt;" type="password" name="usr_password" value="" size="12" maxlength="20" disabled="disabled" />
+<select name="app" style="width:100%;margin-top:5px;font-size:10pt;" >
+	<option value="/jook">Jook</option>
+	<option value="/jooktest">Jook Test App</option>
+</select>
+
 </div>			
 <input type="submit" class="formButton"	name="OK" value="Login" style="background-color:#00ee00;color:white;height:30px;width:75px;font-size:12pt;font-weight:bold;margin-top:15px;"/>
 <span style="margin-left:100px;width:150px;line-height:12pt;font-size:9pt;color:blue;">

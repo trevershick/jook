@@ -1,14 +1,22 @@
 package com.railinc.jook.web.secure.barkley;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
+import org.json.simple.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.railinc.jook.Collections;
+import com.railinc.jook.Predicate;
 import com.railinc.jook.domain.Preference;
 import com.railinc.jook.service.PreferenceService;
 import com.railinc.jook.service.UserPreferenceService;
@@ -70,5 +78,22 @@ public class TestController {
 			model.addAttribute("preferences", preferences);
 		}
 		return ".view.barkley.prefs.upreferences";
+	}
+	
+	
+
+	
+	@RequestMapping("users.json")
+	public void getUsersJson(@RequestParam("term") final String term, HttpServletResponse response) throws IOException {
+		List<String> usersWithOverrides = this.service.getUsersWithOverrides();
+		usersWithOverrides = new ArrayList<String>(Collections.select(usersWithOverrides, new Predicate<String, Boolean>() {
+			@Override
+			public Boolean call(String o) {
+				return o.toUpperCase().indexOf(term.toUpperCase()) > -1;
+			}
+		}));
+		PrintWriter writer = response.getWriter();
+		JSONArray.writeJSONString(usersWithOverrides, writer);
+		writer.close();
 	}
 }

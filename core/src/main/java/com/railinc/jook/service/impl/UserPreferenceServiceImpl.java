@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.railinc.jook.domain.DomainObject;
@@ -125,6 +127,16 @@ public class UserPreferenceServiceImpl extends BaseServiceImpl<Preference> imple
 				getHibernateTemplate().save(p);
 			}
 		}
+	}
+
+
+
+	@Override
+	public List<String> getUsersWithOverrides() {
+		DetachedCriteria c1 = DetachedCriteria.forClass(domainClass());
+		c1.setProjection(Projections.distinct(Projections.property("userId")));
+		c1.addOrder(Order.asc("userId"));
+		return list(String.class, c1);
 	}
 
 }

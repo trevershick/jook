@@ -10,13 +10,23 @@ Preference 1 Value - <input type="text" id="jook_prefs_text"/>
 
 </div>
 <script type="text/javascript">
+// create a new preferences object with a unique name
+// the unique name shoudl really be specific to this 'drawer'
+// the preferences, when stored will automatically be assigned
+// to the current user.
 var prefs = new gadgets.Prefs("jook_prefs");
 
+// get a named string preference
 var someStringPref = prefs.getString("pref1");
+
+// display the preference value.
 jQuery("#jook_prefs_text").val(someStringPref);
 
 
 function update_prefs() {
+	// set the value in the preferences on the server.
+	// this is all that's required to store the preference
+	// value.
 	prefs.set("pref1", jQuery("#jook_prefs_text").val());
 }
 </script>

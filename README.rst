@@ -24,9 +24,9 @@ Clone your new project locally::
 
 	git clone https://<username>@github.com/vijaysivaji/jook.git
 
-Clone the test project::
+Clone the drawers project::
  
-	git clone https://<username>@github.com/trevershick/testjook.git
+	git clone https://<username>@github.com/vijaysivaji/drawers-parent.git
 
 Play with Git a little
 =====================================================================
@@ -123,20 +123,34 @@ It's better to use git from the command line to learn it anyhow..
 	
 2) You may see errors in the jook-webapp project...
 	Right click the project and choose Properties
-	Select Apache Tomcat 6 for the Targeted Runtime.
-	
-3) repeat 1 & 2 for testjook
+	Select "Apache tomcat 6.0 on JDK 6" for the Targeted Runtime.
+
+3) Repeat steps 1 & 2 for drawers-parent	
 
 4) Create a server
-	add jook-ssodevhack, jook-webapp and jooktest-webapp to the server
+	add jook-ssodevhack, jook-webapp and jooktest to the server
 	ensure the paths in the modules tab are /sso /jook and /jooktest
 	change the server to 'Serve Modules without Publishing'
 	
 5) Setup the server.xml for jook
 	open server.xml
 	copy in jook/src/config/server.xml into the GlobalNamingResources
-	dont' forget to copy mysql connector driver into <tomcat_home>/lib
+	don't forget to copy mysql connector driver into <tomcat_home>/lib or
+	alternately open the launch configuration for your new server and
+	add the mysql-*.jar to the user classpath entries. ( if you run a 'mvn compile' from
+	the root jook directory, the mysql-*.jar files will be copied into jook\files\target\dependency )
+	
+	Note: ensure that the path of your Web Modules are set to the following
+	
+	1. Path: /jook
 
+ 	2. Path: /jookTest
+ 	
+	3. Path: /sso
+ 	
+	4. Path: /drawer-myapps
+
+	5. Path: /drawer-feedback
 
 Open the Project Pages
 =======================================================================

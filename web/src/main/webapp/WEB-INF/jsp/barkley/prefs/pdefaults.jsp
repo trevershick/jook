@@ -15,10 +15,17 @@
 			<spring:message code="barkley.prefs.pdefaults.searchfield.app.prompt"  />
 			
 			
-			<select name="app">
+			<select name="app" onchange="this.form.submit();">
 				<option value=""><spring:message code="barkley.prefs.pdefaults.app.prompttext"/></option>
 				<c:forEach items="${applications}" var="a">
-				<option>${a }</option>
+				<c:choose>
+					<c:when test="${a == param.app }">
+						<option selected="selected">${a }</option>
+					</c:when>
+					<c:otherwise>
+						<option>${a }</option>
+					</c:otherwise>
+				</c:choose>	
 				</c:forEach>
 			</select>
 						<spring:message code="barkley.prefs.pdefaults.buttons.search" var="searchButtonText" />

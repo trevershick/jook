@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	
+	<bean class="com.railinc.test.testjook.impl.DbPropertyPlaceholderConfigurer">
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+	
+	<!-- 
+	add your controllers here. we use annotation based controllers because they're more powerful
+	and the Controller hierarchy is going away.  However, we do NOT do component scans for controllers
+	because the Component scan requires that dependencies be injected via Autowiring which is generally
+	evil except in small applications.
+	 -->
+	<bean class="com.railinc.test.testjook.web.secure.ExampleController">
+		<!-- the exampleObjectService is defined int he core applicationContext.xml -->
+		<property name="exampleService" ref="exampleObjectService"/>
+	</bean>
+
+	<bean class="com.railinc.test.testjook.web.global.VersionController"/>
+	<bean class="com.railinc.test.testjook.web.global.RemController">
+	</bean>
+
+	<bean id="supportControllerBase" abstract="true">
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+	<bean class="com.railinc.test.testjook.web.secure.support.ConfigurationController" parent="supportControllerBase"/>
+	<bean class="com.railinc.test.testjook.web.secure.support.LoggingController" parent="supportControllerBase"/>
+	<bean id="supportController" class="com.railinc.test.testjook.web.secure.SupportController" parent="supportControllerBase"/>
+
+	<bean class="com.railinc.test.testjook.web.global.HomeController">
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+	<bean class="com.railinc.test.testjook.web.global.NewsController"/>
+	<bean class="com.railinc.test.testjook.web.global.ErrorController"/>
+	<bean class="com.railinc.test.testjook.web.AnotherExampleController"/>
+	<bean class="com.railinc.test.testjook.web.global.ExamplesController"/>
+	<bean class="com.railinc.test.testjook.web.global.Error1Controller"/>
+	
+</beans>

@@ -189,6 +189,9 @@ private ActorProvider actorProvider;
 
            // cycle through property names, extract corresponding property values and insert new entry in audit trail
            for (String propertyName : event.getPersister().getPropertyNames()) {
+        	   if (propertyName.startsWith("lastModif")) {
+        		   continue;
+        	   }
                newPropValue = event.getPersister().getPropertyValue(event.getEntity(), propertyName, entityMode);
                // because we are performing an insert we only need to be concerned will non-null values
                if (newPropValue != null) {

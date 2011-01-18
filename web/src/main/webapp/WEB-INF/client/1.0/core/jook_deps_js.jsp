@@ -27,12 +27,21 @@ function gadgets_Prefs(moduleId) {
 	this.getString = function(preferenceName) {
 		if (typeof(this.data[preferenceName]) == "undefined" || this.data[preferenceName] == null) {return null;}
 		return this.data[preferenceName].value;
-	}
+	};
 	this.set = function(key,val) {
-		this.data['key'] = val;
+		this.data[key] = new Object();
+		this.data[key].value = val;
 		jQuery.ajax({
 		url:"<%=request.getContextPath()%>/secured/client/preferences/1.0/" + moduleId + ".json",
-		type:"POST", dataType:"json",data:{key:key,value:val}});}
+		type:"POST", dataType:"json",data:{key:key,value:val}});
+	};
+
+	this.getBool = function(key) { return new Boolean(this.getString(key)) };
+	this.getFloat = function(key) { f = parseFloat(this.getString(key)); return isNaN(f) ? 0:f; };
+	this.getInt = function(key) { i = parseInt(this.getString(key)); return isNaN(i) ? 0:i; };
+	this.getArray = function(key) { a = this.getString(key); return a == null ? new Array(0) : a.split("|"); };
+	this.setArray = function(key,values) { if (values == null) return; this.set(key, values.join("|")) };
+		
 }
 gadgets.Prefs = gadgets_Prefs;
 
@@ -67,11 +76,13 @@ var Jook = {
 		jQuery("#jooklinksa").click(Jook.openShakeDrawers);
     },
     
+    
     showLoading : function(element) {
     	element.addClass("jookloading");
     },
     doneLoading : function(element) {
     	element.removeClass("jookloading");
+		Jook.updateJookPopupLinks();    	
     },
     loadingError : function(element) {
     	Jook.doneLoading(element);
@@ -215,13 +226,15 @@ var Jook = {
 	    offset += ts ? ts.length : 0;            
 	    
 	    // attach the click handlers to the popup tab
+	    // i think this coul dbe redone by setting a speccifc class on the link and
+	    // then just using jquery and facebox to do the work.
 	    pts = services.popuptab;
 	    for (var i=0;pts && i < pts.length;i++) {
 	    	var tmp = "#target_" + (i+offset);
 			jQuery("#target_trigger_" + (i+offset)).click(function(){
 				var t = jQuery("#" + jQuery(this).attr("id").replace("_trigger",""));
 			   	var theUrlToLoad = jQuery(this).attr("src");
-			   	jQuery.facebox({ajax:theUrlToLoad});
+			   	Jook.popupWithUrl(theUrlToLoad);
 				return false;
 			});
 			offset++;
@@ -231,18 +244,37 @@ var Jook = {
 	displayPopups : function(services) {
 	    var ps = services.popup;
 	    for (var i=0;ps && i < ps.length;i++) {
-	        jQuery.facebox({ ajax: ps[i].url });
+	        jQuery.facebox({ ajax: ps[i].url }); // can't call Jook.popupWithUrl here.
 	    }
 	},
+	// this is called after loading a tab so that any
+	// links inside the tab can be attached and 'faceboxed'
+	updateJookPopupLinks : function() {
+		jQuery('a.jook_popup_link').facebox()
+	},
 	
+	
+	/* public */
+	popupWithString : function(simpleStringValue) {
+		jQuery.facebox(simpleStringValue); 
+	},
+	
+	/* public */
+	popupWithUrl : function(remoteUrl) {
+		jQuery.facebox({ ajax:remoteUrl });
+	},
+	 
+	/* public */
 	message : function(messageText, argumentsDict) {
 		jQuery.jGrowl(messageText, argumentsDict);
 	},
 	
+	/* public */
 	closeMyDrawer : function(element) {
 		/** pass the jquery selector of an element in the drawer's html like '#jook_feedback_results' **/
 		if ("string" == typeof(element)) {
 			jQuery(element).parents(".target").prev().trigger('click',this);
 		}
 	}
+	
 }

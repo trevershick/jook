@@ -16,15 +16,10 @@
 	<div id="header">
     	
         <ul id="util-nav" class="horizontal-menu">
-        	<li class="userName">signed in as ipacp01</li>
-           
-            <li><a href="/rportal">your workspace</a></li>
-            
-            <li><a href="/sso">user services</a></li>
-           
-            <li><a href="/help">help</a></li>
-           
-            <li><a href="/contactus">contact us</a></li>
+            <li><a href="#">your workspace</a></li>
+            <li><a href="#">user services</a></li>
+            <li><a href="#">help</a></li>
+            <li><a href="#">contact us</a></li>
         </ul>
         <div id="logoArea">
         <a href="http://www.railinc.com" class="logo"><img src="images/Railinc-Logo.png" alt="Go to www.railinc.com" /></a>
@@ -35,7 +30,7 @@
         <div id="container">
 	    	<div style="width:880px">
 		    	<div style="margin-left:auto;margin-right:auto;margin-bottom:50px;margin-top:50px;width:300px;border:1px solid grey;padding:20px;">
-		    	<jsp:include flush="true" page="form.jsp"/>
+			    	<jsp:include flush="true" page="form.jsp"/>
 		    	</div>
 		    	
 		    	<div style="margin-left:auto;margin-right:auto;width:600px;height:180px;overflow:auto;border:1px solid #3c3c3c;font-size:9pt;padding:20px;">

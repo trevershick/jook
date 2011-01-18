@@ -1,5 +1,6 @@
 package com.railinc.jook.web.secure.barkley;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -109,15 +110,14 @@ public class PrefsController extends StandardController {
 	
 	@RequestMapping("list")
 	public String list(ModelMap model, @RequestParam(required=false,value="q") String queryString) {
-		List<Preference> findPrefs = getPreferenceService().findPreferences(queryString);
+		List<Preference> findPrefs = StringUtils.isBlank(queryString) ?
+				new ArrayList<Preference>(0) : 
+				getPreferenceService().findPreferences(queryString);
 		model.addAttribute("prefs", findPrefs);
 		return ".view.barkley.prefs.list";
 	}
 	
 	
-	
-	
-
 	public PreferenceService getPreferenceService() {
 		return preferenceService;
 	}
