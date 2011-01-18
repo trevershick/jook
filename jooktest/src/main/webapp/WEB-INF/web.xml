@@ -1,0 +1,108 @@
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    
+    <display-name>testjook</display-name>
+    <distributable/>
+
+    <!-- Define the basename for a resource bundle for I18N -->
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+        <param-value>ApplicationResources</param-value>
+    </context-param>
+    <!-- Fallback locale if no bundles found for browser's preferred locale -->
+    <!-- Force a single locale using param-name 'javax.servlet.jsp.jstl.fmt.locale' -->
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.fallbackLocale</param-name>
+        <param-value>en</param-value>
+    </context-param>
+    <!-- Context Configuration locations for Spring XML files -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath*:/applicationContext.xml
+            /WEB-INF/spring-*.xml
+        </param-value>
+    </context-param>
+
+
+	<!--
+	 UNCOMMENT this section if you need to use isUserInRole or getRemote user from the 
+	 HttpServletRequest. The filter basically wraps the incoming request and 
+	 handles those methods by using the LoggedUser API-->
+	<filter>
+		<filter-name>ssoPrincipalFilter</filter-name>
+		<filter-class>com.railinc.test.testjook.web.SSOPrincipalFilter</filter-class>
+	</filter>
+	
+	<filter>
+		<filter-name>sessionValidationFilter</filter-name>
+		<filter-class>com.railinc.test.testjook.web.SessionValidationFilter</filter-class>
+	</filter>
+	 
+	<filter-mapping>
+		<filter-name>ssoPrincipalFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>sessionValidationFilter</filter-name>
+		<url-pattern>/main/secure/*</url-pattern>
+	</filter-mapping>
+	
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	
+
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+  
+
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/main/*</url-pattern>
+	</servlet-mapping>
+	
+
+
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>400</error-code>
+        <location>/index.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/403.jsp</location>
+    </error-page>
+    <error-page>
+    	<exception-type>org.apache.tiles.definition.NoSuchDefinitionException</exception-type>
+    	<location>/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.jsp</location>
+    </error-page>
+    <error-page>
+    	<exception-type>java.lang.RuntimeException</exception-type>
+    	<location>/500.jsp</location>
+    </error-page>
+</web-app>

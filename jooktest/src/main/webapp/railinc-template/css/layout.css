@@ -1,0 +1,75 @@
+@charset "UTF-8";
+/*
+Theme Name: Railinc 2010
+Theme URI: http://www.railinc.com
+Description: This theme is for use by Railinc for application development
+Version: 3
+Author: Adrian Pomilio
+Author URI: http://www.uiandtherest.com
+
+
+
+*/
+
+body{
+	margin:0;
+	vertical-align: top;
+	
+}
+
+#wrapper{
+	margin: 0 auto 0 auto;
+	width: 960px;
+	
+	
+}
+
+#header{
+	float:left;
+	width:960px;
+	padding-bottom:10px;
+	border-bottom: 4px solid #993333;
+	
+	
+}
+
+#container{
+	float:left;
+	width:450px;
+	margin-left: 30px;
+	padding:10px;
+	min-height: 550px;
+}
+
+.sidebar{
+	float:left;
+	width: 240px;
+	margin: 0 0 0 10px;
+	border-right: 1px dotted #999;
+	
+}
+
+
+
+#footer{
+	clear:both;
+	float:left;
+	width: 960px;
+	border-top: 4px solid #993333;
+	text-align:center;
+}
+
+.logo {float:left; margin-right:20px;}
+.logoText {display:inline; float:left; margin-top: -2000px;}
+.headerDescription {display:inline; float:left; margin-top:1px; border-left: 1px solid #999; padding: 5px 0 5px 10px;}
+
+#util-nav li.userName {padding-right: 10px; }
+ul#util-nav { display: inline;  float: right; margin-top: 4px;}
+ul.horizontal-menu li {display:inline; list-style: none; }
+ul.horizontal-menu li a {border-left: 1px solid #eee; padding: 0 10px 0 10px;}
+ul.horizontal-menu li a.first {border-left: 0px; padding: 0 10px 0 10px;}
+div#logoArea {float:left; display: inline;  margin-top:10px; }
+
+
+.footer-information {display:inline; text-algin:center; margin: 10px auto;}
+.copyright {margin-top: 10px;}

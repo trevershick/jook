@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+
+
+	<definition name=".railincMain" template="/WEB-INF/jsp/railinc-template/main.jsp">
+		<put-attribute name="appTitle" value="testjook-webapp" />
+		<put-attribute name="headContent" value="/WEB-INF/jsp/railinc-template/head.jsp" />
+		<put-attribute name="additionalHeadContent" value="/WEB-INF/jsp/railinc-template/null.jsp" />
+		<put-attribute name="headerContent" value=".railincHeader" />
+		<put-attribute name="sidebarHead" value="/WEB-INF/jsp/railinc-template/null.jsp" />
+		<put-attribute name="sidebarContent" value="/WEB-INF/jsp/railinc-template/nav/sidebar.jsp" />
+		<put-attribute name="sidebarTail" value="/WEB-INF/jsp/railinc-template/null.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/railinc-template/tilesContent.jsp" />
+		<put-attribute name="footerContent" value="/WEB-INF/jsp/railinc-template/footers/footer.jsp" />
+	</definition>
+	
+	<definition name=".railincPopup" template="/WEB-INF/jsp/railinc-template/popup.jsp">
+		<put-attribute name="appTitle" value="testjook-webapp" />
+		<put-attribute name="headContent" value="/WEB-INF/jsp/railinc-template/head.jsp" />
+		<put-attribute name="additionalHeadContent" value="/WEB-INF/jsp/railinc-template/null.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/railinc-template/tilesContent.jsp" />
+	</definition>
+
+
+	<definition name=".railincHeader" template="/WEB-INF/jsp/railinc-template/headers/header.jsp">
+		<put-attribute name="appTitle" value="testjook-webapp" />
+	</definition>
+
+	
+
+
+
+	<definition name="global/home" extends=".railincMain">
+		<put-attribute name="content" value="/WEB-INF/jsp/home.jsp" />
+	</definition>
+	<definition name="global/" extends=".railincMain">
+		<put-attribute name="content" value="/WEB-INF/jsp/home.jsp" />
+	</definition>
+
+
+
+
+	<!-- Support stuff -->
+	<definition name=".view.support.configuration" extends=".railincMain">
+		<put-attribute name="exampleString" value="testjook-webapp - Configuration" />
+		<put-attribute name="content" value="/WEB-INF/jsp/support/configuration.jsp" />
+	</definition>
+	<definition name=".view.support.configuration.update" extends=".railincMain">
+		<put-attribute name="exampleString" value="testjook-webapp - Configuration Update" />
+		<put-attribute name="content" value="/WEB-INF/jsp/support/configuration_update.jsp" />
+	</definition>
+	<definition name=".view.support.logging" extends=".railincMain">
+		<put-attribute name="exampleString" value="testjook-webapp - Logging" />
+		<put-attribute name="content" value="/WEB-INF/jsp/support/logging.jsp" />
+	</definition>
+	<definition name=".view.support.properties" extends=".railincMain">
+		<put-attribute name="exampleString" value="testjook-webapp - Properties" />
+		<put-attribute name="content" value="/WEB-INF/jsp/support/properties.jsp" />
+	</definition>
+	<definition name=".view.support.snoop" extends=".railincMain">
+		<put-attribute name="exampleString" value="testjook-webapp - Snoop" />
+		<put-attribute name="content" value="/WEB-INF/jsp/support/snoop.jsp" />
+	</definition>
+	<definition name=".view.support" extends=".railincMain">
+		<put-attribute name="exampleString" value="testjook-webapp - List" />
+		<put-attribute name="content" value="/WEB-INF/jsp/support/support.jsp" />
+	</definition>
+	
+
+	<!-- Spring MVC Examples -->
+	<definition name=".view.exampleList" extends=".railincMain">
+		<put-attribute name="exampleString" value="testjook-webapp - List" />
+		<put-attribute name="content" value="/WEB-INF/jsp/example/list.jsp" />
+	</definition>
+
+	<definition name=".view.exampleView" extends=".railincMain">
+		<put-attribute name="exampleString" value="testjook-webapp - Single View" />
+		<put-attribute name="content" value="/WEB-INF/jsp/example/view.jsp" />
+	</definition>
+
+	<definition name=".view.explicitlyMapped" extends=".railincMain">
+		<put-attribute name="exampleString" value="testjook-webapp - Explicitly Mapped" />
+		<put-attribute name="content" value="/WEB-INF/jsp/example/explicitlyMapped.jsp" />
+	</definition>
+
+	<definition name=".view.queryForm" extends=".railincMain">
+		<put-attribute name="exampleString" value="testjook-webapp - Query Form" />
+		<put-attribute name="content" value="/WEB-INF/jsp/example/queryResults.jsp" />
+		<put-attribute name="sidebarHead" value="/WEB-INF/jsp/railinc-template/nav/sidebar.jsp" />
+		<put-attribute name="sidebarContent" value="/WEB-INF/jsp/example/queryForm.jsp" />
+		
+	</definition>
+
+	
+	<definition name="news.rss" template="/WEB-INF/jsp/news/rss.jsp"/>
+	<definition name="news.json" template="/WEB-INF/jsp/news/json.jsp"/>
+	<definition name="news.html" template="/WEB-INF/jsp/news/html.jsp"/>
+	
+</tiles-definitions>
