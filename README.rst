@@ -135,7 +135,10 @@ It's better to use git from the command line to learn it anyhow..
 5) Setup the server.xml for jook
 	open server.xml
 	copy in jook/src/config/server.xml into the GlobalNamingResources
-	dont' forget to copy mysql connector driver into <tomcat_home>/lib
+	don't forget to copy mysql connector driver into <tomcat_home>/lib or
+	alternately open the launch configuration for your new server and
+	add the mysql-*.jar to the user classpath entries. ( if you run a 'mvn compile' from
+	the root jook directory, the mysql-*.jar files will be copied into jook\files\target\dependency )
 	
 	Note: ensure that the path of your Web Modules are set to the following
 	
