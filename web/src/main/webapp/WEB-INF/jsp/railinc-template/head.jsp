@@ -31,3 +31,6 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/markitup/skins/simple/style.css" />
 <!--  markItUp! toolbar skin -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/markitup/sets/html/style.css" />
+
+<jook:styles app="jooktest" />
+<jook:dependencies app="jooktest"/>

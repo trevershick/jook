@@ -7,3 +7,4 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://railinc.com/jook/taglibs/HighlightFunction" prefix="h" %>
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="jook" uri="http://railinc.com/taglib/jook/1.0" %>
