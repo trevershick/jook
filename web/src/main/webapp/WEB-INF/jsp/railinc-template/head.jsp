@@ -32,5 +32,5 @@
 <!--  markItUp! toolbar skin -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/markitup/sets/html/style.css" />
 
-<jook:styles app="jooktest" />
-<jook:dependencies app="jooktest"/>
+<jook:styles app="jook" />
+<jook:dependencies app="jook" jquery="false" jqueryUi="false"/>

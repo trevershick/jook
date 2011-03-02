@@ -108,7 +108,7 @@ function showHistory(name,id) {
 
 
 </script>
-<jook:script app="jooktest" />
+<jook:script app="jook" />
 
 </body>
 </html>

@@ -15,7 +15,9 @@
 <% if (null == request.getParameter("_f") || "true".equals(request.getParameter("_f"))) {%>
 	<jsp:include page="/WEB-INF/client/1.0/facebox/facebox-1.2_js.jsp"/>
 <% } %>
+<% if (null == request.getParameter("_g") || "true".equals(request.getParameter("_g"))) {%>
 <jsp:include page="/WEB-INF/client/1.0/jgrowl/jquery.jgrowl-1.2.5.js"/>
+<% } %>
 var gadgets = {};
 
 function gadgets_Prefs(moduleId) {

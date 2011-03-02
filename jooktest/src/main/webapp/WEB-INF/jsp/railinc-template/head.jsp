@@ -18,6 +18,6 @@
 <jook:styles app="jooktest" />
 
 <script type="text/javascript" src="${scripts}/jquery-1.3.2.min.js"></script>
-<jook:dependencies app="jooktest"/>
+<jook:dependencies app="jooktest" jquery="false"/>
 
         
